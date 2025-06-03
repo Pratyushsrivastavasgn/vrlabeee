@@ -35,7 +35,6 @@ const Header = () => {
           <nav className="hidden md:flex items-center space-x-8">
             <NavLink to="/" icon={<Home size={18} />} label="Home" isScrolled={isScrolled} />
             <NavLink to="/experiments" icon={<TestTube size={18} />} label="Experiments" isScrolled={isScrolled} />
-            <NavLink to="/theory" icon={<BookOpen size={18} />} label="Theory" isScrolled={isScrolled} />
             <NavLink to="/about" icon={<Info size={18} />} label="About" isScrolled={isScrolled} />
           </nav>
 
@@ -66,7 +65,14 @@ const Header = () => {
   );
 };
 
-const NavLink = ({ to, label, icon, isScrolled }) => (
+type NavLinkProps = {
+  to: string;
+  label: string;
+  icon?: React.ReactNode;
+  isScrolled: boolean;
+};
+
+const NavLink: React.FC<NavLinkProps> = ({ to, label, icon, isScrolled }) => (
   <Link 
     to={to} 
     className={`flex items-center px-3 py-2 rounded-md text-sm font-medium transition-colors duration-200 ${
@@ -80,7 +86,13 @@ const NavLink = ({ to, label, icon, isScrolled }) => (
   </Link>
 );
 
-const MobileNavLink = ({ to, label, icon }) => (
+type MobileNavLinkProps = {
+  to: string;
+  label: string;
+  icon?: React.ReactNode;
+};
+
+const MobileNavLink: React.FC<MobileNavLinkProps> = ({ to, label, icon }) => (
   <Link 
     to={to} 
     className="flex items-center px-3 py-3 rounded-md text-base font-medium text-blue-900 hover:bg-blue-100"
@@ -92,3 +104,7 @@ const MobileNavLink = ({ to, label, icon }) => (
 );
 
 export default Header;
+
+function setIsMenuOpen(arg0: boolean): void {
+  throw new Error('Function not implemented.');
+}
