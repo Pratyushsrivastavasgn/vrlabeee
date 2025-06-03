@@ -4,7 +4,7 @@ A modern, interactive virtual laboratory for Power System Analysis experiments, 
 
 ## 🚀 Live Demo
 
-Visit the live site: [SRM EEE Virtual Lab](https://transcendent-fox-3a08f4.netlify.app)
+Visit the live site: [SRM EEE Virtual Lab](https://srmvlabs.vercel.app/)
 
 ## ✨ Features
 
