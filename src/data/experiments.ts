@@ -1,8 +1,8 @@
 export const experiments = [
   {
     id: 'experiment1',     //dont touch this line
-    title: 'Experiment 1',
-    description: 'SAMPLE TEXT',
+    title: 'VERIFICATION OF KIRCHOFF’S VOLTAGE LAW',
+    description: 'Kirchhoff’s Voltage Law (KVL) states that the algebraic sum of all voltages around any closed loop in a circuit is zero. This law is based on the principle of conservation of energy: the total energy supplied by the sources is completely used by the resistive elements in the loop.',
     imageUrl: 'https://images.pexels.com/photos/577514/pexels-photo-577514.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
   },
   {
