@@ -1,7 +1,7 @@
 import React from 'react';
 import ExperimentLayout from './layout/ExperimentLayout';
 
-const Experiment3 = () => {
+const Experiment3 = () => {       // dont touch this line
   return (
     <ExperimentLayout
       title="Experiment 1"
@@ -48,4 +48,4 @@ const QuizContent = () => (
   </div>
 );
 
-export default Experiment3;
+export default Experiment3;    // dont touch this line

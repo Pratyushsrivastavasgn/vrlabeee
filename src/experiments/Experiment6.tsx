@@ -15,7 +15,6 @@ const Experiment6 = () => {
     />
   );
 };
-
 const TheoryContent = () => (
   <div className="prose max-w-none">
     {/* Add the theory content for Experiment 1 here */}
@@ -23,7 +22,6 @@ const TheoryContent = () => (
     <p>Explanation of concepts related to Experiment 1.</p>
   </div>
 );
-
 const ProcedureContent = () => (
   <div>
     {/* Add the procedure content for Experiment 1 here */}
@@ -31,7 +29,6 @@ const ProcedureContent = () => (
     <p>Step-by-step guide for performing Experiment 1.</p>
   </div>
 );
-
 const SimulationContent = () => (
   <div>
     {/* Add the simulation content for Experiment 1 here */}

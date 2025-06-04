@@ -10,7 +10,7 @@ const HomePage = () => {
         <div className="container mx-auto px-4 py-16 md:py-24">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Power System Analysis Virtual Laboratory
+              Analog Electronics Lab
             </h1>
             <p className="text-xl text-gray-200 mb-8">
               Enhance your learning experience with interactive simulations and virtual experiments
@@ -102,7 +102,14 @@ const HomePage = () => {
   );
 };
 
-const ExperimentCard = ({ title, description, imageUrl, slug }) => (
+interface ExperimentCardProps {
+  title: string;
+  description: string;
+  imageUrl: string;
+  slug: string;
+}
+
+const ExperimentCard: React.FC<ExperimentCardProps> = ({ title, description, imageUrl, slug }) => (
   <div className="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow">
     <div className="h-48 bg-blue-200 bg-opacity-30">
       <img 
