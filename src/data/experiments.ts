@@ -7,13 +7,13 @@ export const experiments = [
   },
   {
     id: 'experiment2',
-    title: 'Experiment 2',
-    description: 'SAMPLE TEXT',
+    title: 'VERIFICATION OF THEVENIN’S THEOREM ',
+    description: 'Thevenin’s theorem states that a linear two-terminal circuit can be replaced by an equivalent circuit consisting of a voltage source VTh in series with a resistor RTh, where VTh is the open circuit voltage at the terminals and RTh is the input or equivalent resistance at the terminals when the independent sources are turned off.',
     imageUrl: 'https://images.pexels.com/photos/247763/pexels-photo-247763.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
   },
   {
     id: 'experiment3',
-    title: 'Experiment 3',
+    title: 'HOUSE WIRING',
     description: 'SAMPLE TEXT',
     imageUrl: 'https://images.pexels.com/photos/442150/pexels-photo-442150.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
   },
