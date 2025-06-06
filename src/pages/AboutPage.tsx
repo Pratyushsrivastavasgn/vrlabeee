@@ -4,7 +4,7 @@ import { Mail, Phone, MapPin, ExternalLink, Award, Users, BookOpen, GraduationCa
 const AboutPage = () => {
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-blue-900 mb-8">About Power System Analysis Virtual Lab</h1>
+      <h1 className="text-3xl font-bold text-blue-900 mb-8">About Analog Electronics Virtual Lab</h1>
       
       {/* Lab Overview */}
       <div className="bg-white rounded-lg shadow-md overflow-hidden mb-8">
@@ -13,19 +13,14 @@ const AboutPage = () => {
         </div>
         <div className="p-6">
           <p className="text-gray-700 mb-4">
-            The Power System Analysis Virtual Lab at SRM Institute of Science and Technology is designed to provide 
-            hands-on experience in understanding complex power system concepts through interactive simulations and 
-            virtual experiments.
+            The Virtual Laboratory for Electrical Circuits and Analog Electronics is a state-of-the-art learning platform developed to simulate real-world circuit experiments in a virtual environment. Designed to complement conventional lab training, this lab enables students to explore, analyse, and visualize the behaviour of electrical circuits and electronic components in a safe, flexible, and interactive manner.
           </p>
           <p className="text-gray-700 mb-4">
-            This virtual lab enables students to perform experiments remotely, providing flexibility in learning 
-            and helping them develop practical skills in power system analysis. Through these virtual experiments, 
-            students can better understand the theoretical concepts and their practical applications.
+            With a focus on amplifiers and oscillators, the virtual lab introduces learners to key concepts such as biasing techniques, small-signal analysis, frequency response, feedback mechanisms, and the principles of waveform generation. Through a structured set of experiments, students gain hands-on experience with common emitter amplifiers, operational amplifier configurations, RC and LC oscillators, and more.
           </p>
           <p className="text-gray-700">
-            The lab covers a wide range of topics including load flow analysis, fault analysis, stability studies, 
-            economic operation, and more. Each experiment is designed with detailed theory, procedure, and 
-            self-assessment components to ensure comprehensive learning.
+            Each module includes theoretical explanations, guided simulation exercises, procedural steps, and self-evaluation tools to enhance conceptual clarity and skill development. The virtual lab is particularly useful for remote learners and institutions aiming to provide quality practical exposure without the constraints of physical infrastructure.
+            By integrating modern educational technologies, this virtual lab promotes inquiry-based learning and helps students develop analytical thinking and circuit design capabilities essential for their academic and professional growth in electronics.
           </p>
         </div>
       </div>
@@ -40,7 +35,7 @@ const AboutPage = () => {
             <ul className="space-y-3">
               <li className="flex">
                 <Award className="h-6 w-6 text-blue-700 mr-3 flex-shrink-0" />
-                <span className="text-gray-700">Provide remote access to power system experiments</span>
+                <span className="text-gray-700">Provide remote access to Analog Electornics experiments</span>
               </li>
               <li className="flex">
                 <Award className="h-6 w-6 text-blue-700 mr-3 flex-shrink-0" />
@@ -74,7 +69,7 @@ const AboutPage = () => {
               </li>
               <li className="flex">
                 <Users className="h-6 w-6 text-blue-700 mr-3 flex-shrink-0" />
-                <span className="text-gray-700">Postgraduate students specializing in Power Systems</span>
+                <span className="text-gray-700">Postgraduate students </span>
               </li>
               <li className="flex">
                 <Users className="h-6 w-6 text-blue-700 mr-3 flex-shrink-0" />
@@ -82,7 +77,7 @@ const AboutPage = () => {
               </li>
               <li className="flex">
                 <Users className="h-6 w-6 text-blue-700 mr-3 flex-shrink-0" />
-                <span className="text-gray-700">Research scholars working on power system projects</span>
+                <span className="text-gray-700">Research scholars </span>
               </li>
               <li className="flex">
                 <Users className="h-6 w-6 text-blue-700 mr-3 flex-shrink-0" />
@@ -102,6 +97,20 @@ const AboutPage = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {facultyMembers.map((faculty, index) => (
               <FacultyCard key={index} {...faculty} />
+            ))}
+          </div>
+        </div>
+      </div>
+
+      {/* Student Team */}
+      <div className="bg-white rounded-lg shadow-md overflow-hidden mb-8">
+        <div className="bg-gradient-to-r from-blue-900 to-blue-800 p-6">
+          <h2 className="text-2xl font-bold text-white">Student Team</h2>
+        </div>
+        <div className="p-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {studentTeam.map((student, index) => (
+              <StudentCard key={index} {...student} />
             ))}
           </div>
         </div>
@@ -164,8 +173,16 @@ const AboutPage = () => {
             <h2 className="text-xl font-bold text-white">Our Location</h2>
           </div>
           <div className="p-5">
-            <div className="bg-gray-200 h-64 rounded-md mb-4 flex items-center justify-center">
-              <span className="text-gray-500 text-sm">Map will be displayed here</span>
+            <div className="rounded-md overflow-hidden h-64 mb-4">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m12!1m8!1m3!1d8559.874655568208!2d80.04405437902429!3d12.821674459565466!3m2!1i1024!2i768!4f13.1!2m1!1sSRM%20University%20Kattankulathur%2C%20Tamil%20Nadu%20603203!5e1!3m2!1sen!2sin!4v1749248362848!5m2!1sen!2sin"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              ></iframe>
             </div>
             <div className="space-y-3 text-gray-700">
               <div className="flex items-start">
@@ -213,7 +230,22 @@ const FacultyCard = ({ name, designation, expertise, imageUrl }) => (
   </div>
 );
 
-// Faculty Members Data
+const StudentCard = ({ name, role, interests, imageUrl }) => (
+  <div className="bg-gray-50 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-gray-100">
+    <div className="h-48 bg-gray-200">
+      <img src={imageUrl} alt={name} className="w-full h-full object-cover" />
+    </div>
+    <div className="p-4">
+      <h3 className="font-semibold text-blue-800 text-lg">{name}</h3>
+      <p className="text-gray-600 text-sm mb-2">{role}</p>
+      <div className="flex items-start">
+        <BookOpen className="h-4 w-4 text-blue-700 mr-2 mt-0.5" />
+        <p className="text-gray-600 text-sm">{interests}</p>
+      </div>
+    </div>
+  </div>
+);
+
 const facultyMembers = [
   {
     name: "Dr. Ramesh Kumar",
@@ -232,6 +264,27 @@ const facultyMembers = [
     designation: "Assistant Professor",
     expertise: "Power Electronics, Renewable Energy",
     imageUrl: "https://images.pexels.com/photos/5905446/pexels-photo-5905446.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+  }
+];
+
+const studentTeam = [
+  {
+    name: "Aarav Mehta",
+    role: "B.Tech Student, EEE",
+    interests: "Analog Design, Circuit Simulation",
+    imageUrl: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=800"
+  },
+  {
+    name: "Sanya Reddy",
+    role: "Research Intern",
+    interests: "Op-Amps, VLSI Systems",
+    imageUrl: "https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=800"
+  },
+  {
+    name: "Rohit Nair",
+    role: "Lab Assistant",
+    interests: "Signal Processing, Embedded Systems",
+    imageUrl: "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=800"
   }
 ];
 

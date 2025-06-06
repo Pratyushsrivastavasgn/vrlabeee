@@ -340,7 +340,7 @@ const CircuitSimulation: React.FC = () => {
               </p>
             </div>
             <div className="bg-gray-50 p-4 rounded-lg space-y-2">
-              <p className="text-sm text-gray-600 font-semibold">Maximum Power Transfer Theorem</p>
+              <p className="text-m text-gray-950 font-semibold">Maximum Power Transfer Theorem</p>
                 <p className="text-sm text-gray-600">
                   According to the Maximum Power Transfer Theorem, the load receives maximum power when the load resistance (R<sub>L</sub>) equals the Thévenin resistance (R<sub>th</sub>) of the source network.
               </p>

@@ -47,7 +47,7 @@ const Footer = () => {
                 <Link to="/about" className="hover:text-yellow-400 transition-colors">About Us</Link>
               </li>
               <li>
-                <a href="#" className="hover:text-yellow-400 transition-colors">SRM University</a>
+                <a href="https://srmist.edu.in" className="hover:text-yellow-400 transition-colors">SRM University</a>
               </li>
             </ul>
           </div>
@@ -62,7 +62,7 @@ const Footer = () => {
             </p>
             <div className="flex items-center">
               <Globe className="h-5 w-5 mr-2 text-yellow-400" />
-              <a href="#" className="hover:text-yellow-400 transition-colors">Visit Main Website</a>
+              <a href="https://srmist.edu.in" className="hover:text-yellow-400 transition-colors">Visit Main Website</a>
             </div>
           </div>
         </div>

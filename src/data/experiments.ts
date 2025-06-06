@@ -13,16 +13,16 @@ export const experiments = [
   },
   {
     id: 'experiment3',
-    title: 'HOUSE WIRING',
-    description: 'SAMPLE TEXT',
+    title: 'Experiment 3: House Wiring',
+    description: 'This experiment demonstrates the basic principles of domestic electrical wiring, including the connection of switches, sockets, and light fixtures. It helps students understand circuit design, safety measures, and the functioning of household electrical systems.',
     imageUrl: 'https://images.pexels.com/photos/442150/pexels-photo-442150.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
   },
   {
     id: 'experiment4',
-    title: 'Experiment 4',
-    description: 'SAMPLE TEXT',
+    title: 'Experiment 4: Fluorescent Lamp Wiring',
+    description: 'This experiment demonstrates the wiring and working of a fluorescent lamp circuit, including the connection of choke (ballast), starter, and tube light. It helps students understand the starting mechanism and functioning of gas discharge lamps used in lighting systems.',
     imageUrl: 'https://images.pexels.com/photos/356036/pexels-photo-356036.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'
-  },
+  },
   {
     id: 'experiment5',
     title: 'Experiment 5',
