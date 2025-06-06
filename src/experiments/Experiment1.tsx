@@ -1,4 +1,5 @@
-import React from 'react';
+
+import React, { useState } from 'react';
 import ExperimentLayout from './layout/ExperimentLayout';
 import KirchhoffLab from './simulations/Experiment1/KirchhoffLab';
 
@@ -143,13 +144,134 @@ const SimulationContent = () => (
     <KirchhoffLab />
   </div>
 );
+const questions = [
+  {
+    question: "What does KVL state?",
+    options: [
+      "The sum of currents at a node is zero",
+      "The sum of voltages in a loop is zero",
+      "Voltage is proportional to resistance",
+      "Power is equal to current times resistance"
+    ],
+    answer: 1
+  },
+  {
+    question: "KVL is derived from which principle?",
+    options: [
+      "Conservation of mass",
+      "Conservation of energy",
+      "Ohm's Law",
+      "Conservation of charge"
+    ],
+    answer: 1
+  },
+  {
+    question: "A loop is defined as:",
+    options: [
+      "A point where two elements meet",
+      "A continuous path that starts and ends at the same node",
+      "A short circuit",
+      "An open wire"
+    ],
+    answer: 1
+  },
+  {
+    question: "What is the correct sign convention for a resistor in KVL?",
+    options: [
+      "Positive where current exits, negative where it enters",
+      "Positive where current enters, negative where it exits",
+      "Always positive",
+      "Always negative"
+    ],
+    answer: 1
+  },
+  {
+    question: "If Vs = 5V, V1 = 2V, V2 = 2V, V3 = 1V, is KVL satisfied?",
+    options: [
+      "Yes",
+      "No",
+      "Cannot be determined",
+      "Need more data"
+    ],
+    answer: 0
+  },
+  {
+    question: "Which instrument is used to measure voltage?",
+    options: [
+      "Ammeter",
+      "Multimeter",
+      "Galvanometer",
+      "Voltmeter"
+    ],
+    answer: 3
+  },
+  {
+    question: "To apply KVL properly, what must be ensured in the circuit?",
+    options: [
+      "Parallel connection of components",
+      "Presence of inductors",
+      "A complete closed loop",
+      "Capacitive coupling"
+    ],
+    answer: 2
+  }
+];
 
-const QuizContent = () => (
-  <div>
-    {/* Add the quiz content for Experiment 1 here */}
-    <h2>Quiz</h2>
-    <p>Quiz questions to test understanding of Experiment 1.</p>
-  </div>
-);
+const QuizContent = () => {
+  const [selectedAnswers, setSelectedAnswers] = useState(Array(questions.length).fill(null));
+  const [submitted, setSubmitted] = useState(false);
 
+  const handleOptionChange = (qIndex: number, oIndex: number) => {
+    if (!submitted) {
+      const updated = [...selectedAnswers];
+      updated[qIndex] = oIndex;
+      setSelectedAnswers(updated);
+    }
+  };
+
+  const getOptionStyle = (qIndex: number, oIndex: number) => {
+    if (!submitted) return '';
+
+    const isCorrect = oIndex === questions[qIndex].answer;
+    const isSelected = selectedAnswers[qIndex] === oIndex;
+
+    if (isCorrect) return 'bg-green-200';
+    if (isSelected && !isCorrect) return 'bg-red-200';
+    return '';
+  };
+
+  return (
+    <div className="prose max-w-none">
+      <h2>Quiz</h2>
+      {questions.map((q, qIndex) => (
+        <div key={qIndex} className="mb-6">
+          <p className="font-semibold">{qIndex + 1}. {q.question}</p>
+          {q.options.map((option, oIndex) => (
+            <label
+              key={oIndex}
+              className={`block p-2 border rounded mb-1 cursor-pointer ${getOptionStyle(qIndex, oIndex)}`}
+            >
+              <input
+                type="radio"
+                name={`question-${qIndex}`}
+                value={oIndex}
+                checked={selectedAnswers[qIndex] === oIndex}
+                onChange={() => handleOptionChange(qIndex, oIndex)}
+                disabled={submitted}
+                className="mr-2"
+              />
+              {option}
+            </label>
+          ))}
+        </div>
+      ))}
+      <button
+        className="mt-4 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+        onClick={() => setSubmitted(true)}
+      >
+        Submit
+      </button>
+    </div>
+  );
+};
 export default Experiment1;
