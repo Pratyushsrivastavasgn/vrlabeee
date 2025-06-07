@@ -21,141 +21,156 @@ const TheoryContent = () => (
   <div className="prose max-w-none">
     <h2 className="font-bold text-blue-600">Theory</h2>
     <p>
-      Kirchhoff’s Voltage Law (KVL) states that the algebraic sum of all voltages around any closed loop in an electrical circuit is zero. This principle is derived from the conservation of energy, meaning the total energy supplied by voltage sources equals the energy dissipated by passive components (e.g., resistors) in a closed path.
+      Thevenin's Theorem is a fundamental principle in electrical circuit analysis that simplifies complex linear networks. It states that any linear, bilateral, active two-terminal network can be replaced by an equivalent circuit consisting of:
     </p>
 
-    <h3 className="font-bold text-blue-600 mt-4">Materials Required:</h3>
-    <table className="table-auto border border-collapse border-gray-400">
+    {/* Diagram */}
+    <img
+      src="https://www.tutoroot.com/blog/wp-content/uploads/2024/04/Thevenins-theorem.png"
+      alt="Thevenin's Theorem Diagram"
+      className="my-4"
+    />
+
+    {/* Concepts */}
+    <ul className="list-disc ml-6">
+      <li><strong>Thevenin Voltage (V<sub>th</sub>)</strong>: The open-circuit voltage measured across the load terminals when the load is removed.</li>
+      <li><strong>Thevenin Resistance (R<sub>th</sub>)</strong>: The equivalent resistance seen from the load terminals with all independent sources deactivated (voltage sources replaced by short circuits and current sources by open circuits).</li>
+    </ul>
+    
+    <p><strong>Key Features:</strong></p>
+    <ul className="list-disc ml-6">
+      <li>Applies only to linear networks (components obey Ohm's Law)</li>
+      <li>Preserves the voltage-current characteristics at the load terminals</li>
+      <li>Extremely useful for analysing the effect of different loads on a circuit</li>
+      <li>Simplifies complex power systems and electronic circuits for analysis</li>
+    </ul>
+
+    <p>
+      The equivalent circuit allows us to calculate the load current using the simple formula:<br />
+      <em>I<sub>L</sub> = V<sub>th</sub> / (R<sub>th</sub> + R<sub>L</sub>)</em>
+    </p>
+
+    <h2 className="font-bold text-blue-600 mt-6">Apparatus Required</h2>
+    <table className="table-auto border-collapse border border-gray-300 w-full">
       <thead>
         <tr>
-          <th className="border px-4 py-2">S.No.</th>
-          <th className="border px-4 py-2">Component</th>
-          <th className="border px-4 py-2">Specification</th>
+          <th className="border border-gray-300 px-2 py-1">S.No</th>
+          <th className="border border-gray-300 px-2 py-1">Apparatus</th>
+          <th className="border border-gray-300 px-2 py-1">Specifications</th>
+          <th className="border border-gray-300 px-2 py-1">Quantity</th>
         </tr>
       </thead>
       <tbody>
         <tr>
-          <td className="border px-4 py-2">1</td>
-          <td className="border px-4 py-2">DC Power Supply</td>
-          <td className="border px-4 py-2">5V</td>
+          <td className="border border-gray-300 px-2 py-1 text-center">1</td>
+          <td className="border border-gray-300 px-2 py-1">Regulated Power Supply (RPS)</td>
+          <td className="border border-gray-300 px-2 py-1">0-30V DC</td>
+          <td className="border border-gray-300 px-2 py-1 text-center">2</td>
         </tr>
         <tr>
-          <td className="border px-4 py-2">2</td>
-          <td className="border px-4 py-2">Resistors</td>
-          <td className="border px-4 py-2">100Ω, 200Ω, 300Ω</td>
+          <td className="border border-gray-300 px-2 py-1 text-center">2</td>
+          <td className="border border-gray-300 px-2 py-1">Digital Multimeter</td>
+          <td className="border border-gray-300 px-2 py-1">-</td>
+          <td className="border border-gray-300 px-2 py-1 text-center">1</td>
         </tr>
         <tr>
-          <td className="border px-4 py-2">3</td>
-          <td className="border px-4 py-2">Digital Multimeter</td>
-          <td className="border px-4 py-2">Standard</td>
+          <td className="border border-gray-300 px-2 py-1 text-center">3</td>
+          <td className="border border-gray-300 px-2 py-1">Ammeter</td>
+          <td className="border border-gray-300 px-2 py-1">0-10mA DC</td>
+          <td className="border border-gray-300 px-2 py-1 text-center">1</td>
         </tr>
         <tr>
-          <td className="border px-4 py-2">4</td>
-          <td className="border px-4 py-2">Breadboard & Wires</td>
-          <td className="border px-4 py-2">General Purpose</td>
+          <td className="border border-gray-300 px-2 py-1 text-center">4</td>
+          <td className="border border-gray-300 px-2 py-1">Resistors</td>
+          <td className="border border-gray-300 px-2 py-1">1KΩ, 330Ω</td>
+          <td className="border border-gray-300 px-2 py-1 text-center">3, 1</td>
+        </tr>
+        <tr>
+          <td className="border border-gray-300 px-2 py-1 text-center">5</td>
+          <td className="border border-gray-300 px-2 py-1">Breadboard</td>
+          <td className="border border-gray-300 px-2 py-1">-</td>
+          <td className="border border-gray-300 px-2 py-1 text-center">1</td>
+        </tr>
+        <tr>
+          <td className="border border-gray-300 px-2 py-1 text-center">6</td>
+          <td className="border border-gray-300 px-2 py-1">Decade Resistance Box (DRB)</td>
+          <td className="border border-gray-300 px-2 py-1">0-10KΩ</td>
+          <td className="border border-gray-300 px-2 py-1 text-center">1</td>
+        </tr>
+        <tr>
+          <td className="border border-gray-300 px-2 py-1 text-center">7</td>
+          <td className="border border-gray-300 px-2 py-1">Connecting Wires</td>
+          <td className="border border-gray-300 px-2 py-1">-</td>
+          <td className="border border-gray-300 px-2 py-1 text-center">As needed</td>
         </tr>
       </tbody>
     </table>
-
-    <h3 className="font-bold text-blue-600 mt-4">Key Concepts:</h3>
-    <ol className="list-decimal ml-6">
-      <li><strong>Closed Loop/Mesh:</strong> A path that starts and ends at the same node without retracing any component.</li>
-      <li>
-        <strong>Voltage Rise and Drop:</strong>
-        <ul className="list-disc ml-6">
-          <li>Rise: Occurs across a voltage source (from negative to positive terminal).</li>
-          <li>Drop: Occurs across resistors (in the direction of current flow).</li>
-        </ul>
-      </li>
-      <li>
-        <strong>Sign Convention:</strong>
-        <ul className="list-disc ml-6">
-          <li>Assign polarities (+/−) to all components.</li>
-          <li>Traverse the loop consistently (clockwise/counterclockwise) and sum voltages algebraically.</li>
-        </ul>
-      </li>
-    </ol>
-
-    <h3 className="font-bold text-blue-600 mt-4">Mathematical Representation:</h3>
-    <p>∑V = 0</p>
-    <p>Example: For a loop with a source Vs and resistors V1, V2, V3:</p>
-    <p>−Vs + V1 + V2 + V3 = 0</p>
   </div>
 );
 
 const ProcedureContent = () => (
   <div className="prose max-w-none">
-    <h2 className="font-bold text-blue-600">Procedure</h2>
+    <h2 className="font-bold text-blue-600">Objective</h2>
+    <p>To verify Thevenin’s Theorem by experimentally determining the Thevenin equivalent voltage and resistance and comparing the calculated and measured load currents.</p>
 
-    <h3 className="font-bold text-blue-600 mt-4">Objective:</h3>
-    <p>To verify KVL by measuring voltages in a closed circuit and confirming their sum equals zero.</p>
+    <h2 className="font-bold text-blue-600 mt-6">Experimental Procedure</h2>
 
-    <h3 className="font-bold text-blue-600 mt-4">Steps:</h3>
+    <h3 className="font-bold mt-4">A. Measurement of V<sub>th</sub></h3>
     <ol className="list-decimal ml-6">
-      <li>
-        <strong>Circuit Construction:</strong>
-        <ul className="list-disc ml-6">
-          <li>Build a series circuit on a breadboard with resistors R1, R2, R3 and a DC voltage source.</li>
-          <li>Ensure all components are connected in a single closed loop.</li>
-        </ul>
-      </li>
-      <li>
-        <strong>Assign Voltage Polarities:</strong>
-        <ul className="list-disc ml-6">
-          <li>Mark the positive terminal of the voltage source.</li>
-          <li>For resistors, label the "+" side where current enters and "−" where it exits.</li>
-        </ul>
-      </li>
-      <li>
-        <strong>Measure Voltages:</strong>
-        <ul className="list-disc ml-6">
-          <li>Set the multimeter to DC voltage mode.</li>
-          <li>Measure voltage across each component:
-            <ul className="list-disc ml-6">
-              <li>Source (Vs): Place probes on + and − terminals.</li>
-              <li>Resistors (V1, V2, V3): Measure across each resistor.</li>
-            </ul>
-          </li>
-          <li>Record all values with correct signs:
-            <ul className="list-disc ml-6">
-              <li>Source voltage: Enter as −Vs (rise).</li>
-              <li>Resistor voltages: Enter as V1, +V2, +V3 (drops).</li>
-            </ul>
-          </li>
-        </ul>
-      </li>
-      <li>
-        <strong>Apply KVL:</strong>
-        <ul className="list-disc ml-6">
-          <li>Sum the voltages algebraically: −Vs + V1 + V2 + V3 = 0</li>
-          <li>Example: If Vs = 5V, V1 = 1V, V2 = 2V, V3 = 2V: −5 + 1 + 2 + 2 = 0</li>
-        </ul>
-      </li>
-      <li>
-        <strong>Validation:</strong>
-        <ul className="list-disc ml-6">
-          <li>If the sum is approximately zero, KVL is verified.</li>
-          <li>Account for minor errors due to instrument precision or resistor tolerances.</li>
-        </ul>
-      </li>
-      <li>
-        <strong>Repeat:</strong>
-        <ul className="list-disc ml-6">
-          <li>Test with different resistor values or supply voltages to ensure consistency.</li>
-        </ul>
-      </li>
+      <li>Construct the given circuit on the breadboard without connecting the load resistor (R<sub>L</sub>).</li>
+      <li>Using a digital multimeter in DC voltage mode, measure the open-circuit voltage across the load terminals.</li>
+      <li>Record this value as V<sub>th</sub>.</li>
     </ol>
 
-    <h3 className="font-bold text-blue-600 mt-4">Precautions:</h3>
+    <h3 className="font-bold mt-4">B. Measurement of R<sub>th</sub></h3>
+    <ol className="list-decimal ml-6">
+      <li>Remove all power sources from the circuit.</li>
+      <li>Replace voltage sources with short circuits (use connecting wires).</li>
+      <li>Using the multimeter in ohmmeter mode, measure the resistance between the load terminals.</li>
+      <li>Record this value as R<sub>th</sub>.</li>
+    </ol>
+
+    <h3 className="font-bold mt-4">C. Verification of Theorem</h3>
+    <ol className="list-decimal ml-6">
+      <li>Construct the Thevenin equivalent circuit using:
+        <ul className="list-disc ml-6">
+          <li>A power supply set to V<sub>th</sub></li>
+          <li>A resistor of value R<sub>th</sub> in series</li>
+          <li>The actual load resistor R<sub>L</sub></li>
+        </ul>
+      </li>
+      <li>Connect an ammeter in series to measure the load current (I<sub>L</sub>).</li>
+      <li>Compare this measured current with the theoretical value calculated using the formula.</li>
+    </ol>
+
+    <h2 className="font-bold text-blue-600 mt-6">Precautions</h2>
     <ul className="list-disc ml-6">
-      <li>Ensure secure connections to avoid false readings.</li>
-      <li>Verify multimeter accuracy before use.</li>
-      <li>Double-check polarity assignments to avoid sign errors.</li>
+      <li>Always start with the RPS voltage control at minimum to prevent sudden current surges.</li>
+      <li>Ensure all connections are secure to avoid measurement errors.</li>
+      <li>Verify the multimeter is properly zeroed before taking measurements.</li>
+      <li>Handle resistors carefully to prevent overheating.</li>
+      <li>Double-check all polarities when connecting meters and power supplies.</li>
     </ul>
 
-    <h3 className="font-bold text-blue-600 mt-4">Conclusion</h3>
+    <h2 className="font-bold text-blue-600 mt-6">Conclusion</h2>
     <p>
-      The experiment confirms KVL by demonstrating that the sum of voltages in a closed loop equals zero. Practical applications include circuit analysis, troubleshooting, and design validation.
+      Thevenin's Theorem was successfully verified when the practical measurements matched the theoretical predictions within acceptable error margins. This theorem proves invaluable for circuit analysis as it:
+    </p>
+    <ul className="list-disc ml-6">
+      <li>Simplifies complex networks for easier analysis</li>
+      <li>Allows quick evaluation of load effects</li>
+      <li>Reduces computation time in circuit design</li>
+      <li>Provides a standardized approach to network reduction</li>
+    </ul>
+    <p>The small percentage errors observed can be attributed to:</p>
+    <ul className="list-disc ml-6">
+      <li>Component tolerances</li>
+      <li>Measurement instrument inaccuracies</li>
+      <li>Contact resistances in connections</li>
+      <li>Environmental factors</li>
+    </ul>
+    <p>
+      This experiment demonstrates the practical utility of Thevenin's Theorem in electrical engineering applications, from basic circuit design to complex power system analysis.
     </p>
   </div>
 );
