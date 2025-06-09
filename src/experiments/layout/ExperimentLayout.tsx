@@ -25,32 +25,35 @@ const ExperimentLayout: React.FC<ExperimentLayoutProps> = ({ title, description,
         </div>
         
         {/* Tab Navigation */}
-        <div className="flex border-b">
-          <TabButton 
-            active={activeTab === 'theory'} 
-            onClick={() => setActiveTab('theory')} 
-            icon={<BookOpen className="w-4 h-4 mr-2" />}
-            label="Theory"
-          />
-          <TabButton 
-            active={activeTab === 'procedure'} 
-            onClick={() => setActiveTab('procedure')} 
-            icon={<Activity className="w-4 h-4 mr-2" />}
-            label="Procedure"
-          />
-          <TabButton 
-            active={activeTab === 'simulation'} 
-            onClick={() => setActiveTab('simulation')} 
-            icon={<Monitor className="w-4 h-4 mr-2" />}
-            label="Simulation"
-          />
-          <TabButton 
-            active={activeTab === 'quiz'} 
-            onClick={() => setActiveTab('quiz')} 
-            icon={<HelpCircle className="w-4 h-4 mr-2" />}
-            label="Quiz"
-          />
-        </div>
+        <div className="overflow-x-auto whitespace-nowrap border-b scrollbar-hide">
+        <div className="flex w-max">
+        <TabButton 
+        active={activeTab === 'theory'} 
+        onClick={() => setActiveTab('theory')} 
+        icon={<BookOpen className="w-4 h-4 mr-2" />}
+        label="Theory"
+        />
+        <TabButton 
+          active={activeTab === 'procedure'} 
+          onClick={() => setActiveTab('procedure')} 
+          icon={<Activity className="w-4 h-4 mr-2" />}
+          label="Procedure"
+        />
+        <TabButton 
+         active={activeTab === 'simulation'} 
+         onClick={() => setActiveTab('simulation')} 
+         icon={<Monitor className="w-4 h-4 mr-2" />}
+          label="Simulation"
+        />
+        <TabButton 
+        active={activeTab === 'quiz'} 
+        onClick={() => setActiveTab('quiz')} 
+        icon={<HelpCircle className="w-4 h-4 mr-2" />}
+        label="Quiz"
+        />
+      </div>
+    </div>
+
         
         {/* Tab Content */}
         <div className="p-6">

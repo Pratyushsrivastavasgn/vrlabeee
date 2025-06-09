@@ -5,4 +5,17 @@ export default {
     extend: {},
   },
   plugins: [],
+  safelist: [
+  'circuit-wire',
+  'wire-hot',
+  'wire-neutral',
+  'wire-ground',
+  'current-flow',
+  'bulb-on',
+  'bulb-off',
+  'switch-on',
+  'switch-off',
+],
+
 };
+

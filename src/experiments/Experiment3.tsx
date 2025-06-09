@@ -1,5 +1,6 @@
 import React from 'react';
 import ExperimentLayout from './layout/ExperimentLayout';
+import HouseWiringSimulation from './simulations/Experiment3/src/components/HouseWiringSimulation';
 
 const Experiment3 = () => {
   return (
@@ -18,7 +19,7 @@ const Experiment3 = () => {
 
 const TheoryContent = () => (
   <div className="prose max-w-none">
-    {/* Add the theory content for Experiment 1 here */}
+    {/* Add the theory content for Experiment  here */}
     <h2 className="font-bold text-blue-600">Theory:</h2>
     <p>House wiring refers to the installation of electrical wires and components in residential buildings to safely distribute electrical power.</p>
     <h2 className="font-bold text-blue-600 mt-4">Key Concepts:</h2>
@@ -108,7 +109,7 @@ const TheoryContent = () => (
 
 const ProcedureContent = () => (
   <div>
-    {/* Add the procedure content for Experiment 1 here */}
+    {/* Add the procedure content for Experiment  here */}
     <h2 className="font-bold text-blue-600">Procedure:</h2>
     <p>This experiment involves assembling a basic house wiring circuit using switches, sockets, and lamps to understand domestic wiring and test proper electrical connections.</p>
     <p><strong>It include the following steps:</strong></p>
@@ -138,15 +139,16 @@ const ProcedureContent = () => (
 
 const SimulationContent = () => (
   <div>
-    {/* Add the simulation content for Experiment 1 here */}
+    {/* Add the simulation content for Experiment  here */}
     <h2>Simulation</h2>
     <p>Interactive simulation or instructions will go here.</p>
+    <HouseWiringSimulation />
   </div>
 );
 
 const QuizContent = () => (
   <div>
-    {/* Add the quiz content for Experiment 1 here */}
+    {/* Add the quiz content for Experiment  here */}
     <h2>Quiz</h2>
     <p>Quiz questions to test understanding of Experiment 1.</p>
   </div>
