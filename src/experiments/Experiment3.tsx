@@ -99,6 +99,7 @@ const TheoryContent = () => (
           <td className="border border-gray-300 px-2 py-1">Three Pin Plug</td>
           <td className="border border-gray-300 px-2 py-1">-</td>
           <td className="border border-gray-300 px-2 py-1 text-center">1</td>
+        
         </tr>
       </tbody>
     </table>
@@ -140,8 +141,8 @@ const ProcedureContent = () => (
 const SimulationContent = () => (
   <div>
     {/* Add the simulation content for Experiment  here */}
-    <h2>Simulation</h2>
-    <p>Interactive simulation or instructions will go here.</p>
+    <h2></h2>
+    <p></p>
     <HouseWiringSimulation />
   </div>
 );

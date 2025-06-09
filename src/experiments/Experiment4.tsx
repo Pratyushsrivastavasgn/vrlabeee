@@ -1,5 +1,7 @@
 import React from 'react';
 import ExperimentLayout from './layout/ExperimentLayout';
+import Tubelight from './simulations/Experiment4/src/App';
+
 
 const Experiment4 = () => {
   return (
@@ -135,8 +137,8 @@ const ProcedureContent = () => (
 const SimulationContent = () => (
   <div>
     {/* Add the simulation content for Experiment 1 here */}
-    <h2>Simulation</h2>
-    <p>Interactive simulation or instructions will go here.</p>
+    
+    <Tubelight />
   </div>
 );
 
