@@ -1,0 +1,55 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+}
+
+@layer components {
+  .circuit-wire {
+    stroke-width: 3;
+    fill: none;
+  }
+  
+  .wire-hot {
+    stroke: #ff3333;
+  }
+  
+  .wire-neutral {
+    stroke: #666666;
+  }
+  
+  .wire-ground {
+    stroke: #00aa00;
+  }
+  
+  .current-flow {
+    stroke-dasharray: 10 5;
+    animation: flow 2s linear infinite;
+  }
+  
+  @keyframes flow {
+    0% { stroke-dashoffset: 0; }
+    100% { stroke-dashoffset: -15; }
+  }
+  
+  .bulb-on {
+    fill: #ffeb3b;
+    filter: drop-shadow(0 0 10px rgba(255, 235, 59, 0.6));
+  }
+  
+  .bulb-off {
+    fill: #e0e0e0;
+  }
+  
+  .switch-on {
+    fill: #4caf50;
+  }
+  
+  .switch-off {
+    fill: #f44336;
+  }
+}
