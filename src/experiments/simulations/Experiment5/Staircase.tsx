@@ -327,7 +327,7 @@ const SwitchSVG = ({ x, y, position, active, label }) => {
   return (
     <g>
       {/* Switch body */}
-      <rect x={x} y={y-15} width="60" height="30" fill="#e0e0e0" stroke="#000" strokeWidth="1" rx="3"/>
+      <rect x={x} y={y-20} width="60" height="42" fill="#e0e0e0" stroke="#000" strokeWidth="1" rx="3"/>
       
       {/* Common terminal (left) */}
       <circle cx={x-5} cy={y} r="3" fill="#ff6b6b"/>

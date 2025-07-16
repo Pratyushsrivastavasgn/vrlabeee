@@ -10,11 +10,10 @@ const HomePage = () => {
         <div className="container mx-auto px-4 py-16 md:py-24">
           <div className="max-w-3xl">
             <h1 className="text-4xl md:text-5xl font-bold mb-6">
-              Analog Electronics Lab
+              Electrical & Electronics Lab
             </h1>
             <p className="text-xl text-gray-200 mb-8">
-              Enhance your learning experience with interactive simulations and virtual experiments
-              in the field of Electrical and Electronics Engineering.
+              Enhance your learning experience with interactive simulations and virtual experiments in the field of Electrical and Electronics Engineering.
             </p>
             <Link 
               to="/experiments" 
@@ -78,12 +77,13 @@ const HomePage = () => {
             Available Experiments
           </h2>
           <p className="text-lg text-gray-600 text-center max-w-3xl mx-auto mb-12">
-            Explore our collection of virtual experiments designed to enhance your understanding of Power System Analysis
+            Explore our collection of virtual experiments covering fundamental circuit theorems and practical wiring systems.
           </p>
 
+          {/* We only show the first 3 experiments on the home page for a preview */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {experiments.map((experiment, index) => (
-              <ExperimentCard key={index} {...experiment} />
+            {experiments.slice(0, 3).map((experiment) => (
+              <ExperimentCard key={experiment.slug} {...experiment} />
             ))}
           </div>
 
@@ -120,7 +120,7 @@ const ExperimentCard: React.FC<ExperimentCardProps> = ({ title, description, ima
     </div>
     <div className="p-6">
       <h3 className="text-xl font-semibold mb-3 text-blue-900">{title}</h3>
-      <p className="text-gray-600 mb-4">{description}</p>
+      <p className="text-gray-600 mb-4 h-24 overflow-hidden">{description}</p>
       <Link
         to={`/experiments/${slug}`}
         className="inline-flex items-center text-blue-700 hover:text-blue-900 font-medium"
@@ -132,26 +132,38 @@ const ExperimentCard: React.FC<ExperimentCardProps> = ({ title, description, ima
   </div>
 );
 
-// Sample experiment data
+// Updated experiment data
 const experiments = [
   {
-    title: "Load Flow Analysis",
-    description: "Learn how to analyze power flow in electrical systems using numerical methods.",
-    imageUrl: "https://images.pexels.com/photos/577514/pexels-photo-577514.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-    slug: "load-flow-analysis"
+    slug: 'experiment1',
+    title: 'Verification of Kirchhoff’s Voltage Law (KVL)',
+    description: 'This experiment verifies Kirchhoff’s Voltage Law by measuring and summing voltages in a closed loop. It confirms that the algebraic sum of all voltages in a closed circuit is zero, validating the principle of energy conservation.',
+    imageUrl: 'https://m.media-amazon.com/images/I/51-nl0ic6NL.jpg'
   },
   {
-    title: "Fault Analysis",
-    description: "Understand symmetrical and unsymmetrical faults in power systems.",
-    imageUrl: "https://images.pexels.com/photos/247763/pexels-photo-247763.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-    slug: "fault-analysis"
+    slug: 'experiment2',
+    title: 'Verification of Thevenin’s Theorem',
+    description: 'This experiment validates Thevenin’s Theorem by replacing a complex linear circuit with an equivalent voltage source and series resistance. It simplifies circuit analysis and confirms the equivalence of original and reduced circuits.',
+    imageUrl: 'https://i.ytimg.com/vi/ts9iU65k_1E/hq720.jpg?sqp=-oaymwE7CK4FEIIDSFryq4qpAy0IARUAAAAAGAElAADIQj0AgKJD8AEB-AH-CYAC0AWKAgwIABABGHIgRCgxMA8=&rs=AOn4CLDclAyrnNY4L2ugIPJIzzzRnixhcQ'
   },
   {
-    title: "Stability Analysis",
-    description: "Study the stability of power systems under various operating conditions.",
-    imageUrl: "https://images.pexels.com/photos/442150/pexels-photo-442150.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260",
-    slug: "stability-analysis"
-  }
+    slug: 'experiment3',
+    title: 'House Wiring Demonstration',
+    description: 'This experiment demonstrates the layout and working of typical domestic wiring systems. It includes the connection of switches, sockets, bulbs, and distribution boards, emphasizing safety, phase-neutral wiring, and load control.',
+    imageUrl: 'https://i.ytimg.com/vi/ztiHeYosl30/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLCSx3sAvFhiijuwVb4TROi1ptrrIw'
+  },
+  {
+    slug: 'experiment4',
+    title: 'Fluorescent Lamp Wiring',
+    description: 'This experiment illustrates the operation and wiring of a fluorescent lamp circuit. It explains the roles of choke, starter, and tube light in initiating and sustaining illumination through gas discharge.',
+    imageUrl: 'https://en.pimg.jp/071/394/227/1/71394227.jpg'
+  },
+  {
+    slug: 'experiment5',
+    title: 'Staircase Wiring System',
+    description: 'This experiment simulates staircase wiring used to control a single light from two different locations using two-way switches. It helps understand parallel control in household circuits.',
+    imageUrl: 'https://i0.wp.com/industrialgyan.com/wp-content/uploads/2023/06/image_xu5f99Z.png?fit=628%2C402&ssl=1'
+  },
 ];
 
 export default HomePage;

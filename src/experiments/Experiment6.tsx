@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import ExperimentLayout from './layout/ExperimentLayout';
-import FullBridgeRectifier from './simulations/Experiment6/BridgeRectifierSimulation';
+import FullBridgeRectifier from './simulations/Experiment6/src/pages/Index';
 const Experiment6 = () => {
   return (
     <ExperimentLayout

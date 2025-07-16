@@ -1,14 +1,16 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Play, Pause, RotateCcw, Zap, Settings, BookOpen, Eye, BarChart3 } from 'lucide-react';
 
-const App = () => {
+const Index = () => {
   const [isRunning, setIsRunning] = useState(false);
   const [withFilter, setWithFilter] = useState(false);
   const [time, setTime] = useState(0);
   const [speed, setSpeed] = useState(1); // Animation speed multiplier
   const [showExplanation, setShowExplanation] = useState(true);
   const [highlightMode, setHighlightMode] = useState(true);
-  const animationRef = useRef();
+  const [capacitorValue, setCapacitorValue] = useState(100); // µF
+  const [loadResistorValue, setLoadResistorValue] = useState(1000); // Ω
+  const animationRef = useRef<number>();
 
   // Slower animation with configurable speed
   useEffect(() => {
@@ -19,10 +21,16 @@ const App = () => {
       };
       animationRef.current = requestAnimationFrame(animate);
     } else {
-      cancelAnimationFrame(animationRef.current);
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
     }
 
-    return () => cancelAnimationFrame(animationRef.current);
+    return () => {
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
   }, [isRunning, speed]);
 
   const reset = () => {
@@ -30,15 +38,47 @@ const App = () => {
     setTime(0);
   };
 
-  // Calculate waveforms with educational precision
+  // Format resistor value for display
+  const formatResistorValue = (value: number) => {
+    if (value >= 1000000) return `${(value / 1000000).toFixed(1)}MΩ`;
+    if (value >= 1000) return `${(value / 1000).toFixed(1)}kΩ`;
+    return `${value}Ω`;
+  };
+
+  // Format capacitor value for display
+  const formatCapacitorValue = (value: number) => {
+    if (value >= 1000) return `${(value / 1000).toFixed(1)}mF`;
+    return `${value}µF`;
+  };
+
+  // Function to calculate realistic filtered output with RC time constant
+  const calculateRealisticFilter = (t: number, amplitude: number, RC: number, rippleFactor: number) => {
+    const rectified = Math.abs(amplitude * Math.sin(t));
+    const rippleAmplitude = amplitude * rippleFactor * 0.5; // Scale ripple based on RC
+    const dcLevel = amplitude * 0.9; // Average DC level after filtering
+    const ripple = rippleAmplitude * Math.cos(2 * t); // 100Hz ripple component
+    
+    // Exponential decay simulation between peaks
+    const cyclePosition = (t % (Math.PI)) / Math.PI;
+    const decayFactor = Math.exp(-cyclePosition / (RC * 100)); // Discharge rate
+    
+    return Math.max(0, dcLevel - ripple * decayFactor);
+  };
+
+  // Calculate waveforms with realistic RC filtering
   const frequency = 50; // Hz
   const amplitude = 6; // Volts
   const inputVoltage = amplitude * Math.sin(time);
   const rectifiedVoltage = Math.abs(inputVoltage);
   
-  // More realistic filtered output
+  // Calculate RC time constant and realistic filtering
+  const RC = (loadResistorValue / 1000) * (capacitorValue / 1000000); // Convert to seconds
+  const rippleFreq = 2 * frequency; // 100Hz for full wave
+  const rippleFactor = withFilter ? Math.max(0.01, 1 / (2 * Math.PI * rippleFreq * RC)) : 1;
+  
+  // More realistic filtered output with exponential decay
   const filteredVoltage = withFilter ? 
-    rectifiedVoltage * 0.85 + 0.15 * amplitude * (1 - 0.4 * Math.cos(2 * time)) : 
+    calculateRealisticFilter(time, amplitude, RC, rippleFactor) : 
     rectifiedVoltage;
 
   // Determine conducting diodes with clear logic
@@ -130,6 +170,48 @@ const App = () => {
             <span className="text-sm text-gray-600">{speed}x</span>
           </div>
 
+          {/* Component Value Controls */}
+          <div className="mb-6 bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl p-4 border border-gray-200">
+            <h3 className="text-lg font-semibold text-blue-700 mb-4 text-center">Circuit Parameters</h3>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div className="bg-white p-4 rounded-lg shadow-sm">
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Load Resistor Value (Ω)
+                </label>
+                <input
+                  type="number"
+                  min="100"
+                  max="10000"
+                  step="100"
+                  value={loadResistorValue}
+                  onChange={(e) => setLoadResistorValue(parseInt(e.target.value) || 1000)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+                <div className="text-sm text-gray-600 mt-1">
+                  Display: {formatResistorValue(loadResistorValue)}
+                </div>
+              </div>
+
+              <div className="bg-white p-4 rounded-lg shadow-sm">
+                <label className="block text-sm font-semibold text-gray-700 mb-2">
+                  Filter Capacitor Value (µF)
+                </label>
+                <input
+                  type="number"
+                  min="10"
+                  max="2000"
+                  step="10"
+                  value={capacitorValue}
+                  onChange={(e) => setCapacitorValue(parseInt(e.target.value) || 100)}
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                />
+                <div className="text-sm text-gray-600 mt-1">
+                  Display: {formatCapacitorValue(capacitorValue)}
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Current Cycle Information */}
           {showExplanation && (
             <div className="mb-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 border-l-4 border-blue-500">
@@ -163,6 +245,7 @@ const App = () => {
                 <Zap className="w-6 h-6" />
                 Bridge Rectifier Circuit
               </h3>
+              
               <BridgeRectifierCircuit 
                 conductingDiodes={conductingDiodes}
                 withFilter={withFilter}
@@ -170,6 +253,10 @@ const App = () => {
                 outputVoltage={withFilter ? filteredVoltage : rectifiedVoltage}
                 highlightMode={highlightMode}
                 time={time}
+                capacitorValue={capacitorValue}
+                loadResistorValue={loadResistorValue}
+                formatCapacitorValue={formatCapacitorValue}
+                formatResistorValue={formatResistorValue}
               />
             </div>
 
@@ -186,6 +273,11 @@ const App = () => {
                 withFilter={withFilter}
                 amplitude={amplitude}
                 showExplanation={showExplanation}
+                capacitorValue={capacitorValue}
+                loadResistorValue={loadResistorValue}
+                RC={RC}
+                rippleFactor={rippleFactor}
+                calculateRealisticFilter={calculateRealisticFilter}
               />
             </div>
           </div>
@@ -224,10 +316,12 @@ const App = () => {
             </div>
 
             <div className="bg-gradient-to-br from-orange-50 to-orange-100 p-4 rounded-xl text-center border border-orange-200">
-              <h4 className="font-semibold text-orange-700 mb-2">Efficiency</h4>
-              <div className="text-3xl font-bold text-orange-600">81.2%</div>
-              <div className="text-sm text-gray-600">Rectification</div>
-              <div className="text-xs text-gray-500 mt-1">Full Wave</div>
+              <h4 className="font-semibold text-orange-700 mb-2">RC Time Constant</h4>
+              <div className="text-3xl font-bold text-orange-600">{(RC * 1000).toFixed(1)}ms</div>
+              <div className="text-sm text-gray-600">Filter Response</div>
+              <div className="text-xs text-gray-500 mt-1">
+                Ripple: {(rippleFactor * 100).toFixed(1)}%
+              </div>
             </div>
           </div>
 
@@ -284,12 +378,12 @@ const App = () => {
                     </div>
                     <div className="flex justify-between">
                       <span>Load Resistor:</span>
-                      <span className="font-semibold">1kΩ</span>
+                      <span className="font-semibold">{formatResistorValue(loadResistorValue)}</span>
                     </div>
                     {withFilter && (
                       <div className="flex justify-between border-t pt-2">
                         <span>Filter Capacitor:</span>
-                        <span className="font-semibold">100µF</span>
+                        <span className="font-semibold">{formatCapacitorValue(capacitorValue)}</span>
                       </div>
                     )}
                   </div>
@@ -322,7 +416,8 @@ const App = () => {
                   <li>Maintains voltage level between peaks</li>
                   <li>Significantly reduces ripple content (smoothing)</li>
                   <li>Provides nearly constant DC output</li>
-                  <li>Ripple factor reduced from 48.2% to ~5%</li>
+                  <li>Larger capacitor = lower ripple factor</li>
+                  <li>Higher load resistance = lower ripple</li>
                 </ul>
               </div>
             </div>
@@ -333,7 +428,18 @@ const App = () => {
   );
 };
 
-const BridgeRectifierCircuit = ({ conductingDiodes, withFilter, inputVoltage, outputVoltage, highlightMode, time }) => {
+const BridgeRectifierCircuit = ({ 
+  conductingDiodes, 
+  withFilter, 
+  inputVoltage, 
+  outputVoltage, 
+  highlightMode, 
+  time, 
+  capacitorValue, 
+  loadResistorValue,
+  formatCapacitorValue,
+  formatResistorValue
+}) => {
   const isD1Conducting = conductingDiodes.includes('D1');
   const isD2Conducting = conductingDiodes.includes('D2');
   const isD3Conducting = conductingDiodes.includes('D3');
@@ -448,9 +554,9 @@ const BridgeRectifierCircuit = ({ conductingDiodes, withFilter, inputVoltage, ou
         
         <line x1="550" y1="105" x2="550" y2="185" stroke="#333" strokeWidth="2"/>
 
-        {/* Enhanced Load Resistor */}
+        {/* Enhanced Load Resistor with dynamic value */}
         <rect x="580" y="130" width="70" height="30" fill="url(#loadGrad)" stroke="#7b1fa2" strokeWidth="2" rx="5"/>
-        <text x="610" y="148" className="text-sm font-bold fill-purple-700">1kΩ</text>
+        <text x="615" y="148" className="text-sm font-bold fill-purple-700">{formatResistorValue(loadResistorValue)}</text>
         <text x="605" y="125" className="text-sm font-bold fill-purple-700">Load</text>
         
         <AnimatedWire x1={550} y1={105} x2={580} y2={105} 
@@ -466,14 +572,14 @@ const BridgeRectifierCircuit = ({ conductingDiodes, withFilter, inputVoltage, ou
                      flowAnimation={flowAnimation} />
         <line x1="650" y1="185" x2="650" y2="250" stroke={outputVoltage > 0 ? "#4caf50" : "#666"} strokeWidth="3"/>
 
-        {/* Enhanced Filter Capacitor */}
+        {/* Enhanced Filter Capacitor with dynamic value */}
         {withFilter && (
           <g>
             <line x1="680" y1="105" x2="680" y2="120" stroke="#333" strokeWidth="2"/>
             <line x1="680" y1="135" x2="680" y2="185" stroke="#333" strokeWidth="2"/>
             <line x1="670" y1="120" x2="690" y2="120" stroke="#333" strokeWidth="4"/>
             <line x1="670" y1="135" x2="690" y2="135" stroke="#333" strokeWidth="4"/>
-            <text x="700" y="130" className="text-sm font-bold fill-blue-700">100µF</text>
+            <text x="700" y="130" className="text-sm font-bold fill-blue-700">{formatCapacitorValue(capacitorValue)}</text>
             <text x="700" y="115" className="text-sm font-bold fill-blue-700">Filter</text>
             
             <line x1="650" y1="105" x2="680" y2="105" stroke={outputVoltage > 0 ? "#ff5722" : "#666"} strokeWidth="2"/>
@@ -617,7 +723,19 @@ const CurrentFlowIndicator = ({ x, y, active }) => {
   );
 };
 
-const WaveformDisplay = ({ time, inputVoltage, outputVoltage, withFilter, amplitude, showExplanation }) => {
+const WaveformDisplay = ({ 
+  time, 
+  inputVoltage, 
+  outputVoltage, 
+  withFilter, 
+  amplitude, 
+  showExplanation, 
+  capacitorValue, 
+  loadResistorValue, 
+  RC, 
+  rippleFactor, 
+  calculateRealisticFilter 
+}) => {
   const generateWaveformPoints = (func, color, strokeWidth = 3) => {
     const points = [];
     for (let t = 0; t <= 4 * Math.PI; t += 0.05) {
@@ -637,9 +755,11 @@ const WaveformDisplay = ({ time, inputVoltage, outputVoltage, withFilter, amplit
   };
 
   const inputWaveform = (t) => amplitude * Math.sin(t);
+  
+  // Use the realistic filter calculation for the waveform display
   const outputWaveform = (t) => {
     const rectified = Math.abs(amplitude * Math.sin(t));
-    return withFilter ? rectified * 0.85 + 0.15 * amplitude * (1 - 0.4 * Math.cos(2 * t)) : rectified;
+    return withFilter ? calculateRealisticFilter(t, amplitude, RC, rippleFactor) : rectified;
   };
 
   const currentX = (time / (4 * Math.PI)) * 700 + 50;
@@ -724,6 +844,11 @@ const WaveformDisplay = ({ time, inputVoltage, outputVoltage, withFilter, amplit
             <text x="500" y="40" className="text-sm fill-green-600 font-semibold">
               Output: 100Hz (Full Wave)
             </text>
+            {withFilter && (
+              <text x="600" y="40" className="text-xs fill-orange-600 font-semibold">
+                RC = {(RC * 1000).toFixed(1)}ms
+              </text>
+            )}
           </g>
         )}
 
@@ -739,4 +864,4 @@ const WaveformDisplay = ({ time, inputVoltage, outputVoltage, withFilter, amplit
   );
 };
 
-export default App;
+export default Index;

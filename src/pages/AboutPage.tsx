@@ -230,62 +230,66 @@ const FacultyCard = ({ name, designation, expertise, imageUrl }) => (
   </div>
 );
 
-const StudentCard = ({ name, role, interests, imageUrl }) => (
+const StudentCard = ({ name, registrationNumber, email, branch, imageUrl }) => (
   <div className="bg-gray-50 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow border border-gray-100">
     <div className="h-48 bg-gray-200">
       <img src={imageUrl} alt={name} className="w-full h-full object-cover" />
     </div>
     <div className="p-4">
       <h3 className="font-semibold text-blue-800 text-lg">{name}</h3>
-      <p className="text-gray-600 text-sm mb-2">{role}</p>
-      <div className="flex items-start">
-        <BookOpen className="h-4 w-4 text-blue-700 mr-2 mt-0.5" />
-        <p className="text-gray-600 text-sm">{interests}</p>
-      </div>
+      <p className="text-gray-600 text-sm mb-1"><strong>Reg. No.:</strong> {registrationNumber}</p>
+      <p className="text-gray-600 text-sm mb-1"><strong>Email:</strong> {email}</p>
+      <p className="text-gray-600 text-sm"><strong>Branch:</strong> {branch}</p>
     </div>
   </div>
 );
 
+
 const facultyMembers = [
   {
-    name: "Dr. Ramesh Kumar",
-    designation: "Professor and Head of Department",
-    expertise: "Power Systems, HVDC Transmission",
-    imageUrl: "https://images.pexels.com/photos/5212665/pexels-photo-5212665.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
-  },
-  {
-    name: "Dr. Priya Sharma",
+    name: "DR. Thamizh Thentral T M",
     designation: "Associate Professor",
-    expertise: "Power System Protection, Smart Grid",
-    imageUrl: "https://images.pexels.com/photos/3777946/pexels-photo-3777946.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    expertise: "Power Electronics and drives.",
+    imageUrl: "assets/images/Members/Faculties/Thamizh.png"
   },
   {
-    name: "Dr. Anand Raj",
-    designation: "Assistant Professor",
-    expertise: "Power Electronics, Renewable Energy",
-    imageUrl: "https://images.pexels.com/photos/5905446/pexels-photo-5905446.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2"
+    name: "Dr. Palanisamy R",
+    designation: "Associate Professor",
+    expertise: "Power Electronics and Drives",
+    imageUrl: "assets/images/Members/Faculties/Palanisamy.png"
   }
 ];
 
 const studentTeam = [
   {
-    name: "Aarav Mehta",
-    role: "B.Tech Student, EEE",
-    interests: "Analog Design, Circuit Simulation",
-    imageUrl: "https://images.pexels.com/photos/1239291/pexels-photo-1239291.jpeg?auto=compress&cs=tinysrgb&w=800"
+    name: "Shambhavi Mishra",
+    registrationNumber: "RA2411003011211",
+    email: "sm7845@srmist.edu.in",
+    branch: "CSE(Core)",
+    imageUrl: "assets/images/Members/Students/Shambhavi_Mishra.jpg"
   },
   {
-    name: "Sanya Reddy",
-    role: "Research Intern",
-    interests: "Op-Amps, VLSI Systems",
-    imageUrl: "https://images.pexels.com/photos/733872/pexels-photo-733872.jpeg?auto=compress&cs=tinysrgb&w=800"
+    name: "Pratyush Srivastava",
+    registrationNumber: "RA2411003011239",
+    email: "ps8540@srmist.edu.in",
+    branch: "CSE(Core)",
+    imageUrl: "assets/images/Members/Students/Pratyush.png"
   },
   {
-    name: "Rohit Nair",
-    role: "Lab Assistant",
-    interests: "Signal Processing, Embedded Systems",
-    imageUrl: "https://images.pexels.com/photos/614810/pexels-photo-614810.jpeg?auto=compress&cs=tinysrgb&w=800"
+    name: "Anwesh Dash",
+    registrationNumber: "RA2411003011219",
+    email: "ad1526@srmist.edu.in",
+    branch: "CSE(Core)",
+    imageUrl: "assets/images/Members/Students/Anwesh_Dash.jpg"
+  },
+  {
+    name: "Yatharth Gupta",
+    registrationNumber: "RA2411003011179",
+    email: "yg6222@srmist.edu.in",
+    branch: "CSE(Core)",
+    imageUrl: "assets/images/Members/Students/Yatharth_Gupta.jpg"
   }
 ];
+
 
 export default AboutPage;

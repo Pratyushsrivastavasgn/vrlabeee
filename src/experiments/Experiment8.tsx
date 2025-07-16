@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import ExperimentLayout from './layout/ExperimentLayout';
+import Simulation from './simulations/Experiment8/JFETSimulation';
 
 const Experiment8 = () => {
   return (
@@ -140,9 +141,8 @@ const ProcedureContent = () => (
 
 // -------------------- SIMULATION --------------------
 const SimulationContent = () => (
-  <div className="prose max-w-none">
-    <h2 className="font-bold text-blue-600">Simulation</h2>
-    <p>Interactive simulation or Multisim/PSpice instructions will be added here for JFET characteristics.</p>
+  <div>
+   < Simulation />
   </div>
 );
 
