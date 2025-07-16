@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Menu, X, ChevronDown, BookOpen, TestTube, Info, Home } from 'lucide-react';
+import { Menu, X, ChevronDown, BookOpen, TestTube, Info, Home, Cable } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
@@ -24,7 +24,7 @@ const Header = () => {
           {/* Logo */}
           <div className="flex items-center">
             <Link to="/" className="flex items-center">
-              <TestTube className={`h-6 w-6 ${isScrolled ? 'text-blue-800' : 'text-yellow-400'}`} />
+              <Cable className={`h-6 w-6 ${isScrolled ? 'text-blue-800' : 'text-yellow-400'}`} />
               <span className={`ml-2 text-xl font-bold ${isScrolled ? 'text-blue-900' : 'text-white'}`}>
                 Analog Electronics Lab
               </span>
