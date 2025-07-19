@@ -66,6 +66,12 @@ const Footer = () => {
         
         <div className="border-t border-blue-800 mt-8 pt-6 text-center text-sm text-gray-400">
           <p>© {new Date().getFullYear()} SRM Institute of Science and Technology. All rights reserved.</p>
+          <p className="mt-2 text-xs">
+            Need help? Contact us at{' '}
+            <a href="mailto:eee.virtuallab@srm.edu.in" className="text-yellow-400 hover:text-yellow-300">
+              eee.virtuallab@srm.edu.in
+            </a>
+          </p>
         </div>
       </div>
     </footer>

@@ -26,7 +26,7 @@ const Header = () => {
             <Link to="/" className="flex items-center">
               <Cable className={`h-6 w-6 ${isScrolled ? 'text-blue-800' : 'text-yellow-400'}`} />
               <span className={`ml-2 text-xl font-bold ${isScrolled ? 'text-blue-900' : 'text-white'}`}>
-                Analog Electronics Lab
+                SRM EEE Virtual Lab
               </span>
             </Link>
           </div>

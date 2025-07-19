@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, ArrowRight, BookOpen, Activity, Monitor, HelpCircle } from 'lucide-react';
+import FeedbackButton from '../../components/FeedbackButton';
 
 interface ExperimentLayoutProps {
   title: string;
@@ -59,7 +60,12 @@ const ExperimentLayout: React.FC<ExperimentLayoutProps> = ({ title, description,
         <div className="p-6">
           {activeTab === 'theory' && experiment.theory}
           {activeTab === 'procedure' && experiment.procedure}
-          {activeTab === 'simulation' && experiment.simulation}
+          {activeTab === 'simulation' && (
+            <div className="relative">
+              {experiment.simulation}
+              <FeedbackButton />
+            </div>
+          )}
           {activeTab === 'quiz' && experiment.quiz}
         </div>
       </div>
