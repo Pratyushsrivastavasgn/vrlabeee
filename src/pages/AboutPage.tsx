@@ -196,11 +196,11 @@ const AboutPage = () => {
               </div>
               <div className="flex items-center">
                 <Phone className="h-5 w-5 text-blue-700 mr-3" />
-                <span>+91 9876543210</span>
+                <span>+91 9791005919</span>
               </div>
               <div className="flex items-center">
                 <Mail className="h-5 w-5 text-blue-700 mr-3" />
-                <span>eee.virtuallab@srm.edu.in</span>
+                <span>thamizht@srmist.edu.in</span>
               </div>
               <div className="flex items-center">
                 <ExternalLink className="h-5 w-5 text-blue-700 mr-3" />

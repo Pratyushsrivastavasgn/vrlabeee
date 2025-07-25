@@ -25,7 +25,7 @@ const Footer = () => {
               </li>
               <li className="flex items-center">
                 <Mail className="h-5 w-5 mr-2 text-yellow-400" />
-                <span>eee.virtuallab@srm.edu.in</span>
+                <span>thamizht@srmist.edu.in</span>
               </li>
             </ul>
           </div>
@@ -68,8 +68,8 @@ const Footer = () => {
           <p>© {new Date().getFullYear()} SRM Institute of Science and Technology. All rights reserved.</p>
           <p className="mt-2 text-xs">
             Need help? Contact us at{' '}
-            <a href="mailto:eee.virtuallab@srm.edu.in" className="text-yellow-400 hover:text-yellow-300">
-              eee.virtuallab@srm.edu.in
+            <a href="mailto:thamizht@srmist.edu.in" className="text-yellow-400 hover:text-yellow-300">
+              thamizht@srmist.edu.in
             </a>
           </p>
         </div>

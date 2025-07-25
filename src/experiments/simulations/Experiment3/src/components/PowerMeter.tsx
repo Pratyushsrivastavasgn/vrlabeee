@@ -81,7 +81,7 @@ const PowerMeter: React.FC<PowerMeterProps> = ({
       <div className="grid grid-cols-2 gap-4">
         <div className="text-center p-3 bg-slate-50 rounded-lg">
           <div className="text-sm text-slate-600 mb-1">Voltage</div>
-          <div className="text-lg font-semibold text-slate-800">{voltage}V</div>
+          <div className="text-lg font-semibold text-slate-800">230V</div>
         </div>
         <div className="text-center p-3 bg-slate-50 rounded-lg">
           <div className="text-sm text-slate-600 mb-1">Status</div>
@@ -103,7 +103,7 @@ const PowerMeter: React.FC<PowerMeterProps> = ({
           </div>
           <div>
             <span className="text-blue-600">Frequency:</span>
-            <span className="ml-2 font-semibold">60 Hz</span>
+            <span className="ml-2 font-semibold">50 Hz</span>
           </div>
         </div>
       </div>

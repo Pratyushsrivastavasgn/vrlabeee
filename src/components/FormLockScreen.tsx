@@ -85,7 +85,7 @@ const FormLockScreen: React.FC<FormLockScreenProps> = ({ onUnlock }) => {
 
               <div className="space-y-4">
                 <a
-                  href="https://forms.gle/F5jQGLykVc6y25Gg9"
+                  href="https://forms.gle/g9ZhV1hWQFLRDKnFA"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setFormLinkOpened(true)} // Set that the link was clicked
