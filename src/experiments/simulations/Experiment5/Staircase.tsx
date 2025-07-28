@@ -1,83 +1,92 @@
 import React, { useState } from 'react';
 import { Lightbulb, Zap, RotateCcw, Info } from 'lucide-react';
 
+// Main App Component
+// This is the standard entry point for a React application.
+const App = () => {
+  return <Staircase />;
+};
+
+// Main Staircase Simulation Component
+// This component holds the entire state and logic for the simulation.
 const Staircase = () => {
-  const [connectionType, setConnectionType] = useState('direct'); // 'direct' or 'cross'
-  const [switch1Position, setSwitch1Position] = useState(false); // false = A, true = B
+  // State for the type of connection: 'direct' or 'cross'
+  const [connectionType, setConnectionType] = useState('direct');
+  // State for the position of Switch 1 (false = A, true = B)
+  const [switch1Position, setSwitch1Position] = useState(false);
+  // State for the position of Switch 2 (false = A, true = B)
   const [switch2Position, setSwitch2Position] = useState(false);
-  
-  // For direct connection: lamp ON when switches are in same position
-  // For cross connection: lamp ON when switches are in different positions
-  const lampOn = connectionType === 'direct' 
-    ? switch1Position === switch2Position 
+
+  // Logic to determine if the lamp is ON
+  // Direct connection: lamp is ON when switches are in the same position.
+  // Cross connection: lamp is ON when switches are in different positions.
+  const lampOn = connectionType === 'direct'
+    ? switch1Position === switch2Position
     : switch1Position !== switch2Position;
-  
-  const toggleSwitch1 = () => setSwitch1Position(!switch1Position);
-  const toggleSwitch2 = () => setSwitch2Position(!switch2Position);
+
+  // Functions to set the switch positions directly
+  const handleSwitch1Change = (newPosition) => setSwitch1Position(newPosition);
+  const handleSwitch2Change = (newPosition) => setSwitch2Position(newPosition);
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gray-100 font-sans p-4 sm:p-6 lg:p-8">
       <div className="max-w-7xl mx-auto">
-        <div className="bg-white rounded-xl shadow-lg p-6">
-          <h1 className="text-3xl font-bold text-blue-600 mb-2 text-center">
+        <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-800 mb-2 text-center">
             Staircase Wiring Simulation
           </h1>
-          <p className="text-gray-600 text-center mb-6">
-            Interactive demonstration of two-way switch circuits with direct and cross connections
+          <p className="text-gray-500 text-center mb-8 max-w-2xl mx-auto">
+            An interactive demonstration of two-way switch circuits. Select a connection type and flip the switches to see how the circuit behaves.
           </p>
 
           {/* Connection Type Selector */}
-          <div className="mb-6 flex justify-center">
-            <div className="bg-gray-100 p-1 rounded-lg">
+          <div className="mb-8 flex justify-center">
+            <div className="bg-gray-200 p-1.5 rounded-xl flex space-x-2">
               <button
                 onClick={() => setConnectionType('direct')}
-                className={`px-6 py-2 rounded-md font-medium transition-all ${
+                className={`px-4 py-2 text-sm md:text-base rounded-lg font-semibold transition-all duration-300 w-36 ${
                   connectionType === 'direct'
                     ? 'bg-blue-600 text-white shadow-md'
-                    : 'text-gray-600 hover:text-blue-600'
+                    : 'text-gray-700 hover:bg-gray-300'
                 }`}
               >
-                Direct Connection
+                Direct
               </button>
               <button
                 onClick={() => setConnectionType('cross')}
-                className={`px-6 py-2 rounded-md font-medium transition-all ${
+                className={`px-4 py-2 text-sm md:text-base rounded-lg font-semibold transition-all duration-300 w-36 ${
                   connectionType === 'cross'
                     ? 'bg-blue-600 text-white shadow-md'
-                    : 'text-gray-600 hover:text-blue-600'
+                    : 'text-gray-700 hover:bg-gray-300'
                 }`}
               >
-                Cross Connection
+                Cross
               </button>
             </div>
           </div>
 
-          {/* Circuit Status */}
-          <div className="mb-6 p-4 bg-gray-50 rounded-lg text-center">
+          {/* Circuit Status Display */}
+          <div className="mb-8 p-4 bg-gray-50 border border-gray-200 rounded-xl text-center transition-all duration-300">
             <div className="flex items-center justify-center gap-3 mb-2">
-              <Lightbulb 
-                className={`w-8 h-8 ${lampOn ? 'text-yellow-500' : 'text-gray-400'}`}
+              <Lightbulb
+                className={`w-10 h-10 transition-all duration-300 ${lampOn ? 'text-yellow-400' : 'text-gray-400'}`}
                 fill={lampOn ? 'currentColor' : 'none'}
+                strokeWidth={2}
               />
-              <span className={`text-xl font-semibold ${lampOn ? 'text-green-600' : 'text-red-600'}`}>
+              <span className={`text-2xl font-bold transition-colors duration-300 ${lampOn ? 'text-green-600' : 'text-red-600'}`}>
                 Lamp is {lampOn ? 'ON' : 'OFF'}
               </span>
             </div>
-            <p className="text-sm text-gray-600">
-              {connectionType === 'direct' 
-                ? 'Direct: Current flows when both switches are in the same position'
-                : 'Cross: Current flows when switches are in different positions'
-              }
-            </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-6">
-            {/* Circuit Diagram */}
-            <div className="bg-white border rounded-lg p-4">
-              <h3 className="text-lg font-semibold text-blue-600 mb-4 text-center">
-                {connectionType === 'direct' ? 'Direct Connection' : 'Cross Connection'} Circuit Diagram
+          {/* Main Content Area: Diagram and Controls */}
+          <div className="grid lg:grid-cols-5 gap-8 items-start">
+            {/* Circuit Diagram (takes 3/5 of the width on large screens) */}
+            <div className="lg:col-span-3 bg-gray-800 rounded-2xl p-6 shadow-inner">
+              <h3 className="text-xl font-semibold text-white mb-6 text-center">
+                Live Wiring Diagram
               </h3>
-              <CircuitDiagram 
+              <CircuitDiagram
                 connectionType={connectionType}
                 switch1Position={switch1Position}
                 switch2Position={switch2Position}
@@ -85,110 +94,58 @@ const Staircase = () => {
               />
             </div>
 
-            {/* Control Panel */}
-            <div className="space-y-4">
-              <h3 className="text-lg font-semibold text-blue-600 text-center">Switch Controls</h3>
-              
-              {/* Switch 1 */}
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <h4 className="font-semibold text-blue-700 mb-3">Switch 1 (Bottom of Staircase)</h4>
-                <div className="flex items-center gap-4">
-                  <SwitchVisual 
-                    position={switch1Position}
-                    onToggle={toggleSwitch1}
-                    label="SW1"
-                  />
-                  <div className="flex-1">
-                    <button
-                      onClick={toggleSwitch1}
-                      className={`w-full py-3 px-4 rounded-lg font-semibold transition-all duration-200 ${
-                        switch1Position 
-                          ? 'bg-green-500 text-white shadow-lg' 
-                          : 'bg-gray-300 text-gray-700 hover:bg-gray-400'
-                      }`}
-                    >
-                      Position: {switch1Position ? 'B' : 'A'}
-                    </button>
-                  </div>
+            {/* Control Panel (takes 2/5 of the width on large screens) */}
+            <div className="lg:col-span-2 space-y-6">
+              <div className="bg-white border border-gray-200 rounded-2xl p-6">
+                <h3 className="text-xl font-semibold text-gray-800 text-center mb-6">Controls</h3>
+                <div className="space-y-6">
+                  <SwitchControlPanel position={switch1Position} onPositionChange={handleSwitch1Change} label="Switch 1" description="(e.g., Bottom of Stairs)" />
+                  <SwitchControlPanel position={switch2Position} onPositionChange={handleSwitch2Change} label="Switch 2" description="(e.g., Top of Stairs)" />
                 </div>
+                 <button
+                    onClick={() => {
+                      setSwitch1Position(false);
+                      setSwitch2Position(false);
+                    }}
+                    className="w-full mt-6 py-3 px-4 bg-gray-600 text-white rounded-lg font-semibold hover:bg-gray-700 transition-colors flex items-center justify-center gap-2"
+                  >
+                    <RotateCcw className="w-5 h-5" />
+                    Reset Switches
+                  </button>
               </div>
-              
-              {/* Switch 2 */}
-              <div className="bg-blue-50 p-4 rounded-lg">
-                <h4 className="font-semibold text-blue-700 mb-3">Switch 2 (Top of Staircase)</h4>
-                <div className="flex items-center gap-4">
-                  <SwitchVisual 
-                    position={switch2Position}
-                    onToggle={toggleSwitch2}
-                    label="SW2"
-                  />
-                  <div className="flex-1">
-                    <button
-                      onClick={toggleSwitch2}
-                      className={`w-full py-3 px-4 rounded-lg font-semibold transition-all duration-200 ${
-                        switch2Position 
-                          ? 'bg-green-500 text-white shadow-lg' 
-                          : 'bg-gray-300 text-gray-700 hover:bg-gray-400'
-                      }`}
-                    >
-                      Position: {switch2Position ? 'B' : 'A'}
-                    </button>
-                  </div>
-                </div>
-              </div>
-
-              {/* Reset Button */}
-              <button
-                onClick={() => {
-                  setSwitch1Position(false);
-                  setSwitch2Position(false);
-                }}
-                className="w-full py-2 px-4 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition-colors flex items-center justify-center gap-2"
-              >
-                <RotateCcw className="w-4 h-4" />
-                Reset Switches
-              </button>
             </div>
           </div>
 
           {/* Truth Tables */}
-          <div className="mt-6 grid md:grid-cols-2 gap-6">
-            <TruthTable 
-              title="Direct Connection Truth Table"
+          <div className="mt-8 grid md:grid-cols-2 gap-8">
+            <TruthTable
+              title="Direct Connection"
               type="direct"
               currentState={{ switch1Position, switch2Position }}
+              isActive={connectionType === 'direct'}
             />
-            <TruthTable 
-              title="Cross Connection Truth Table"
+            <TruthTable
+              title="Cross Connection"
               type="cross"
               currentState={{ switch1Position, switch2Position }}
+              isActive={connectionType === 'cross'}
             />
           </div>
 
           {/* Information Panel */}
-          <div className="mt-6 bg-blue-50 rounded-lg p-4">
-            <div className="flex items-start gap-3">
-              <Info className="w-5 h-5 text-blue-600 mt-0.5" />
+          <div className="mt-8 bg-blue-50 border-l-4 border-blue-500 rounded-r-lg p-6">
+            <div className="flex items-start gap-4">
+              <Info className="w-6 h-6 text-blue-600 mt-1 flex-shrink-0" />
               <div>
-                <h4 className="font-semibold text-blue-700 mb-2">Connection Types Explained:</h4>
-                <div className="grid md:grid-cols-2 gap-4 text-sm text-gray-700">
+                <h4 className="font-bold text-blue-800 mb-2 text-lg">How It Works</h4>
+                <div className="grid md:grid-cols-2 gap-x-6 gap-y-4 text-sm text-gray-700">
                   <div>
-                    <strong>Direct Connection:</strong>
-                    <ul className="list-disc list-inside mt-1 space-y-1">
-                      <li>Terminal A of SW1 connects to Terminal A of SW2</li>
-                      <li>Terminal B of SW1 connects to Terminal B of SW2</li>
-                      <li>Lamp ON when both switches in same position</li>
-                      <li>Most common in residential wiring</li>
-                    </ul>
+                    <strong className="text-gray-800">Direct Connection (Logic):</strong>
+                    <p className="mt-1">The lamp turns ON only when both switches are in the *same* position (A-A or B-B). This is the most common and intuitive setup.</p>
                   </div>
                   <div>
-                    <strong>Cross Connection:</strong>
-                    <ul className="list-disc list-inside mt-1 space-y-1">
-                      <li>Terminal A of SW1 connects to Terminal B of SW2</li>
-                      <li>Terminal B of SW1 connects to Terminal A of SW2</li>
-                      <li>Lamp ON when switches in different positions</li>
-                      <li>Alternative wiring method</li>
-                    </ul>
+                    <strong className="text-gray-800">Cross Connection (Logic):</strong>
+                    <p className="mt-1">The lamp turns ON only when the switches are in *different* positions (A-B or B-A). This is an alternative wiring method that achieves the same two-way control.</p>
                   </div>
                 </div>
               </div>
@@ -196,241 +153,196 @@ const Staircase = () => {
           </div>
         </div>
       </div>
+       <style>{`
+        .marching-ants {
+          stroke-dasharray: 8 4;
+          animation: march 1.5s linear infinite;
+        }
+        @keyframes march {
+          from { stroke-dashoffset: 0; }
+          to { stroke-dashoffset: 12; }
+        }
+      `}</style>
     </div>
   );
 };
 
-const SwitchVisual = ({ position, onToggle, label }) => {
-  return (
-    <div className="text-center">
-      <div className="mb-2 text-xs font-medium text-gray-700">{label}</div>
-      <button
-        onClick={onToggle}
-        className={`relative w-16 h-10 rounded-lg border-2 transition-all duration-200 ${
-          position 
-            ? 'bg-green-500 border-green-600' 
-            : 'bg-gray-300 border-gray-400'
-        }`}
-      >
-        <div className={`absolute top-1 w-3 h-3 bg-white rounded-full shadow-md transition-all duration-200 ${
-          position ? 'right-1' : 'left-1'
-        }`} />
-      </button>
-      <div className="mt-1 text-xs text-gray-600">
-        {position ? 'B' : 'A'}
+// A dedicated component for the switch controls for better reusability
+const SwitchControlPanel = ({ position, onPositionChange, label, description }) => (
+    <div>
+      <h4 className="font-semibold text-gray-700 mb-2">{label} <span className="text-sm text-gray-500 font-normal">{description}</span></h4>
+      <div className="grid grid-cols-2 gap-2">
+        <button
+          onClick={() => onPositionChange(false)}
+          className={`py-2 px-4 rounded-lg font-semibold transition-all duration-200 text-center ${
+            !position 
+              ? 'bg-blue-600 text-white shadow-md' 
+              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+          }`}
+        >
+          Position A
+        </button>
+        <button
+          onClick={() => onPositionChange(true)}
+          className={`py-2 px-4 rounded-lg font-semibold transition-all duration-200 text-center ${
+            position 
+              ? 'bg-blue-600 text-white shadow-md' 
+              : 'bg-gray-200 text-gray-700 hover:bg-gray-300'
+          }`}
+        >
+          Position B
+        </button>
       </div>
     </div>
   );
-};
 
+// The NEW schematic-style Circuit Diagram component based on user image
 const CircuitDiagram = ({ connectionType, switch1Position, switch2Position, lampOn }) => {
-  return (
-    <div className="relative bg-white p-4 rounded-lg border">
-      <svg viewBox="0 0 700 400" className="w-full h-80">
-        {/* Power Supply */}
-        <g>
-          <text x="50" y="25" className="text-xs font-semibold fill-gray-700">230V AC</text>
-          <rect x="40" y="30" width="30" height="15" fill="#ff6b6b" stroke="#000" strokeWidth="1"/>
-          <text x="47" y="40" className="text-xs fill-white">L</text>
-          <rect x="40" y="50" width="30" height="15" fill="#4ecdc4" stroke="#000" strokeWidth="1"/>
-          <text x="47" y="60" className="text-xs">N</text>
-        </g>
-        
-        {/* Phase line to Switch 1 */}
-        <line x1="70" y1="37" x2="120" y2="37" stroke={lampOn ? "#ff6b6b" : "#999"} strokeWidth="3"/>
-        
-        {/* Switch 1 */}
-        <SwitchSVG x={120} y={50} position={switch1Position} active={lampOn} label="SW1" />
-        
-        {/* Interconnecting wires based on connection type */}
-        {connectionType === 'direct' ? (
-          <>
-            {/* Direct Connection - A to A, B to B */}
-            <line x1="180" y1="40" x2="320" y2="40" 
-                  stroke={switch1Position === false && lampOn ? "#ff6b6b" : "#999"} 
-                  strokeWidth="3"/>
-            <line x1="180" y1="60" x2="320" y2="60" 
-                  stroke={switch1Position === true && lampOn ? "#ff6b6b" : "#999"} 
-                  strokeWidth="3"/>
-            <text x="230" y="35" className="text-xs fill-gray-600">A-A (Direct)</text>
-            <text x="230" y="75" className="text-xs fill-gray-600">B-B (Direct)</text>
-          </>
-        ) : (
-          <>
-            {/* Cross Connection - A to B, B to A */}
-            <path d="M 180 40 Q 250 20 320 60" 
-                  stroke={switch1Position === false && lampOn ? "#ff6b6b" : "#999"} 
-                  strokeWidth="3" fill="none"/>
-            <path d="M 180 60 Q 250 80 320 40" 
-                  stroke={switch1Position === true && lampOn ? "#ff6b6b" : "#999"} 
-                  strokeWidth="3" fill="none"/>
-            <text x="220" y="25" className="text-xs fill-gray-600">A-B (Cross)</text>
-            <text x="220" y="85" className="text-xs fill-gray-600">B-A (Cross)</text>
-          </>
-        )}
-        
-        {/* Switch 2 */}
-        <SwitchSVG x={320} y={50} position={switch2Position} active={lampOn} label="SW2" />
-        
-        {/* Line to Lamp */}
-        <line x1="380" y1="50" x2="460" y2="50" stroke={lampOn ? "#ff6b6b" : "#999"} strokeWidth="3"/>
-        
-        {/* Lamp */}
-        <circle cx="480" cy="50" r="18" fill={lampOn ? "#ffd93d" : "#f0f0f0"} stroke="#000" strokeWidth="2"/>
-        <Lightbulb className={`w-6 h-6 ${lampOn ? 'text-yellow-600' : 'text-gray-400'}`} 
-                   style={{position: 'absolute', left: '474px', top: '44px'}} />
-        
-        {/* Neutral return */}
-        <line x1="500" y1="50" x2="540" y2="50" stroke={lampOn ? "#4ecdc4" : "#999"} strokeWidth="3"/>
-        <line x1="540" y1="50" x2="540" y2="57" stroke={lampOn ? "#4ecdc4" : "#999"} strokeWidth="3"/>
-        <line x1="540" y1="57" x2="70" y2="57" stroke={lampOn ? "#4ecdc4" : "#999"} strokeWidth="3"/>
-        
-        {/* Current flow indicators */}
-        {lampOn && (
-          <>
-            <circle cx="150" cy="37" r="3" fill="#ff6b6b" className="animate-pulse">
-              <animate attributeName="opacity" values="0;1;0" dur="1s" repeatCount="indefinite"/>
-            </circle>
-            <circle cx="250" cy={connectionType === 'direct' ? (switch1Position ? 60 : 40) : (switch1Position ? 50 : 50)} r="3" fill="#ff6b6b" className="animate-pulse">
-              <animate attributeName="opacity" values="0;1;0" dur="1s" repeatCount="indefinite"/>
-            </circle>
-            <circle cx="350" cy="50" r="3" fill="#ff6b6b" className="animate-pulse">
-              <animate attributeName="opacity" values="0;1;0" dur="1s" repeatCount="indefinite"/>
-            </circle>
-          </>
-        )}
-        
-        {/* Labels */}
-        <text x="480" y="25" className="text-xs font-semibold fill-gray-700">Lamp</text>
-        <text x="500" y="75" className="text-xs fill-gray-600">Neutral Return</text>
-        
-        {/* Connection type indicator */}
-        <rect x="20" y="100" width="200" height="60" fill="#f8f9fa" stroke="#dee2e6" strokeWidth="1" rx="5"/>
-        <text x="30" y="115" className="text-sm font-semibold fill-blue-600">
-          {connectionType === 'direct' ? 'Direct Connection' : 'Cross Connection'}
-        </text>
-        <text x="30" y="130" className="text-xs fill-gray-600">
-          {connectionType === 'direct' ? 'A→A, B→B' : 'A→B, B→A'}
-        </text>
-        <text x="30" y="145" className="text-xs fill-gray-600">
-          Lamp ON when switches are
-        </text>
-        <text x="30" y="155" className="text-xs fill-gray-600">
-          {connectionType === 'direct' ? 'in SAME position' : 'in DIFFERENT positions'}
-        </text>
-      </svg>
-    </div>
-  );
+    const activeColor = "stroke-red-500";
+    const inactiveColor = "stroke-gray-500";
+    const neutralColor = "stroke-blue-500";
+    const activeNeutralColor = "stroke-blue-400";
+
+    // Determine active paths
+    const powerToS1 = lampOn;
+    const s2ToLamp = lampOn;
+    
+    // Logic for the wires between the switches
+    const s1A_s2A = lampOn && connectionType === 'direct' && !switch1Position && !switch2Position;
+    const s1B_s2B = lampOn && connectionType === 'direct' && switch1Position && switch2Position;
+    const s1A_s2B = lampOn && connectionType === 'cross' && !switch1Position && switch2Position;
+    const s1B_s2A = lampOn && connectionType === 'cross' && switch1Position && !switch2Position;
+
+    return (
+        <div className="w-full h-64 bg-gray-800 rounded-lg p-4">
+            <svg viewBox="0 0 800 300" className="w-full h-full">
+                {/* Main Wires */}
+                <path d="M 100 150 H 200" className={`${powerToS1 ? activeColor : inactiveColor} transition-colors`} strokeWidth="4" fill="none" />
+                <path d="M 600 150 H 700" className={`${s2ToLamp ? activeColor : inactiveColor} transition-colors`} strokeWidth="4" fill="none" />
+                <path d="M 100 250 H 700" className={`${lampOn ? activeNeutralColor : neutralColor} transition-colors`} strokeWidth="4" fill="none" />
+
+                {/* Connection wires based on type */}
+                {connectionType === 'direct' ? (
+                    <>
+                        <path d="M 300 100 H 500" className={`${s1A_s2A ? activeColor : inactiveColor} transition-colors`} strokeWidth="4" fill="none" />
+                        <path d="M 300 200 H 500" className={`${s1B_s2B ? activeColor : inactiveColor} transition-colors`} strokeWidth="4" fill="none" />
+                    </>
+                ) : (
+                    <>
+                        <path d="M 300 100 H 500" className={`${s1B_s2A ? activeColor : inactiveColor} transition-colors`} strokeWidth="4" fill="none" />
+                        <path d="M 300 200 H 500" className={`${s1A_s2B ? activeColor : inactiveColor} transition-colors`} strokeWidth="4" fill="none" />
+                    </>
+                )}
+
+                {/* Animated paths */}
+                {powerToS1 && <path d="M 100 150 H 200" className={`${activeColor} marching-ants`} strokeWidth="4" fill="none" />}
+                {s2ToLamp && <path d="M 600 150 H 700" className={`${activeColor} marching-ants`} strokeWidth="4" fill="none" />}
+                {s1A_s2A && <path d="M 300 100 H 500" className={`${activeColor} marching-ants`} strokeWidth="4" fill="none" />}
+                {s1B_s2B && <path d="M 300 200 H 500" className={`${activeColor} marching-ants`} strokeWidth="4" fill="none" />}
+                {s1A_s2B && <path d="M 300 200 H 500" className={`${activeColor} marching-ants`} strokeWidth="4" fill="none" />}
+                {s1B_s2A && <path d="M 300 100 H 500" className={`${activeColor} marching-ants`} strokeWidth="4" fill="none" />}
+
+                {/* Components */}
+                <PowerSource x={50} y={150} active={lampOn} />
+                <SwitchSchematic x={200} y={150} position={switch1Position} label="Switch No. 1" isActive={powerToS1} />
+                <SwitchSchematic x={500} y={150} position={switch2Position} label="Switch No. 2" isActive={s2ToLamp} />
+                <Lamp x={700} y={150} on={lampOn} />
+            </svg>
+        </div>
+    );
 };
-  
-const SwitchSVG = ({ x, y, position, active, label }) => {
-  return (
+
+// SVG component for the AC Power Source
+const PowerSource = ({ x, y, active }) => (
     <g>
-      {/* Switch body */}
-      <rect x={x} y={y-20} width="60" height="42" fill="#e0e0e0" stroke="#000" strokeWidth="1" rx="3"/>
-      
-      {/* Common terminal (left) */}
-      <circle cx={x-5} cy={y} r="3" fill="#ff6b6b"/>
-      <text x={x-15} y={y+3} className="text-xs fill-gray-700">C</text>
-      
-      {/* Terminal A (top right) */}
-      <circle cx={x+65} cy={y-10} r="3" fill="#666"/>
-      <text x={x+70} y={y-7} className="text-xs fill-gray-700">A</text>
-      
-      {/* Terminal B (bottom right) */}
-      <circle cx={x+65} cy={y+10} r="3" fill="#666"/>
-      <text x={x+70} y={y+13} className="text-xs fill-gray-700">B</text>
-      
-      {/* Switch lever */}
-      <line 
-        x1={x+10} 
-        y1={y} 
-        x2={x+55} 
-        y2={position ? y+8 : y-8} 
-        stroke={active ? "#ff6b6b" : "#999"} 
-        strokeWidth="4"
-        strokeLinecap="round"
-      />
-      
-      {/* Connection dot */}
-      <circle 
-        cx={x+55} 
-        cy={position ? y+8 : y-8} 
-        r="2" 
-        fill={active ? "#ff6b6b" : "#999"}
-      />
-      
-      {/* Labels */}
-      <text x={x+20} y={y-20} className="text-xs font-semibold fill-gray-700">{label}</text>
+        <circle cx={x} cy={y} r="25" className={`${active ? 'stroke-red-500' : 'stroke-gray-500'} transition-colors`} strokeWidth="3" fill="none" />
+        <path d="M 35 150 C 45 130, 55 170, 65 150" className={`${active ? 'stroke-red-500' : 'stroke-gray-500'} transition-colors`} strokeWidth="3" fill="none" />
+        <line x1={x+25} y1={y} x2={x+50} y2={y} className={`${active ? 'stroke-red-500' : 'stroke-gray-500'} transition-colors`} strokeWidth="4" />
+        <line x1={x} y1={y+25} x2={x} y2={y+100} className="stroke-blue-500" strokeWidth="4" />
+        <line x1={x} y1={y+100} x2={x+50} y2={y+100} className="stroke-blue-500" strokeWidth="4" />
     </g>
-  );
+);
+
+// SVG component for the Lamp
+const Lamp = ({ x, y, on }) => (
+    <g>
+        <circle cx={x} cy={y} r="25" className={`${on ? 'stroke-yellow-400' : 'stroke-gray-500'} transition-colors`} strokeWidth="3" fill={on ? "rgba(251, 191, 36, 0.2)" : "none"} />
+        <line x1={x-10} y1={y-10} x2={x+10} y2={y+10} className={`${on ? 'stroke-yellow-400' : 'stroke-gray-500'} transition-colors`} strokeWidth="3" />
+        <line x1={x+10} y1={y-10} x2={x-10} y2={y+10} className={`${on ? 'stroke-yellow-400' : 'stroke-gray-500'} transition-colors`} strokeWidth="3" />
+        <line x1={x-25} y1={y} x2={x-50} y2={y} className={`${on ? 'stroke-red-500' : 'stroke-gray-500'} transition-colors`} strokeWidth="4" />
+        <line x1={x} y1={y+25} x2={x} y2={y+100} className={`${on ? 'stroke-blue-400' : 'stroke-blue-500'} transition-colors`} strokeWidth="4" />
+    </g>
+);
+
+
+// FIXED schematic switch based on user image
+const SwitchSchematic = ({ x, y, position, label, isActive }) => {
+    const activeColor = "stroke-red-500";
+    const inactiveColor = "stroke-gray-500";
+
+    // position: false = A (up), true = B (down)
+    const comToA = !position;
+    const comToB = position;
+
+    return (
+        <g>
+            {/* Box */}
+            <rect x={x} y={y-75} width="100" height="150" className="stroke-gray-400" fill="rgba(255,255,255,0.05)" />
+            <text x={x + 5} y={y - 85} className="fill-white text-sm">{label}</text>
+
+            {/* Terminals */}
+            <circle cx={x} cy={y} r="6" className="fill-white" />
+            <circle cx={x + 100} cy={y - 50} r="6" className="fill-white" />
+            <circle cx={x + 100} cy={y + 50} r="6" className="fill-white" />
+
+            {/* Internal Connections */}
+            <line x1={x} y1={y} x2={x+100} y2={y-50} className={`${comToA ? (isActive ? activeColor : inactiveColor) : 'stroke-transparent'} transition-colors`} strokeWidth="4" />
+            <line x1={x} y1={y} x2={x+100} y2={y+50} className={`${comToB ? (isActive ? activeColor : inactiveColor) : 'stroke-transparent'} transition-colors`} strokeWidth="4" />
+        </g>
+    );
 };
 
-const TruthTable = ({ title, type, currentState }) => {
+
+// Reusable Truth Table component
+const TruthTable = ({ title, type, currentState, isActive }) => {
   const { switch1Position, switch2Position } = currentState;
-  
+
   const getRowHighlight = (sw1, sw2) => {
-    const isCurrentRow = (sw1 === switch1Position) && (sw2 === switch2Position);
-    return isCurrentRow ? 'bg-yellow-100 border-yellow-300' : '';
-  };
-  
-  const getLampStatus = (sw1, sw2) => {
-    if (type === 'direct') {
-      return sw1 === sw2 ? 'ON' : 'OFF';
-    } else {
-      return sw1 !== sw2 ? 'ON' : 'OFF';
-    }
+    if (!isActive) return 'bg-white';
+    return (sw1 === switch1Position) && (sw2 === switch2Position) ? 'bg-yellow-100' : 'bg-white';
   };
 
+  const getLampStatus = (sw1, sw2) => type === 'direct' ? (sw1 === sw2 ? 'ON' : 'OFF') : (sw1 !== sw2 ? 'ON' : 'OFF');
+
+  const rows = [
+    { sw1: false, sw2: false, sw1Text: 'A', sw2Text: 'A' },
+    { sw1: false, sw2: true,  sw1Text: 'A', sw2Text: 'B' },
+    { sw1: true,  sw2: false, sw1Text: 'B', sw2Text: 'A' },
+    { sw1: true,  sw2: true,  sw1Text: 'B', sw2Text: 'B' },
+  ];
+
   return (
-    <div className="bg-white border border-gray-200 rounded-lg p-4">
-      <h4 className="font-semibold text-blue-700 mb-3 text-center">{title}</h4>
+    <div className={`border-2 rounded-2xl p-4 transition-all duration-300 ${isActive ? 'border-blue-500 shadow-lg' : 'border-gray-200'}`}>
+      <h4 className="font-bold text-gray-800 mb-4 text-center text-lg">{title}</h4>
       <div className="overflow-x-auto">
-        <table className="w-full text-sm border-collapse">
+        <table className="w-full text-sm text-center">
           <thead>
             <tr className="bg-gray-100">
-              <th className="border border-gray-300 px-3 py-2">Switch 1</th>
-              <th className="border border-gray-300 px-3 py-2">Switch 2</th>
-              <th className="border border-gray-300 px-3 py-2">Lamp Status</th>
-            </tr>   
+              <th className="px-3 py-2 font-semibold text-gray-600 rounded-tl-lg">SW 1</th>
+              <th className="px-3 py-2 font-semibold text-gray-600">SW 2</th>
+              <th className="px-3 py-2 font-semibold text-gray-600 rounded-tr-lg">Lamp</th>
+            </tr>
           </thead>
-          <tbody>  
-            <tr className={`${getRowHighlight(false, false)} border`}>
-              <td className="border border-gray-300 px-3 py-2 text-center">A</td>
-              <td className="border border-gray-300 px-3 py-2 text-center">A</td>
-              <td className={`border border-gray-300 px-3 py-2 text-center font-semibold ${
-                getLampStatus(false, false) === 'ON' ? 'text-green-600' : 'text-red-600'
-              }`}>
-                {getLampStatus(false, false)}
-              </td>
-            </tr>
-            <tr className={`${getRowHighlight(false, true)} border`}>
-              <td className="border border-gray-300 px-3 py-2 text-center">A</td>
-              <td className="border border-gray-300 px-3 py-2 text-center">B</td>
-              <td className={`border border-gray-300 px-3 py-2 text-center font-semibold ${
-                getLampStatus(false, true) === 'ON' ? 'text-green-600' : 'text-red-600'
-              }`}>
-                {getLampStatus(false, true)}
-              </td>
-            </tr>
-            <tr className={`${getRowHighlight(true, false)} border`}>
-              <td className="border border-gray-300 px-3 py-2 text-center">B</td>
-              <td className="border border-gray-300 px-3 py-2 text-center">A</td>
-              <td className={`border border-gray-300 px-3 py-2 text-center font-semibold ${
-                getLampStatus(true, false) === 'ON' ? 'text-green-600' : 'text-red-600'
-              }`}>
-                {getLampStatus(true, false)}
-              </td>
-            </tr>
-            <tr className={`${getRowHighlight(true, true)} border`}>
-              <td className="border border-gray-300 px-3 py-2 text-center">B</td>
-              <td className="border border-gray-300 px-3 py-2 text-center">B</td>
-              <td className={`border border-gray-300 px-3 py-2 text-center font-semibold ${
-                getLampStatus(true, true) === 'ON' ? 'text-green-600' : 'text-red-600'
-              }`}>
-                {getLampStatus(true, true)}
-              </td>
-            </tr>
+          <tbody>
+            {rows.map((row, index) => (
+              <tr key={index} className={`border-b border-gray-200 last:border-b-0 transition-colors duration-200 ${getRowHighlight(row.sw1, row.sw2)}`}>
+                <td className="px-3 py-2 font-mono">{row.sw1Text}</td>
+                <td className="px-3 py-2 font-mono">{row.sw2Text}</td>
+                <td className={`px-3 py-2 font-bold ${getLampStatus(row.sw1, row.sw2) === 'ON' ? 'text-green-600' : 'text-red-600'}`}>
+                  {getLampStatus(row.sw1, row.sw2)}
+                </td>
+              </tr>
+            ))}
           </tbody>
         </table>
       </div>
@@ -438,4 +350,4 @@ const TruthTable = ({ title, type, currentState }) => {
   );
 };
 
-export default Staircase;
+export default App;
