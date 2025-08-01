@@ -49,7 +49,7 @@ const FormLockScreen: React.FC<FormLockScreenProps> = ({ onUnlock }) => {
         <div className="bg-gradient-to-r from-indigo-600 to-blue-500 p-6 text-center">
           <Lock className="w-16 h-16 text-white mx-auto mb-4" />
           <h1 className="text-2xl font-bold text-white mb-2">
-            Welcome to SRM Analog Electronics Lab
+            Welcome to SRM Electrical Electronics Lab
           </h1>
           <p className="text-indigo-100">
             Please complete the registration form to access the lab.
@@ -85,7 +85,7 @@ const FormLockScreen: React.FC<FormLockScreenProps> = ({ onUnlock }) => {
 
               <div className="space-y-4">
                 <a
-                  href="https://forms.gle/g9ZhV1hWQFLRDKnFA"
+                  href="https://docs.google.com/forms/d/e/1FAIpQLScjdlb9ef7IdfSABCOBU5fTYAZU-QKkMAVh4Kr_43qNzgnDCw/viewform?usp=header"
                   target="_blank"
                   rel="noopener noreferrer"
                   onClick={() => setFormLinkOpened(true)} // Set that the link was clicked

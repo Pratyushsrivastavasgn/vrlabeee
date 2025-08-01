@@ -4,7 +4,7 @@ import { Mail, Phone, MapPin, ExternalLink, Award, Users, BookOpen, GraduationCa
 const AboutPage = () => {
   return (
     <div className="container mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold text-blue-900 mb-8">About Analog Electronics Virtual Lab</h1>
+      <h1 className="text-3xl font-bold text-blue-900 mb-8">About Electrical Electronics Virtual Lab</h1>
       
       {/* Lab Overview */}
       <div className="bg-white rounded-lg shadow-md overflow-hidden mb-8">
@@ -13,7 +13,7 @@ const AboutPage = () => {
         </div>
         <div className="p-6">
           <p className="text-gray-700 mb-4">
-            The Virtual Laboratory for Electrical Circuits and Analog Electronics is a state-of-the-art learning platform developed to simulate real-world circuit experiments in a virtual environment. Designed to complement conventional lab training, this lab enables students to explore, analyse, and visualize the behaviour of electrical circuits and electronic components in a safe, flexible, and interactive manner.
+            The Virtual Laboratory for Electrical Circuits is a state-of-the-art learning platform developed to simulate real-world circuit experiments in a virtual environment. Designed to complement conventional lab training, this lab enables students to explore, analyse, and visualize the behaviour of electrical circuits and electronic components in a safe, flexible, and interactive manner.
           </p>
           <p className="text-gray-700 mb-4">
             With a focus on amplifiers and oscillators, the virtual lab introduces learners to key concepts such as biasing techniques, small-signal analysis, frequency response, feedback mechanisms, and the principles of waveform generation. Through a structured set of experiments, students gain hands-on experience with common emitter amplifiers, operational amplifier configurations, RC and LC oscillators, and more.
@@ -35,7 +35,7 @@ const AboutPage = () => {
             <ul className="space-y-3">
               <li className="flex">
                 <Award className="h-6 w-6 text-blue-700 mr-3 flex-shrink-0" />
-                <span className="text-gray-700">Provide remote access to Analog Electornics experiments</span>
+                <span className="text-gray-700">Provide remote access to Electrical and Electornics experiments</span>
               </li>
               <li className="flex">
                 <Award className="h-6 w-6 text-blue-700 mr-3 flex-shrink-0" />
