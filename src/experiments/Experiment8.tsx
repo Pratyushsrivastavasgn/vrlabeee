@@ -1,6 +1,5 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import ExperimentLayout from './layout/ExperimentLayout';
-import Simulation from './simulations/Experiment8/JFETSimulation';
 
 const Experiment8 = () => {
   return (
@@ -141,8 +140,9 @@ const ProcedureContent = () => (
 
 // -------------------- SIMULATION --------------------
 const SimulationContent = () => (
-  <div>
-   < Simulation />
+  <div className="prose max-w-none">
+    <h2 className="font-bold text-blue-600">Simulation</h2>
+    <p>Interactive simulation or Multisim/PSpice instructions will be added here for JFET characteristics.</p>
   </div>
 );
 
@@ -199,7 +199,7 @@ const QuizContent = () => {
   const [selectedAnswers, setSelectedAnswers] = useState(Array(questions.length).fill(null));
   const [submitted, setSubmitted] = useState(false);
 
-  const handleOptionChange = (qIndex: number, oIndex: number) => {
+  const handleOptionChange = (qIndex, oIndex) => {
     if (!submitted) {
       const updated = [...selectedAnswers];
       updated[qIndex] = oIndex;
@@ -207,7 +207,7 @@ const QuizContent = () => {
     }
   };
 
-  const getOptionStyle = (qIndex: number, oIndex: number) => {
+  const getOptionStyle = (qIndex, oIndex) => {
     if (!submitted) return '';
     const isCorrect = oIndex === questions[qIndex].answer;
     const isSelected = selectedAnswers[qIndex] === oIndex;
@@ -225,12 +225,12 @@ const QuizContent = () => {
           {q.options.map((option, oIndex) => (
             <label
               key={oIndex}
-              className={`block p-2 border rounded mb-1 cursor-pointer ${getOptionStyle(qIndex, oIndex)}`}
+              className={block p-2 border rounded mb-1 cursor-pointer ${getOptionStyle(qIndex, oIndex)}}
             >
               <input
                 type="radio"
-                name={`question-${qIndex}`}
-                value={oIndex.toString()}
+                name={question-${qIndex}}
+                value={oIndex}
                 checked={selectedAnswers[qIndex] === oIndex}
                 onChange={() => handleOptionChange(qIndex, oIndex)}
                 disabled={submitted}
