@@ -195,11 +195,11 @@ const questions = [
   }
 ];
 
-const QuizContent = () => {
-  const [selectedAnswers, setSelectedAnswers] = useState(Array(questions.length).fill(null));
-  const [submitted, setSubmitted] = useState(false);
+const QuizContent: React.FC = () => {
+  const [selectedAnswers, setSelectedAnswers] = useState<(number | null)[]>(Array(questions.length).fill(null));
+  const [submitted, setSubmitted] = useState<boolean>(false);
 
-  const handleOptionChange = (qIndex, oIndex) => {
+  const handleOptionChange = (qIndex: number, oIndex: number) => {
     if (!submitted) {
       const updated = [...selectedAnswers];
       updated[qIndex] = oIndex;
@@ -207,7 +207,7 @@ const QuizContent = () => {
     }
   };
 
-  const getOptionStyle = (qIndex, oIndex) => {
+  const getOptionStyle = (qIndex: number, oIndex: number): string => {
     if (!submitted) return '';
     const isCorrect = oIndex === questions[qIndex].answer;
     const isSelected = selectedAnswers[qIndex] === oIndex;
@@ -225,11 +225,11 @@ const QuizContent = () => {
           {q.options.map((option, oIndex) => (
             <label
               key={oIndex}
-              className={block p-2 border rounded mb-1 cursor-pointer ${getOptionStyle(qIndex, oIndex)}}
+              className={`block p-2 border rounded mb-1 cursor-pointer ${getOptionStyle(qIndex, oIndex)}`}
             >
               <input
                 type="radio"
-                name={question-${qIndex}}
+                name={`question-${qIndex}`}
                 value={oIndex}
                 checked={selectedAnswers[qIndex] === oIndex}
                 onChange={() => handleOptionChange(qIndex, oIndex)}

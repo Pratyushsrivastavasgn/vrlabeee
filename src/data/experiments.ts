@@ -35,40 +35,40 @@ export const experiments = [
     description: 'This experiment demonstrates the conversion of AC to DC using a single-phase full-wave bridge rectifier. It includes waveform analysis and ripple factor observation to understand rectification efficiency.',
     imageUrl: 'https://5.imimg.com/data5/JX/TQ/MY-1553062/44-500x500.jpg'
   },
-  // {
-  //   id: 'experiment7',
-  //   title: 'Determination of h-Parameters of CE Amplifier',
-  //   description: 'This experiment measures the hybrid parameters (h-parameters) of a common emitter amplifier to analyze input/output characteristics and performance under small signal conditions.',
-  //   imageUrl: 'https://www.poriyaan.in/media/imgPori/images12/2GnF2UD.png'
-  // },
-  // {
-  //   id: 'experiment8',
-  //   title: 'JFET Characteristics',
-  //   description: 'This experiment studies the output (drain) and transfer characteristics of a Junction Field Effect Transistor (JFET), highlighting the relationship between gate voltage, drain current, and pinch-off behavior.',
-  //   imageUrl: 'https://i.ytimg.com/vi/dICmcSNo4eI/maxresdefault.jpg'
-  // },
-  // {
-  //   id: 'experiment9',
-  //   title: 'Transistor Series Voltage Regulator',
-  //   description: 'This experiment constructs a transistor-based series voltage regulator to maintain a constant DC output despite input voltage or load variations, demonstrating active voltage regulation.',
-  //   imageUrl: 'https://www.circuits-diy.com/wp-content/uploads/2022/02/Variable-LM317-Voltage-Regulator-Circuit.jpg'
-  // },
-  // {
-  //   id: 'experiment10',
-  //   title: 'RC Phase Shift Oscillator',
-  //   description: 'This experiment involves designing an RC phase shift oscillator to generate a stable sinusoidal waveform. The output frequency is compared with theoretical calculations to verify oscillator design principles.',
-  //   imageUrl: 'https://circuitdigest.com/sites/default/files/inlineimages/u/Phase-Shift-Oscillator-Circuit-Hardware.jpg'
-  // },
-  // {
-  //   id: 'experiment11',
-  //   title: 'Astable Multivibrator using Transistors',
-  //   description: 'This experiment designs and tests an astable multivibrator circuit using transistors to generate square wave clock pulses. Waveform analysis confirms frequency and duty cycle accuracy.',
-  //   imageUrl: 'https://i.ytimg.com/vi/dQbrI_iQWig/maxresdefault.jpg'
-  // },
-  // {
-  //   id: 'experiment12',
-  //   title: 'Class-A Power Amplifier',
-  //   description: 'This experiment constructs a Class-A power amplifier circuit and measures voltage gain, power efficiency, and waveform fidelity. It illustrates linear amplification and thermal considerations.',
-  //   imageUrl: 'https://circuit-zone.com/ediy_blog/514/8W-Class-A-amplifier.jpg'
-  // }
+  {
+    id: 'experiment7',
+    title: 'Determination of h-Parameters of CE Amplifier',
+    description: 'This experiment measures the hybrid parameters (h-parameters) of a common emitter amplifier to analyze input/output characteristics and performance under small signal conditions.',
+    imageUrl: 'https://www.poriyaan.in/media/imgPori/images12/2GnF2UD.png'
+  },
+  {
+    id: 'experiment8',
+    title: 'JFET Characteristics',
+    description: 'This experiment studies the output (drain) and transfer characteristics of a Junction Field Effect Transistor (JFET), highlighting the relationship between gate voltage, drain current, and pinch-off behavior.',
+    imageUrl: 'https://i.ytimg.com/vi/dICmcSNo4eI/maxresdefault.jpg'
+  },
+  {
+    id: 'experiment9',
+    title: 'Transistor Series Voltage Regulator',
+    description: 'This experiment constructs a transistor-based series voltage regulator to maintain a constant DC output despite input voltage or load variations, demonstrating active voltage regulation.',
+    imageUrl: 'https://www.circuits-diy.com/wp-content/uploads/2022/02/Variable-LM317-Voltage-Regulator-Circuit.jpg'
+  },
+  {
+    id: 'experiment10',
+    title: 'RC Phase Shift Oscillator',
+    description: 'This experiment involves designing an RC phase shift oscillator to generate a stable sinusoidal waveform. The output frequency is compared with theoretical calculations to verify oscillator design principles.',
+    imageUrl: 'https://circuitdigest.com/sites/default/files/inlineimages/u/Phase-Shift-Oscillator-Circuit-Hardware.jpg'
+  },
+  {
+    id: 'experiment11',
+    title: 'Astable Multivibrator using Transistors',
+    description: 'This experiment designs and tests an astable multivibrator circuit using transistors to generate square wave clock pulses. Waveform analysis confirms frequency and duty cycle accuracy.',
+    imageUrl: 'https://i.ytimg.com/vi/dQbrI_iQWig/maxresdefault.jpg'
+  },
+  {
+    id: 'experiment12',
+    title: 'Class-A Power Amplifier',
+    description: 'This experiment constructs a Class-A power amplifier circuit and measures voltage gain, power efficiency, and waveform fidelity. It illustrates linear amplification and thermal considerations.',
+    imageUrl: 'https://circuit-zone.com/ediy_blog/514/8W-Class-A-amplifier.jpg'
+  }
 ];
