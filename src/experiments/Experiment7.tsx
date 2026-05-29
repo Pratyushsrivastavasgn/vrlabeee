@@ -21,22 +21,41 @@ const TheoryContent = () => (
   <div className="prose max-w-none">
     <h2 className="font-bold text-blue-600">Theory</h2>
     <p>
-      The aim of this experiment is to determine the hybrid parameters of a Common Emitter (CE) amplifier using its input and output characteristics. 
-      A Bipolar Junction Transistor (BJT) is used for this purpose. It is a three-terminal device with emitter, base, and collector regions.
+      The Common Emitter (CE) configuration is one of the most widely used transistor configurations in amplifier circuits because it provides both current gain and voltage gain. In this experiment, the hybrid (h) parameters of a Bipolar Junction Transistor (BJT) operating in Common Emitter mode are determined from its input and output characteristics.
     </p>
-
+    <br />
+    <p>A Bipolar Junction Transistor (BJT) is a three-terminal semiconductor device consisting of:
+    <h3><strong>Emitter(E)</strong></h3>
     <ul className="list-disc ml-6">
-      <li><strong>Emitter:</strong> Heavily doped and moderate in area. It supplies majority charge carriers.</li>
-      <li><strong>Base:</strong> Very thin and lightly doped. It controls the number of carriers flowing through the transistor.</li>
-      <li><strong>Collector:</strong> Moderately doped and large in area. It collects carriers from the emitter via base.</li>
+      <li>Heavily doped region.</li>
+      <li>Supplies a large number of charge carriers.</li>
+      <li>Responsible for injecting carriers into the base region.</li>
     </ul>
-
+    <h3><strong>Base(B)</strong></h3>
+    <ul className="list-disc ml-6">
+      <li>Very thin and lightly doped.</li>
+      <li>Controls the flow of charge carriers between emitter and collector.</li>
+      <li>Acts as the control terminal of the transistor.</li>
+    </ul>
+    <h3><strong>Collector(C)</strong></h3>
+    <ul className="list-disc ml-6">
+      <li>Moderately doped and large in area.</li>
+      <li>Collects carriers from the emitter via the base.</li>
+      <li>Designed to dissipate more heat due to higher power handling capability.</li>
+    </ul>
+    </p>
+    <br />
     <p>
-      In the active region of operation, the emitter-base junction is forward biased, while the collector-base junction is reverse biased.
+      For proper amplification, the transistor must operate in the Active Region, where:
+    <ul>
+      <li>The Emitter-Base (E-B) junction is forward biased.</li>
+      <li>The Collector-Base (C-B) junction is reverse biased.</li>
+    </ul>
+    Under these conditions, small variations in base current produce significant variations in collector current, enabling amplification.
     </p>
 
     <h3 className="font-bold text-blue-600 mt-4">Components Required:</h3>
-    <table className="table-auto border border-collapse border-gray-400">
+    <table className="min-w-full text-sm text-left border border-gray-400 border-collapse">
       <thead>
         <tr>
           <th className="border px-4 py-2">S.No.</th>
@@ -61,7 +80,7 @@ const TheoryContent = () => (
         <tr>
           <td className="border px-4 py-2">3</td>
           <td className="border px-4 py-2">Breadboard</td>
-          <td className="border px-4 py-2">–</td>
+          <td className="border px-4 py-2">Standard</td>
           <td className="border px-4 py-2">1</td>
         </tr>
         <tr>
@@ -74,7 +93,7 @@ const TheoryContent = () => (
     </table>
 
     <h3 className="font-bold text-blue-600 mt-4">Apparatus Required:</h3>
-    <table className="table-auto border border-collapse border-gray-400">
+    <table className="min-w-full text-sm text-left border border-gray-400 border-collapse">
       <thead>
         <tr>
           <th className="border px-4 py-2">S.No.</th>
@@ -86,7 +105,7 @@ const TheoryContent = () => (
       <tbody>
         <tr>
           <td className="border px-4 py-2">1</td>
-          <td className="border px-4 py-2">R.P.S</td>
+          <td className="border px-4 py-2">Regulated Power Supply (R.P.S.)</td>
           <td className="border px-4 py-2">(0–30)V</td>
           <td className="border px-4 py-2">2</td>
         </tr>
@@ -132,25 +151,36 @@ const ProcedureContent = () => (
 
     <h3 className="font-bold text-blue-600 mt-4">Components & Supply Values:</h3>
     <ul className="list-disc ml-6">
-      <li>Base resistor R<sub>B</sub> = 1 kΩ</li>
-      <li>Collector resistor R<sub>C</sub> = 1 kΩ</li>
-      <li>Base supply voltage V<sub>BB</sub>: 0 to 1V</li>
-      <li>Collector supply voltage V<sub>CC</sub>: 0 to 15V</li>
-      <li>Base current I<sub>B</sub> is measured in µA</li>
-      <li>Collector current I<sub>C</sub> is measured in mA</li>
+      <li>Base resistor R<sub>B</sub> = 100 kΩ</li>
+      <li>Collector resistor R<sub>C</sub> = 1.0 kΩ</li>
+      <li>Base supply voltage V<sub>BB</sub>: 0 to 30V</li>
+      <li>Collector supply voltage V<sub>CC</sub>: 0 to 30V</li>
+      <li>Base current I<sub>B</sub> is measured in µA (range: 0–200 µA)</li>
+      <li>Collector current I<sub>C</sub> is measured in mA (range: 0–200 mA)</li>
+      <li>V<sub>BE</sub> voltmeter range: 0–20V</li>
+      <li>V<sub>CE</sub> voltmeter range: 0–20V</li>
     </ul>
+
+    <h3 className="font-bold text-blue-600 mt-4">Circuit Diagram:</h3>
+    <div className="mt-2">
+      <img
+        src="/assets/images/exp7-circuit.jpeg"
+        alt="CE Amplifier Circuit Diagram"
+        className="w-[70%] h-auto border border-gray-300 p-2"
+      />
+    </div>
 
     <h3 className="font-bold text-blue-600 mt-4">Circuit Setup:</h3>
     <ul className="list-disc ml-6">
-      <li>Drag and drop all components — Transistor (BC107), Resistors R<sub>B</sub> and R<sub>C</sub> (1kΩ each), Ammeters, Voltmeters — onto the breadboard as per the circuit diagram.</li>
-      <li>Connect the base resistor R<sub>B</sub> between the base supply V<sub>BB</sub> and the base terminal of the transistor.</li>
-      <li>Connect the collector resistor R<sub>C</sub> between the collector supply V<sub>CC</sub> and the collector terminal.</li>
-      <li>Connect the emitter terminal directly to ground.</li>
-      <li>Place the microammeter in series with the base circuit to measure I<sub>B</sub> (in µA).</li>
-      <li>Place the ammeter in series with the collector circuit to measure I<sub>C</sub> (in mA).</li>
-      <li>Connect voltmeter across base-emitter terminals to measure V<sub>BE</sub>.</li>
-      <li>Connect voltmeter across collector-emitter terminals to measure V<sub>CE</sub>.</li>
-      <li>Give all wiring connections with correct polarity.</li>
+      <li>Drag and drop all components — Transistor (BC107), R<sub>B</sub> (100kΩ), R<sub>C</sub> (1kΩ), Ammeters, and Voltmeters — onto the breadboard as per the circuit diagram.</li>
+      <li>Connect the base resistor R<sub>B</sub> (100kΩ) in series with the base circuit between V<sub>BB</sub> and the base terminal (B) of the transistor.</li>
+      <li>Connect the microammeter (0–200µA) in series in the base circuit to measure I<sub>B</sub>.</li>
+      <li>Connect the collector resistor R<sub>C</sub> (1kΩ) between V<sub>CC</sub> and the collector terminal (C) of the transistor.</li>
+      <li>Connect the ammeter (0–200mA) in series in the collector circuit to measure I<sub>C</sub>.</li>
+      <li>Connect the emitter terminal (E) directly to ground.</li>
+      <li>Connect voltmeter (0–20V) across base and emitter terminals to measure V<sub>BE</sub>.</li>
+      <li>Connect voltmeter (0–20V) across collector and emitter terminals to measure V<sub>CE</sub>.</li>
+      <li>Connect V<sub>BB</sub> (0–30V) to the base circuit and V<sub>CC</sub> (0–30V) to the collector circuit with correct polarity.</li>
       <li>I<sub>B</sub> and V<sub>BE</sub> are the <strong>input</strong> current and voltage respectively.</li>
       <li>I<sub>C</sub> and V<sub>CE</sub> are the <strong>output</strong> current and voltage respectively.</li>
       <li>Check all connections carefully before turning on the power supply.</li>
@@ -179,15 +209,6 @@ const ProcedureContent = () => (
       <li><strong>Input characteristics:</strong> Plot I<sub>B</sub> (µA) on Y-axis vs V<sub>BE</sub> (V) on X-axis for each constant V<sub>CE</sub> value (V<sub>CE1</sub> &lt; V<sub>CE2</sub> &lt; V<sub>CE3</sub> &lt; V<sub>CE4</sub>).</li>
       <li><strong>Output characteristics:</strong> Plot I<sub>C</sub> (mA) on Y-axis vs V<sub>CE</sub> (V) on X-axis for each constant I<sub>B</sub> value.</li>
     </ul>
-
-    <h3 className="font-bold text-blue-600 mt-4">Circuit Diagram:</h3>
-    <div className="mt-2">
-      <img
-        src="https://www.poriyaan.in/media/imgPori/images21/tPfpa37.png"
-        alt="Circuit Diagram"
-        className="w-[40%] h-auto border border-gray-300 p-2"
-      />
-    </div>
 
     <h3 className="font-bold text-blue-600 mt-4">Precautions:</h3>
     <ul className="list-disc ml-6">
