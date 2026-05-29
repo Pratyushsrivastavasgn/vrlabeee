@@ -6,7 +6,7 @@ const Experiment7 = () => {
   return (
     <ExperimentLayout
       title="Experiment 7"
-      description="To determine the hybrid parameters of a Common Emitter (CE) amplifier using input and output characteristics."
+      description="Determination of Hybrid Parameters of a Common Emitter (CE) Transistor Using Input and Output Characteristics"
       experiment={{
         theory: <TheoryContent />,
         procedure: <ProcedureContent />,
@@ -21,18 +21,37 @@ const TheoryContent = () => (
   <div className="prose max-w-none">
     <h2 className="font-bold text-blue-600">Theory</h2>
     <p>
-      The aim of this experiment is to determine the hybrid parameters of a Common Emitter (CE) amplifier using its input and output characteristics. 
-      A Bipolar Junction Transistor (BJT) is used for this purpose. It is a three-terminal device with emitter, base, and collector regions.
+      The Common Emitter (CE) configuration is one of the most widely used transistor configurations in amplifier circuits because it provides both current gain and voltage gain. In this experiment, the hybrid (h) parameters of a Bipolar Junction Transistor (BJT) operating in Common Emitter mode are determined from its input and output characteristics.
     </p>
-
+    <br />
+    <p>A Bipolar Junction Transistor (BJT) is a three-terminal semiconductor device consisting of:
+    <h3><strong>Emitter(E)</strong></h3>
     <ul className="list-disc ml-6">
-      <li><strong>Emitter:</strong> Heavily doped and moderate in area. It supplies majority charge carriers.</li>
-      <li><strong>Base:</strong> Very thin and lightly doped. It controls the number of carriers flowing through the transistor.</li>
-      <li><strong>Collector:</strong> Moderately doped and large in area. It collects carriers from the emitter via base.</li>
+      <li>Heavily doped region.</li>
+      <li>Supplies a large number of charge carriers.</li>
+      <li>Responsible for injecting carriers into the base region.</li>
     </ul>
-
+    <h3><strong>Base(B)</strong></h3>
+    <ul className="list-disc ml-6">
+      <li>Very thin and lightly doped.</li>
+      <li>Controls the flow of charge carriers between emitter and collector.</li>
+      <li>Acts as the control terminal of the transistor.</li>
+    </ul>
+    <h3><strong>Collector(C)</strong></h3>
+    <ul className="list-disc ml-6">
+      <li>Moderately doped and large in area.</li>
+      <li>Collects carriers from the emitter via the base.</li>
+      <li>Designed to dissipate more heat due to higher power handling capability.</li>
+    </ul>
+    </p>
+    <br />
     <p>
-      In the active region of operation, the emitter-base junction is forward biased, while the collector-base junction is reverse biased.
+      For proper amplification, the transistor must operate in the Active Region, where:
+    <ul>
+      <li>The Emitter-Base (E-B) junction is forward biased.</li>
+      <li>The Collector-Base (C-B) junction is reverse biased.</li>
+    </ul>
+    Under these conditions, small variations in base current produce significant variations in collector current, enabling amplification.
     </p>
 
     <h3 className="font-bold text-blue-600 mt-4">Components Required:</h3>
@@ -61,7 +80,7 @@ const TheoryContent = () => (
         <tr>
           <td className="border px-4 py-2">3</td>
           <td className="border px-4 py-2">Breadboard</td>
-          <td className="border px-4 py-2">–</td>
+          <td className="border px-4 py-2">Standard</td>
           <td className="border px-4 py-2">1</td>
         </tr>
         <tr>
@@ -86,7 +105,7 @@ const TheoryContent = () => (
       <tbody>
         <tr>
           <td className="border px-4 py-2">1</td>
-          <td className="border px-4 py-2">R.P.S</td>
+          <td className="border px-4 py-2">Regulated Power Supply (R.P.S.)</td>
           <td className="border px-4 py-2">(0–30)V</td>
           <td className="border px-4 py-2">2</td>
         </tr>
