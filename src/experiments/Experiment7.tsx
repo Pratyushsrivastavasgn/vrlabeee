@@ -131,24 +131,125 @@ const ProcedureContent = () => (
   <div className="prose max-w-none">
     <h2 className="font-bold text-blue-600">Procedure</h2>
 
-    <h3 className="font-bold text-blue-600 mt-4">Input Characteristics:</h3>
+    <h3 className="font-bold text-blue-600 mt-4">Components & Supply Values:</h3>
     <ul className="list-disc ml-6">
-      <li>Connect the circuit according to the input characteristics diagram.</li>
-      <li>Set the collector-emitter voltage (V<sub>CE</sub>) to a constant value using the DC power supply.</li>
-      <li>Vary the base-emitter voltage (V<sub>BE</sub>) in small regular steps.</li>
-      <li>Note the corresponding base current (I<sub>B</sub>) for each V<sub>BE</sub> value.</li>
-      <li>Repeat the above steps for multiple values of V<sub>CE</sub>.</li>
-      <li>Plot a graph of V<sub>BE</sub> vs I<sub>B</sub> for each constant V<sub>CE</sub>.</li>
+      <li>Base resistor R<sub>B</sub> = 1 kΩ</li>
+      <li>Collector resistor R<sub>C</sub> = 1 kΩ</li>
+      <li>Base supply voltage V<sub>BB</sub>: 0 to 1V</li>
+      <li>Collector supply voltage V<sub>CC</sub>: 0 to 15V</li>
+      <li>Base current I<sub>B</sub> is measured in µA</li>
+      <li>Collector current I<sub>C</sub> is measured in mA</li>
     </ul>
 
-    <h3 className="font-bold text-blue-600 mt-4">Output Characteristics:</h3>
+    <h3 className="font-bold text-blue-600 mt-4">Circuit Setup:</h3>
     <ul className="list-disc ml-6">
-      <li>Connect the circuit as per the output characteristics configuration.</li>
-      <li>Set the base current (I<sub>B</sub>) to a constant value using the microammeter.</li>
-      <li>Gradually vary the collector-emitter voltage (V<sub>CE</sub>) using the power supply.</li>
-      <li>Note the corresponding collector current (I<sub>C</sub>) for each V<sub>CE</sub> value.</li>
-      <li>Repeat the procedure for different base current values.</li>
-      <li>Plot a graph of V<sub>CE</sub> vs I<sub>C</sub> for each constant I<sub>B</sub>.</li>
+      <li>Drag and drop all components onto the breadboard as per the circuit diagram.</li>
+      <li>Give wiring connections with correct polarity.</li>
+      <li>I<sub>B</sub> and V<sub>BE</sub> are the <strong>input</strong> current and voltage respectively.</li>
+      <li>I<sub>C</sub> and V<sub>CE</sub> are the <strong>output</strong> current and voltage respectively.</li>
+      <li>Check for correct wiring connections before proceeding.</li>
+    </ul>
+
+    <h3 className="font-bold text-blue-600 mt-4">Input Characteristics (V<sub>BE</sub> vs I<sub>B</sub>):</h3>
+    <ul className="list-disc ml-6">
+      <li>Set V<sub>CE</sub> to a constant value (1V, 2V, 3V, or 4V — change using the button to give digital values).</li>
+      <li>Vary V<sub>BE</sub> in steps: 0, 0.1, 0.3, 0.5, 0.7, 0.8, 0.9, 1V.</li>
+      <li>Note down the corresponding I<sub>B</sub> (in µA) for each value of V<sub>BE</sub>.</li>
+      <li>Each time, display the value in the <strong>'display' box</strong>.</li>
+      <li>Change V<sub>CE</sub> to a different constant value and repeat — noting down V<sub>BE</sub> and I<sub>B</sub> accordingly.</li>
+      <li>Tabulate the readings each time for every change in V<sub>CE</sub>.</li>
+    </ul>
+
+    <h3 className="font-bold text-blue-600 mt-4">Observation Table (Input Characteristics):</h3>
+    <div className="overflow-x-auto">
+      <table className="min-w-full text-sm text-left border border-gray-400 border-collapse">
+        <thead className="bg-gray-100 text-gray-700">
+          <tr>
+            <th className="px-4 py-2 border border-gray-400" colSpan={2}>V<sub>CE</sub> = 1V</th>
+            <th className="px-4 py-2 border border-gray-400" colSpan={2}>V<sub>CE</sub> = 2V</th>
+            <th className="px-4 py-2 border border-gray-400" colSpan={2}>V<sub>CE</sub> = 3V</th>
+            <th className="px-4 py-2 border border-gray-400" colSpan={2}>V<sub>CE</sub> = 4V</th>
+          </tr>
+          <tr>
+            <th className="px-4 py-2 border border-gray-400">V<sub>BE</sub> (V)</th>
+            <th className="px-4 py-2 border border-gray-400">I<sub>B</sub> (µA)</th>
+            <th className="px-4 py-2 border border-gray-400">V<sub>BE</sub> (V)</th>
+            <th className="px-4 py-2 border border-gray-400">I<sub>B</sub> (µA)</th>
+            <th className="px-4 py-2 border border-gray-400">V<sub>BE</sub> (V)</th>
+            <th className="px-4 py-2 border border-gray-400">I<sub>B</sub> (µA)</th>
+            <th className="px-4 py-2 border border-gray-400">V<sub>BE</sub> (V)</th>
+            <th className="px-4 py-2 border border-gray-400">I<sub>B</sub> (µA)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {[0, 0.1, 0.3, 0.5, 0.7, 0.8, 0.9, 1].map((val) => (
+            <tr key={val} className="hover:bg-gray-100 transition-colors">
+              <td className="px-4 py-2 border border-gray-400">{val}</td>
+              <td className="px-4 py-2 border border-gray-400"></td>
+              <td className="px-4 py-2 border border-gray-400">{val}</td>
+              <td className="px-4 py-2 border border-gray-400"></td>
+              <td className="px-4 py-2 border border-gray-400">{val}</td>
+              <td className="px-4 py-2 border border-gray-400"></td>
+              <td className="px-4 py-2 border border-gray-400">{val}</td>
+              <td className="px-4 py-2 border border-gray-400"></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3 className="font-bold text-blue-600 mt-4">Output Characteristics (V<sub>CE</sub> vs I<sub>C</sub>):</h3>
+    <ul className="list-disc ml-6">
+      <li>Set the base current I<sub>B</sub> to a constant value (in µA) using the microammeter.</li>
+      <li>Vary V<sub>CE</sub> gradually using the collector supply (V<sub>CC</sub>: 0–15V).</li>
+      <li>Note the corresponding collector current I<sub>C</sub> (in mA) for each V<sub>CE</sub> value.</li>
+      <li>Each time, display the value in the <strong>'display' box</strong>.</li>
+      <li>Change I<sub>B</sub> to a different constant value and repeat the above steps.</li>
+      <li>Tabulate the readings each time for every change in I<sub>B</sub>.</li>
+    </ul>
+
+    <h3 className="font-bold text-blue-600 mt-4">Observation Table (Output Characteristics):</h3>
+    <div className="overflow-x-auto">
+      <table className="min-w-full text-sm text-left border border-gray-400 border-collapse">
+        <thead className="bg-gray-100 text-gray-700">
+          <tr>
+            <th className="px-4 py-2 border border-gray-400" colSpan={2}>I<sub>B</sub> = 20µA</th>
+            <th className="px-4 py-2 border border-gray-400" colSpan={2}>I<sub>B</sub> = 40µA</th>
+            <th className="px-4 py-2 border border-gray-400" colSpan={2}>I<sub>B</sub> = 60µA</th>
+            <th className="px-4 py-2 border border-gray-400" colSpan={2}>I<sub>B</sub> = 80µA</th>
+          </tr>
+          <tr>
+            <th className="px-4 py-2 border border-gray-400">V<sub>CE</sub> (V)</th>
+            <th className="px-4 py-2 border border-gray-400">I<sub>C</sub> (mA)</th>
+            <th className="px-4 py-2 border border-gray-400">V<sub>CE</sub> (V)</th>
+            <th className="px-4 py-2 border border-gray-400">I<sub>C</sub> (mA)</th>
+            <th className="px-4 py-2 border border-gray-400">V<sub>CE</sub> (V)</th>
+            <th className="px-4 py-2 border border-gray-400">I<sub>C</sub> (mA)</th>
+            <th className="px-4 py-2 border border-gray-400">V<sub>CE</sub> (V)</th>
+            <th className="px-4 py-2 border border-gray-400">I<sub>C</sub> (mA)</th>
+          </tr>
+        </thead>
+        <tbody>
+          {[0, 1, 2, 3, 4, 5, 6, 7, 8].map((val) => (
+            <tr key={val} className="hover:bg-gray-100 transition-colors">
+              <td className="px-4 py-2 border border-gray-400">{val}</td>
+              <td className="px-4 py-2 border border-gray-400"></td>
+              <td className="px-4 py-2 border border-gray-400">{val}</td>
+              <td className="px-4 py-2 border border-gray-400"></td>
+              <td className="px-4 py-2 border border-gray-400">{val}</td>
+              <td className="px-4 py-2 border border-gray-400"></td>
+              <td className="px-4 py-2 border border-gray-400">{val}</td>
+              <td className="px-4 py-2 border border-gray-400"></td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <h3 className="font-bold text-blue-600 mt-4">Graph:</h3>
+    <ul className="list-disc ml-6">
+      <li><strong>Input characteristics:</strong> Plot I<sub>B</sub> (µA) on Y-axis vs V<sub>BE</sub> (V) on X-axis for each constant V<sub>CE</sub> value (V<sub>CE1</sub> &lt; V<sub>CE2</sub> &lt; V<sub>CE3</sub> &lt; V<sub>CE4</sub>).</li>
+      <li><strong>Output characteristics:</strong> Plot I<sub>C</sub> (mA) on Y-axis vs V<sub>CE</sub> (V) on X-axis for each constant I<sub>B</sub> value.</li>
     </ul>
 
     <h3 className="font-bold text-blue-600 mt-4">Circuit Diagram:</h3>
