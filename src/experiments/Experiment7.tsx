@@ -55,7 +55,7 @@ const TheoryContent = () => (
     </p>
 
     <h3 className="font-bold text-blue-600 mt-4">Components Required:</h3>
-    <table className="table-auto border border-collapse border-gray-400">
+    <table className="min-w-full text-sm text-left border border-gray-400 border-collapse">
       <thead>
         <tr>
           <th className="border px-4 py-2">S.No.</th>
@@ -93,7 +93,7 @@ const TheoryContent = () => (
     </table>
 
     <h3 className="font-bold text-blue-600 mt-4">Apparatus Required:</h3>
-    <table className="table-auto border border-collapse border-gray-400">
+    <table className="min-w-full text-sm text-left border border-gray-400 border-collapse">
       <thead>
         <tr>
           <th className="border px-4 py-2">S.No.</th>
