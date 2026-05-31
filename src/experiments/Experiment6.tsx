@@ -221,8 +221,13 @@ const ProcedureContent = () => (
 );
 
 const SimulationContent = () => (
-  <div>
-    <p>hello</p> 
+  <div className="prose max-w-none">
+    <h2 className="font-bold text-blue-600">Interactive Simulation</h2>
+    <p>
+      Build the full-wave bridge rectifier by drag and drop, or use auto-build to assemble it instantly.
+      Once the core circuit is valid, run the guided step simulation to observe diode conduction and waveform
+      evolution from AC input to DC output.
+    </p>
     <FullBridgeRectifier />
   </div>
 );

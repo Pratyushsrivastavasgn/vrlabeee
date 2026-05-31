@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import ExperimentLayout from './layout/ExperimentLayout';
 import HybridParameterSimulation from './simulations/Experiment7/HybridParameterSimulation';
 
@@ -187,8 +187,17 @@ const ProcedureContent = () => (
 );
 
 const SimulationContent = () => (
-  <div className="prose max-w-none">
-    < HybridParameterSimulation />
+  <div className="space-y-4">
+    <div className="prose max-w-none">
+      <h2 className="font-bold text-blue-600">Interactive Simulation</h2>
+      <p>
+        This simulation now shows the exact common-emitter amplifier circuit from your reference image,
+        including the bias network, coupling capacitors, bypass capacitor, and the input/output waveforms.
+      </p>
+    </div>
+    <div className="not-prose">
+      <HybridParameterSimulation />
+    </div>
   </div>
 );
 
