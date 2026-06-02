@@ -364,7 +364,6 @@ const QuizContent = () => {
 
   return (
     <div className="prose max-w-none">
-      <h2 className="text-2xl font-bold mb-4">Quiz</h2>
       {questions.map((q, qIndex) => (
         <div key={qIndex} className="mb-6">
           <p className="font-semibold">{qIndex + 1}. {q.question}</p>
