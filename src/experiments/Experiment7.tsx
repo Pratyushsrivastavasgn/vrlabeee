@@ -233,57 +233,117 @@ const SimulationContent = () => (
   </div>
 );
 
-const questions = [
-  {
-    question: 'What is the main purpose of determining hybrid parameters in a CE amplifier?',
-    options: [
-      'To calculate input resistance only',
-      'To measure current gain only',
-      'To understand the transistor’s behavior in small signal models',
-      'To operate transistor in cutoff region'
-    ],
-    answer: 2
-  },
-  {
-    question: 'In the input characteristics of a CE amplifier, which quantity is kept constant?',
-    options: ['I_B', 'V_BE', 'V_CE', 'I_C'],
-    answer: 2
-  },
-  {
-    question: 'Which parameter is determined from the slope of the input characteristic curve?',
-    options: ['h_oe', 'h_fe', 'h_ie', 'h_re'],
-    answer: 2
-  },
-  {
-    question: 'What is the configuration of the transistor used in this experiment?',
-    options: ['Common Base', 'Common Emitter', 'Common Collector', 'Darlington Pair'],
-    answer: 1
-  },
-  {
-    question: 'Which instrument is used to measure base current (I_B) in microamperes?',
-    options: ['Voltmeter', 'Ammeter', 'Microammeter', 'Multimeter'],
-    answer: 2
-  },
-  {
-    question: 'What is the role of the emitter in a BJT?',
-    options: [
-      'Collects charge carriers',
-      'Controls base current',
-      'Supplies majority carriers',
-      'Blocks current flow'
-    ],
-    answer: 2
-  },
-  {
-    question: 'Which region is the transistor biased in for this experiment?',
-    options: ['Cut-off', 'Saturation', 'Active', 'Breakdown'],
-    answer: 2
-  }
-];
-
 const QuizContent = () => {
-  const [selectedAnswers, setSelectedAnswers] = useState<(number | null)[]>(Array(questions.length).fill(null));
-  const [submitted, setSubmitted] = useState<boolean>(false);
+  const questions = [
+    // ── EASY (4 questions) ──────────────────────────────────────────
+    {
+      question: 'In a Common Emitter configuration, which terminal is common to both input and output circuits?',
+      options: [
+        'Base',
+        'Collector',
+        'Emitter',
+        'All three terminals'
+      ],
+      answer: 2
+    },
+    {
+      question: 'In the CE input characteristics, V_CE is kept constant while V_BE is varied. What is plotted on the Y-axis?',
+      options: [
+        'V_CE',
+        'I_C',
+        'I_B',
+        'V_BE'
+      ],
+      answer: 2
+    },
+    {
+      question: 'Which biasing condition is required for a BJT to operate in the Active Region?',
+      options: [
+        'Both E-B and C-B junctions forward biased',
+        'E-B junction forward biased and C-B junction reverse biased',
+        'Both E-B and C-B junctions reverse biased',
+        'E-B junction reverse biased and C-B junction forward biased'
+      ],
+      answer: 1
+    },
+    {
+      question: 'What is the unit of the hybrid parameter h_oe?',
+      options: [
+        'Ohms (Ω)',
+        'Amperes (A)',
+        'Siemens (S) or mhos',
+        'Volts (V)'
+      ],
+      answer: 2
+    },
+
+    // ── MEDIUM (3 questions) ────────────────────────────────────────
+    {
+      question: 'From the input characteristics of a CE amplifier, h_ie is calculated as ΔV_BE / ΔI_B at constant V_CE. What does h_ie physically represent?',
+      options: [
+        'Output conductance of the transistor',
+        'Reverse voltage feedback ratio',
+        'Input impedance of the transistor in CE configuration',
+        'Forward current gain of the transistor'
+      ],
+      answer: 2
+    },
+    {
+      question: 'In the output characteristics of a CE amplifier, the region where I_C remains nearly constant despite increase in V_CE is called:',
+      options: [
+        'Saturation region',
+        'Cut-off region',
+        'Breakdown region',
+        'Active region'
+      ],
+      answer: 3
+    },
+    {
+      question: 'In this experiment, R_B = 100kΩ is connected in series with the base circuit. What is the primary purpose of this resistor?',
+      options: [
+        'To amplify the base current',
+        'To limit the base current and protect the transistor',
+        'To increase the collector voltage',
+        'To filter noise from the input signal'
+      ],
+      answer: 1
+    },
+
+    // ── HARD (3 questions) ──────────────────────────────────────────
+    {
+      question: 'If from the input characteristics, ΔV_BE = 0.05V and ΔI_B = 25µA at constant V_CE, what is the value of h_ie?',
+      options: [
+        '500 Ω',
+        '2000 Ω',
+        '0.0005 Ω',
+        '1250 Ω'
+      ],
+      answer: 0
+    },
+    {
+      question: 'The parameter h_re = ΔV_BE / ΔV_CE at constant I_B. In practical CE amplifiers, h_re is very small (≈ 10⁻⁴). What does this imply?',
+      options: [
+        'The output voltage has a large effect on the input voltage',
+        'The transistor has very high current gain',
+        'The feedback from output to input is negligible, making the CE stage nearly unilateral',
+        'The input impedance is very low'
+      ],
+      answer: 2
+    },
+    {
+      question: 'From the output characteristics, if ΔI_C = 2mA for ΔV_CE = 10V at constant I_B, and ΔI_C = 1mA for ΔI_B = 10µA at constant V_CE, what are h_oe and h_fe respectively?',
+      options: [
+        'h_oe = 0.2 mS, h_fe = 100',
+        'h_oe = 2 mS, h_fe = 10',
+        'h_oe = 0.2 mS, h_fe = 10',
+        'h_oe = 2 mS, h_fe = 100'
+      ],
+      answer: 0
+    }
+  ];
+
+  const [selectedAnswers, setSelectedAnswers] = useState(Array(questions.length).fill(null));
+  const [submitted, setSubmitted] = useState(false);
 
   const handleOptionChange = (qIndex: number, oIndex: number) => {
     if (!submitted) {
@@ -297,7 +357,6 @@ const QuizContent = () => {
     if (!submitted) return '';
     const isCorrect = oIndex === questions[qIndex].answer;
     const isSelected = selectedAnswers[qIndex] === oIndex;
-
     if (isCorrect) return 'bg-green-200';
     if (isSelected && !isCorrect) return 'bg-red-200';
     return '';
@@ -309,7 +368,7 @@ const QuizContent = () => {
       {questions.map((q, qIndex) => (
         <div key={qIndex} className="mb-6">
           <p className="font-semibold">{qIndex + 1}. {q.question}</p>
-          {q.options.map((option: string, oIndex: number) => (
+          {q.options.map((option, oIndex) => (
             <label
               key={oIndex}
               className={`block p-2 border rounded mb-1 cursor-pointer ${getOptionStyle(qIndex, oIndex)}`}
