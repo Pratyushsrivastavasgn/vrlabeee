@@ -21,22 +21,41 @@ const TheoryContent = () => (
   <div className="prose max-w-none">
     <h2 className="font-bold text-blue-600">Theory</h2>
     <p>
-      The aim of this experiment is to determine the hybrid parameters of a Common Emitter (CE) amplifier using its input and output characteristics. 
-      A Bipolar Junction Transistor (BJT) is used for this purpose. It is a three-terminal device with emitter, base, and collector regions.
+      The Common Emitter (CE) configuration is one of the most widely used transistor configurations in amplifier circuits because it provides both current gain and voltage gain. In this experiment, the hybrid (h) parameters of a Bipolar Junction Transistor (BJT) operating in Common Emitter mode are determined from its input and output characteristics.
     </p>
-
+    <br />
+    <p>A Bipolar Junction Transistor (BJT) is a three-terminal semiconductor device consisting of:
+    <h3><strong>Emitter(E)</strong></h3>
     <ul className="list-disc ml-6">
-      <li><strong>Emitter:</strong> Heavily doped and moderate in area. It supplies majority charge carriers.</li>
-      <li><strong>Base:</strong> Very thin and lightly doped. It controls the number of carriers flowing through the transistor.</li>
-      <li><strong>Collector:</strong> Moderately doped and large in area. It collects carriers from the emitter via base.</li>
+      <li>Heavily doped region.</li>
+      <li>Supplies a large number of charge carriers.</li>
+      <li>Responsible for injecting carriers into the base region.</li>
     </ul>
-
+    <h3><strong>Base(B)</strong></h3>
+    <ul className="list-disc ml-6">
+      <li>Very thin and lightly doped.</li>
+      <li>Controls the flow of charge carriers between emitter and collector.</li>
+      <li>Acts as the control terminal of the transistor.</li>
+    </ul>
+    <h3><strong>Collector(C)</strong></h3>
+    <ul className="list-disc ml-6">
+      <li>Moderately doped and large in area.</li>
+      <li>Collects carriers from the emitter via the base.</li>
+      <li>Designed to dissipate more heat due to higher power handling capability.</li>
+    </ul>
+    </p>
+    <br />
     <p>
-      In the active region of operation, the emitter-base junction is forward biased, while the collector-base junction is reverse biased.
+      For proper amplification, the transistor must operate in the Active Region, where:
+    <ul>
+      <li>The Emitter-Base (E-B) junction is forward biased.</li>
+      <li>The Collector-Base (C-B) junction is reverse biased.</li>
+    </ul>
+    Under these conditions, small variations in base current produce significant variations in collector current, enabling amplification.
     </p>
 
     <h3 className="font-bold text-blue-600 mt-4">Components Required:</h3>
-    <table className="table-auto border border-collapse border-gray-400">
+    <table className="min-w-full text-sm text-left border border-gray-400 border-collapse">
       <thead>
         <tr>
           <th className="border px-4 py-2">S.No.</th>
@@ -61,7 +80,7 @@ const TheoryContent = () => (
         <tr>
           <td className="border px-4 py-2">3</td>
           <td className="border px-4 py-2">Breadboard</td>
-          <td className="border px-4 py-2">–</td>
+          <td className="border px-4 py-2">Standard</td>
           <td className="border px-4 py-2">1</td>
         </tr>
         <tr>
@@ -74,7 +93,7 @@ const TheoryContent = () => (
     </table>
 
     <h3 className="font-bold text-blue-600 mt-4">Apparatus Required:</h3>
-    <table className="table-auto border border-collapse border-gray-400">
+    <table className="min-w-full text-sm text-left border border-gray-400 border-collapse">
       <thead>
         <tr>
           <th className="border px-4 py-2">S.No.</th>
@@ -86,7 +105,7 @@ const TheoryContent = () => (
       <tbody>
         <tr>
           <td className="border px-4 py-2">1</td>
-          <td className="border px-4 py-2">R.P.S</td>
+          <td className="border px-4 py-2">Regulated Power Supply (R.P.S.)</td>
           <td className="border px-4 py-2">(0–30)V</td>
           <td className="border px-4 py-2">2</td>
         </tr>
@@ -129,45 +148,67 @@ const TheoryContent = () => (
 
 const ProcedureContent = () => (
   <div className="prose max-w-none">
-    <h2 className="font-bold text-blue-600">Procedure</h2>
 
-    <h3 className="font-bold text-blue-600 mt-4">Input Characteristics:</h3>
+    <h3 className="font-bold text-blue-600 mt-4">Components & Supply Values:</h3>
     <ul className="list-disc ml-6">
-      <li>Connect the circuit according to the input characteristics diagram.</li>
-      <li>Set the collector-emitter voltage (V<sub>CE</sub>) to a constant value using the DC power supply.</li>
-      <li>Vary the base-emitter voltage (V<sub>BE</sub>) in small regular steps.</li>
-      <li>Note the corresponding base current (I<sub>B</sub>) for each V<sub>BE</sub> value.</li>
-      <li>Repeat the above steps for multiple values of V<sub>CE</sub>.</li>
-      <li>Plot a graph of V<sub>BE</sub> vs I<sub>B</sub> for each constant V<sub>CE</sub>.</li>
-    </ul>
-
-    <h3 className="font-bold text-blue-600 mt-4">Output Characteristics:</h3>
-    <ul className="list-disc ml-6">
-      <li>Connect the circuit as per the output characteristics configuration.</li>
-      <li>Set the base current (I<sub>B</sub>) to a constant value using the microammeter.</li>
-      <li>Gradually vary the collector-emitter voltage (V<sub>CE</sub>) using the power supply.</li>
-      <li>Note the corresponding collector current (I<sub>C</sub>) for each V<sub>CE</sub> value.</li>
-      <li>Repeat the procedure for different base current values.</li>
-      <li>Plot a graph of V<sub>CE</sub> vs I<sub>C</sub> for each constant I<sub>B</sub>.</li>
+      <li>Base resistor R<sub>B</sub> = 100 kΩ</li>
+      <li>Collector resistor R<sub>C</sub> = 1.0 kΩ</li>
+      <li>Base supply voltage V<sub>BB</sub>: 0 to 30V</li>
+      <li>Collector supply voltage V<sub>CC</sub>: 0 to 30V</li>
+      <li>Base current I<sub>B</sub> is measured in µA (range: 0–200 µA)</li>
+      <li>Collector current I<sub>C</sub> is measured in mA (range: 0–200 mA)</li>
+      <li>V<sub>BE</sub> voltmeter range: 0–20V</li>
+      <li>V<sub>CE</sub> voltmeter range: 0–20V</li>
     </ul>
 
     <h3 className="font-bold text-blue-600 mt-4">Circuit Diagram:</h3>
     <div className="mt-2">
       <img
-        src="https://www.poriyaan.in/media/imgPori/images21/tPfpa37.png"
-        alt="Circuit Diagram"
-        className="w-[20%] h-[20%] border border-gray-300 p-2"
+        src="/assets/images/exp7-circuit.jpeg"
+        alt="CE Amplifier Circuit Diagram"
+        className="w-[70%] h-auto border border-gray-300 p-2"
       />
     </div>
 
-    <h3 className="font-bold text-blue-600 mt-4">Pin Diagram:</h3>
-    <div className="text-left mt-2">
-      <img
-        src="https://i.postimg.cc/4nVsTcgv/imag-1.jpg"
-        alt="Pin Diagram"
-        className="max-w-full h-auto border border-gray-300 p-2"
-      />
-    </div>
+    <h3 className="font-bold text-blue-600 mt-4">Circuit Setup:</h3>
+    <ul className="list-disc ml-6">
+      <li>Drag and drop all components — Transistor (BC107), R<sub>B</sub> (100kΩ), R<sub>C</sub> (1kΩ), Ammeters, and Voltmeters — onto the breadboard as per the circuit diagram.</li>
+      <li>Connect the base resistor R<sub>B</sub> (100kΩ) in series with the base circuit between V<sub>BB</sub> and the base terminal (B) of the transistor.</li>
+      <li>Connect the microammeter (0–200µA) in series in the base circuit to measure I<sub>B</sub>.</li>
+      <li>Connect the collector resistor R<sub>C</sub> (1kΩ) between V<sub>CC</sub> and the collector terminal (C) of the transistor.</li>
+      <li>Connect the ammeter (0–200mA) in series in the collector circuit to measure I<sub>C</sub>.</li>
+      <li>Connect the emitter terminal (E) directly to ground.</li>
+      <li>Connect voltmeter (0–20V) across base and emitter terminals to measure V<sub>BE</sub>.</li>
+      <li>Connect voltmeter (0–20V) across collector and emitter terminals to measure V<sub>CE</sub>.</li>
+      <li>Connect V<sub>BB</sub> (0–30V) to the base circuit and V<sub>CC</sub> (0–30V) to the collector circuit with correct polarity.</li>
+      <li>I<sub>B</sub> and V<sub>BE</sub> are the <strong>input</strong> current and voltage respectively.</li>
+      <li>I<sub>C</sub> and V<sub>CE</sub> are the <strong>output</strong> current and voltage respectively.</li>
+      <li>Check all connections carefully before turning on the power supply.</li>
+    </ul>
+
+    <h3 className="font-bold text-blue-600 mt-4">Input Characteristics (V<sub>BE</sub> vs I<sub>B</sub>):</h3>
+    <ul className="list-disc ml-6">
+      <li>Set V<sub>CE</sub> to a constant value using the button to give digital values. Use the following set of values: <strong>1V, 2V, 3V, 4V</strong>.</li>
+      <li>For each constant V<sub>CE</sub>, vary V<sub>BE</sub> through the following steps: <strong>0, 0.1, 0.3, 0.5, 0.7, 0.8, 0.9, 1V</strong>.</li>
+      <li>Note down the corresponding I<sub>B</sub> (in µA) for each value of V<sub>BE</sub>.</li>
+      <li>Each time, display the value in the <strong>'display' box</strong>.</li>
+      <li>Repeat for all four V<sub>CE</sub> values and tabulate the readings.</li>
+    </ul>
+
+    <h3 className="font-bold text-blue-600 mt-4">Output Characteristics (V<sub>CE</sub> vs I<sub>C</sub>):</h3>
+    <ul className="list-disc ml-6">
+      <li>Set I<sub>B</sub> to a constant value using the microammeter. Use the following set of values: <strong>20µA, 40µA, 60µA, 80µA</strong>.</li>
+      <li>For each constant I<sub>B</sub>, vary V<sub>CE</sub> through the following steps: <strong>0, 1, 2, 3, 4, 5, 6, 7, 8V</strong>.</li>
+      <li>Note the corresponding I<sub>C</sub> (in mA) for each V<sub>CE</sub> value.</li>
+      <li>Each time, display the value in the <strong>'display' box</strong>.</li>
+      <li>Repeat for all four I<sub>B</sub> values and tabulate the readings.</li>
+    </ul>
+
+    <h3 className="font-bold text-blue-600 mt-4">Graph:</h3>
+    <ul className="list-disc ml-6">
+      <li><strong>Input characteristics:</strong> Plot I<sub>B</sub> (µA) on Y-axis vs V<sub>BE</sub> (V) on X-axis for each constant V<sub>CE</sub> value (V<sub>CE1</sub> &lt; V<sub>CE2</sub> &lt; V<sub>CE3</sub> &lt; V<sub>CE4</sub>).</li>
+      <li><strong>Output characteristics:</strong> Plot I<sub>C</sub> (mA) on Y-axis vs V<sub>CE</sub> (V) on X-axis for each constant I<sub>B</sub> value.</li>
+    </ul>
 
     <h3 className="font-bold text-blue-600 mt-4">Precautions:</h3>
     <ul className="list-disc ml-6">
@@ -201,57 +242,117 @@ const SimulationContent = () => (
   </div>
 );
 
-const questions = [
-  {
-    question: 'What is the main purpose of determining hybrid parameters in a CE amplifier?',
-    options: [
-      'To calculate input resistance only',
-      'To measure current gain only',
-      'To understand the transistor’s behavior in small signal models',
-      'To operate transistor in cutoff region'
-    ],
-    answer: 2
-  },
-  {
-    question: 'In the input characteristics of a CE amplifier, which quantity is kept constant?',
-    options: ['I_B', 'V_BE', 'V_CE', 'I_C'],
-    answer: 2
-  },
-  {
-    question: 'Which parameter is determined from the slope of the input characteristic curve?',
-    options: ['h_oe', 'h_fe', 'h_ie', 'h_re'],
-    answer: 2
-  },
-  {
-    question: 'What is the configuration of the transistor used in this experiment?',
-    options: ['Common Base', 'Common Emitter', 'Common Collector', 'Darlington Pair'],
-    answer: 1
-  },
-  {
-    question: 'Which instrument is used to measure base current (I_B) in microamperes?',
-    options: ['Voltmeter', 'Ammeter', 'Microammeter', 'Multimeter'],
-    answer: 2
-  },
-  {
-    question: 'What is the role of the emitter in a BJT?',
-    options: [
-      'Collects charge carriers',
-      'Controls base current',
-      'Supplies majority carriers',
-      'Blocks current flow'
-    ],
-    answer: 2
-  },
-  {
-    question: 'Which region is the transistor biased in for this experiment?',
-    options: ['Cut-off', 'Saturation', 'Active', 'Breakdown'],
-    answer: 2
-  }
-];
-
 const QuizContent = () => {
-  const [selectedAnswers, setSelectedAnswers] = useState<(number | null)[]>(Array(questions.length).fill(null));
-  const [submitted, setSubmitted] = useState<boolean>(false);
+  const questions = [
+    // ── EASY (4 questions) ──────────────────────────────────────────
+    {
+      question: 'In a Common Emitter configuration, which terminal is common to both input and output circuits?',
+      options: [
+        'Base',
+        'Collector',
+        'Emitter',
+        'All three terminals'
+      ],
+      answer: 2
+    },
+    {
+      question: 'In the CE input characteristics, V_CE is kept constant while V_BE is varied. What is plotted on the Y-axis?',
+      options: [
+        'V_CE',
+        'I_C',
+        'I_B',
+        'V_BE'
+      ],
+      answer: 2
+    },
+    {
+      question: 'Which biasing condition is required for a BJT to operate in the Active Region?',
+      options: [
+        'Both E-B and C-B junctions forward biased',
+        'E-B junction forward biased and C-B junction reverse biased',
+        'Both E-B and C-B junctions reverse biased',
+        'E-B junction reverse biased and C-B junction forward biased'
+      ],
+      answer: 1
+    },
+    {
+      question: 'What is the unit of the hybrid parameter h_oe?',
+      options: [
+        'Ohms (Ω)',
+        'Amperes (A)',
+        'Siemens (S) or mhos',
+        'Volts (V)'
+      ],
+      answer: 2
+    },
+
+    // ── MEDIUM (3 questions) ────────────────────────────────────────
+    {
+      question: 'From the input characteristics of a CE amplifier, h_ie is calculated as ΔV_BE / ΔI_B at constant V_CE. What does h_ie physically represent?',
+      options: [
+        'Output conductance of the transistor',
+        'Reverse voltage feedback ratio',
+        'Input impedance of the transistor in CE configuration',
+        'Forward current gain of the transistor'
+      ],
+      answer: 2
+    },
+    {
+      question: 'In the output characteristics of a CE amplifier, the region where I_C remains nearly constant despite increase in V_CE is called:',
+      options: [
+        'Saturation region',
+        'Cut-off region',
+        'Breakdown region',
+        'Active region'
+      ],
+      answer: 3
+    },
+    {
+      question: 'In this experiment, R_B = 100kΩ is connected in series with the base circuit. What is the primary purpose of this resistor?',
+      options: [
+        'To amplify the base current',
+        'To limit the base current and protect the transistor',
+        'To increase the collector voltage',
+        'To filter noise from the input signal'
+      ],
+      answer: 1
+    },
+
+    // ── HARD (3 questions) ──────────────────────────────────────────
+    {
+      question: 'If from the input characteristics, ΔV_BE = 0.05V and ΔI_B = 25µA at constant V_CE, what is the value of h_ie?',
+      options: [
+        '500 Ω',
+        '2000 Ω',
+        '0.0005 Ω',
+        '1250 Ω'
+      ],
+      answer: 0
+    },
+    {
+      question: 'The parameter h_re = ΔV_BE / ΔV_CE at constant I_B. In practical CE amplifiers, h_re is very small (≈ 10⁻⁴). What does this imply?',
+      options: [
+        'The output voltage has a large effect on the input voltage',
+        'The transistor has very high current gain',
+        'The feedback from output to input is negligible, making the CE stage nearly unilateral',
+        'The input impedance is very low'
+      ],
+      answer: 2
+    },
+    {
+      question: 'From the output characteristics, if ΔI_C = 2mA for ΔV_CE = 10V at constant I_B, and ΔI_C = 1mA for ΔI_B = 10µA at constant V_CE, what are h_oe and h_fe respectively?',
+      options: [
+        'h_oe = 0.2 mS, h_fe = 100',
+        'h_oe = 2 mS, h_fe = 10',
+        'h_oe = 0.2 mS, h_fe = 10',
+        'h_oe = 2 mS, h_fe = 100'
+      ],
+      answer: 0
+    }
+  ];
+
+  const [selectedAnswers, setSelectedAnswers] = useState(Array(questions.length).fill(null));
+  const [submitted, setSubmitted] = useState(false);
 
   const handleOptionChange = (qIndex: number, oIndex: number) => {
     if (!submitted) {
@@ -265,7 +366,6 @@ const QuizContent = () => {
     if (!submitted) return '';
     const isCorrect = oIndex === questions[qIndex].answer;
     const isSelected = selectedAnswers[qIndex] === oIndex;
-
     if (isCorrect) return 'bg-green-200';
     if (isSelected && !isCorrect) return 'bg-red-200';
     return '';
@@ -273,11 +373,10 @@ const QuizContent = () => {
 
   return (
     <div className="prose max-w-none">
-      <h2 className="text-2xl font-bold mb-4">Quiz</h2>
       {questions.map((q, qIndex) => (
         <div key={qIndex} className="mb-6">
           <p className="font-semibold">{qIndex + 1}. {q.question}</p>
-          {q.options.map((option: string, oIndex: number) => (
+          {q.options.map((option, oIndex) => (
             <label
               key={oIndex}
               className={`block p-2 border rounded mb-1 cursor-pointer ${getOptionStyle(qIndex, oIndex)}`}
