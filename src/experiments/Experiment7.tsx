@@ -6,7 +6,7 @@ const Experiment7 = () => {
   return (
     <ExperimentLayout
       title="Experiment 7"
-      description="To determine the hybrid parameters of a Common Emitter (CE) amplifier using input and output characteristics."
+      description="Determination of Hybrid Parameters of a Common Emitter (CE) Transistor Using Input and Output Characteristics"
       experiment={{
         theory: <TheoryContent />,
         procedure: <ProcedureContent />,
