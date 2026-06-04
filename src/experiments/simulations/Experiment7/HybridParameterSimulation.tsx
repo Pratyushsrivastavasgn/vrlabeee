@@ -66,70 +66,70 @@ const palette: PaletteItem[] = [
     label: 'IB',
     description: 'Microammeter',
     tint: '#ede9fe',
-    assetPath: '/assets/images/Experiment7/palette/ib.svg',
+    assetPath: '/assets/images/Experiment7/palette/ib.png',
   },
   {
     key: 'bjt',
     label: 'BJT',
     description: 'BC107 transistor',
     tint: '#dcfce7',
-    assetPath: '/assets/images/Experiment7/palette/bjt.svg',
+    assetPath: '/assets/images/Experiment7/palette/bjt.png',
   },
   {
     key: 'vbe',
     label: 'VBE',
     description: 'Voltmeter',
     tint: '#e0f2fe',
-    assetPath: '/assets/images/Experiment7/palette/vbe.svg',
+    assetPath: '/assets/images/Experiment7/palette/vbe.png',
   },
   {
     key: 'ic',
     label: 'IC',
     description: 'Ammeter',
     tint: '#ede9fe',
-    assetPath: '/assets/images/Experiment7/palette/ic.svg',
+    assetPath: '/assets/images/Experiment7/palette/ic.png',
   },
   {
     key: 'rc',
     label: 'RC',
     description: '1kΩ resistor',
     tint: '#fef3c7',
-    assetPath: '/assets/images/Experiment7/palette/rc.svg',
+    assetPath: '/assets/images/Experiment7/palette/rc.png',
   },
   {
     key: 'vcc',
     label: 'VCC',
     description: 'Collector supply',
     tint: '#dbeafe',
-    assetPath: '/assets/images/Experiment7/palette/vcc.svg',
+    assetPath: '/assets/images/Experiment7/palette/vcc.png',
   },
   {
     key: 'vce',
     label: 'VCE',
     description: 'Voltmeter',
     tint: '#e0f2fe',
-    assetPath: '/assets/images/Experiment7/palette/vce.svg',
+    assetPath: '/assets/images/Experiment7/palette/vce.png',
   },
   {
     key: 'ground',
     label: 'Ground',
     description: 'Reference',
     tint: '#f1f5f9',
-    assetPath: '/assets/images/Experiment7/palette/ground.svg',
+    assetPath: '/assets/images/Experiment7/palette/ground.png',
   },
 ];
 
 const slots: SlotDef[] = [
-  { id: 'vbb', label: 'VBB', accepts: 'vbb', x: 48, y: 126, width: 94, height: 64 },
-  { id: 'rb', label: 'RB', accepts: 'rb', x: 150, y: 140, width: 112, height: 48 },
-  { id: 'ib', label: 'IB', accepts: 'ib', x: 286, y: 140, width: 88, height: 48 },
-  { id: 'bjt', label: 'BC107', accepts: 'bjt', x: 360, y: 86, width: 138, height: 220 },
-  { id: 'vbe', label: 'VBE', accepts: 'vbe', x: 382, y: 280, width: 96, height: 56 },
-  { id: 'ic', label: 'IC', accepts: 'ic', x: 540, y: 108, width: 90, height: 48 },
-  { id: 'rc', label: 'RC', accepts: 'rc', x: 628, y: 108, width: 110, height: 48 },
-  { id: 'vcc', label: 'VCC', accepts: 'vcc', x: 724, y: 92, width: 74, height: 94 },
-  { id: 'vce', label: 'VCE', accepts: 'vce', x: 548, y: 276, width: 96, height: 56 },
-  { id: 'ground', label: 'GND', accepts: 'ground', x: 398, y: 352, width: 82, height: 58 },
+  { id: 'vbb', label: 'VBB', accepts: 'vbb', x: 60, y: 260, width: 80, height: 80 },
+  { id: 'rb', label: 'RB', accepts: 'rb', x: 160, y: 190, width: 80, height: 60 },
+  { id: 'ib', label: 'IB', accepts: 'ib', x: 300, y: 190, width: 80, height: 60 },
+  { id: 'bjt', label: 'BC107', accepts: 'bjt', x: 470, y: 150, width: 100, height: 160 },
+  { id: 'vbe', label: 'VBE', accepts: 'vbe', x: 380, y: 270, width: 80, height: 80 },
+  { id: 'ic', label: 'IC', accepts: 'ic', x: 660, y: 90, width: 80, height: 60 },
+  { id: 'rc', label: 'RC', accepts: 'rc', x: 800, y: 90, width: 80, height: 60 },
+  { id: 'vcc', label: 'VCC', accepts: 'vcc', x: 880, y: 230, width: 80, height: 80 },
+  { id: 'vce', label: 'VCE', accepts: 'vce', x: 560, y: 230, width: 80, height: 80 },
+  { id: 'ground', label: 'GND', accepts: 'ground', x: 480, y: 400, width: 80, height: 50 },
 ];
 
 const initialPlacement = slots.reduce((acc, slot) => {
@@ -219,7 +219,7 @@ const HybridParameterSimulation = () => {
     setSelectedKey(key);
   };
 
-  const handleSlotDrop = (slotId: SlotId) => (event: React.DragEvent<SVGGElement>) => {
+  const handleSlotDrop = (slotId: SlotId) => (event: React.DragEvent<HTMLDivElement>) => {
     event.preventDefault();
     const raw = event.dataTransfer.getData('text/plain');
     const key = (raw || dragKey) as ComponentKey | null;
@@ -257,7 +257,7 @@ const HybridParameterSimulation = () => {
     <div className="space-y-6 rounded-xl bg-gradient-to-br from-slate-50 via-white to-blue-50 p-4 md:p-6">
       <div className="rounded-lg border-l-4 border-blue-500 bg-blue-50 p-3 text-sm text-slate-700">
         <p className="font-semibold">Experiment 7: Common Emitter hybrid-parameter puzzle</p>
-        <p>Drag the exact lab components from the left palette into the matching fixed slots on the SVG circuit board. Results unlock automatically when the placement is correct.</p>
+        <p>Drag the exact lab components from the left palette into the matching fixed slots on the png circuit board. Results unlock automatically when the placement is correct.</p>
       </div>
 
       <div className="grid gap-4 lg:grid-cols-[300px_minmax(0,1fr)] items-start">
@@ -346,48 +346,97 @@ const HybridParameterSimulation = () => {
                 BC107 Common Emitter Hybrid Parameter Setup
               </text>
 
-              <line x1="18" y1="372" x2="962" y2="372" stroke="#ef4444" strokeWidth="2" />
-              <line x1="74" y1="132" x2="74" y2="372" stroke="#ef4444" strokeWidth="2" />
-              <line x1="848" y1="120" x2="848" y2="372" stroke="#ef4444" strokeWidth="2" />
+              {/* Main Wires */}
+              {/* Ground Line */}
+              <line x1="100" y1="400" x2="920" y2="400" stroke="#111827" strokeWidth="2.5" />
+              
+              {/* Left Branch */}
+              <line x1="100" y1="400" x2="100" y2="340" stroke="#111827" strokeWidth="2.5" />
+              <line x1="100" y1="260" x2="100" y2="220" stroke="#111827" strokeWidth="2.5" />
+              
+              {/* Top Left Horizontal */}
+              <line x1="100" y1="220" x2="160" y2="220" stroke="#111827" strokeWidth="2.5" />
+              <line x1="240" y1="220" x2="300" y2="220" stroke="#111827" strokeWidth="2.5" />
+              <line x1="380" y1="220" x2="470" y2="220" stroke="#111827" strokeWidth="2.5" />
+              
+              {/* VBE Branch */}
+              <line x1="420" y1="220" x2="420" y2="270" stroke="#111827" strokeWidth="2.5" />
+              <line x1="420" y1="350" x2="420" y2="400" stroke="#111827" strokeWidth="2.5" />
+              
+              {/* BJT Collector & Emitter Verticals */}
+              <line x1="520" y1="120" x2="520" y2="150" stroke="#111827" strokeWidth="2.5" />
+              <line x1="520" y1="310" x2="520" y2="400" stroke="#111827" strokeWidth="2.5" />
+              
+              {/* Top Right Horizontal */}
+              <line x1="520" y1="120" x2="660" y2="120" stroke="#111827" strokeWidth="2.5" />
+              <line x1="740" y1="120" x2="800" y2="120" stroke="#111827" strokeWidth="2.5" />
+              <line x1="880" y1="120" x2="920" y2="120" stroke="#111827" strokeWidth="2.5" />
+              
+              {/* VCE Branch */}
+              <line x1="600" y1="120" x2="600" y2="230" stroke="#111827" strokeWidth="2.5" />
+              <line x1="600" y1="310" x2="600" y2="400" stroke="#111827" strokeWidth="2.5" />
+              
+              {/* Right Branch */}
+              <line x1="920" y1="120" x2="920" y2="230" stroke="#111827" strokeWidth="2.5" />
+              <line x1="920" y1="310" x2="920" y2="400" stroke="#111827" strokeWidth="2.5" />
 
-              <line x1="74" y1="170" x2="170" y2="170" stroke="#111827" strokeWidth="2" />
-              <line x1="300" y1="170" x2="330" y2="170" stroke="#111827" strokeWidth="2" />
-              <line x1="452" y1="170" x2="500" y2="170" stroke="#111827" strokeWidth="2" />
-              <line x1="604" y1="170" x2="662" y2="170" stroke="#111827" strokeWidth="2" />
-              <line x1="730" y1="142" x2="848" y2="142" stroke="#111827" strokeWidth="2" />
-              <line x1="596" y1="324" x2="596" y2="372" stroke="#111827" strokeWidth="2" />
-              <line x1="456" y1="324" x2="456" y2="372" stroke="#111827" strokeWidth="2" />
+              {/* Junction Dots */}
+              <circle cx="420" cy="220" r="4.5" fill="#111827" />
+              <circle cx="420" cy="400" r="4.5" fill="#111827" />
+              <circle cx="520" cy="400" r="4.5" fill="#111827" />
+              <circle cx="600" cy="120" r="4.5" fill="#111827" />
+              <circle cx="600" cy="400" r="4.5" fill="#111827" />
 
-              <circle cx="436" cy="214" r="58" fill="none" stroke="#111827" strokeWidth="2.5" />
-              <path d="M408 214 L462 214" stroke="#111827" strokeWidth="2.5" />
-              <path d="M436 156 L436 270" stroke="#111827" strokeWidth="2.5" />
-              <path d="M450 184 L462 214 L450 244" fill="none" stroke="#111827" strokeWidth="2.5" />
-              <text x="408" y="150" fontSize="14" fill="#111827">BC107</text>
-              <text x="382" y="220" fontSize="14" fill="#111827">B</text>
-              <text x="468" y="188" fontSize="14" fill="#111827">C</text>
-              <text x="468" y="250" fontSize="14" fill="#111827">E</text>
+              {/* Labels & Polarities */}
+              {/* VBB */}
+              <text x="25" y="300" fontSize="14" fill="#111827" fontWeight="bold">VBB</text>
+              <text x="15" y="315" fontSize="11" fill="#64748b">(0-30V)</text>
+              <text x="80" y="255" fontSize="18" fill="#111827" fontWeight="bold">+</text>
+              <text x="85" y="355" fontSize="18" fill="#111827" fontWeight="bold">-</text>
 
-              <line x1="378" y1="214" x2="382" y2="214" stroke="#111827" strokeWidth="2" />
-              <line x1="494" y1="214" x2="500" y2="214" stroke="#111827" strokeWidth="2" />
-              <line x1="554" y1="142" x2="554" y2="214" stroke="#111827" strokeWidth="2" />
-              <line x1="662" y1="142" x2="662" y2="214" stroke="#111827" strokeWidth="2" />
+              {/* RB */}
+              <text x="200" y="175" fontSize="14" fill="#111827" fontWeight="bold" textAnchor="middle">RB</text>
+              <text x="200" y="190" fontSize="11" fill="#64748b" textAnchor="middle">100KΩ</text>
 
-              <g>
-                <circle cx="74" cy="170" r="9" fill="#d97706" />
-                <circle cx="170" cy="170" r="9" fill="#d97706" />
-                <circle cx="300" cy="170" r="9" fill="#d97706" />
-                <circle cx="330" cy="170" r="9" fill="#d97706" />
-                <circle cx="452" cy="170" r="9" fill="#d97706" />
-                <circle cx="500" cy="170" r="9" fill="#d97706" />
-                <circle cx="604" cy="170" r="9" fill="#d97706" />
-                <circle cx="662" cy="170" r="9" fill="#d97706" />
-                <circle cx="730" cy="142" r="9" fill="#d97706" />
-                <circle cx="848" cy="142" r="9" fill="#d97706" />
-                <circle cx="382" cy="324" r="9" fill="#d97706" />
-                <circle cx="456" cy="324" r="9" fill="#d97706" />
-                <circle cx="596" cy="324" r="9" fill="#d97706" />
-                <circle cx="448" cy="372" r="9" fill="#d97706" />
-              </g>
+              {/* IB */}
+              <text x="340" y="175" fontSize="14" fill="#111827" fontWeight="bold" textAnchor="middle">IB</text>
+              <text x="340" y="190" fontSize="11" fill="#64748b" textAnchor="middle">(0-200)µA</text>
+              <text x="285" y="215" fontSize="16" fill="#111827" fontWeight="bold">+</text>
+              <text x="385" y="215" fontSize="16" fill="#111827" fontWeight="bold">-</text>
+
+              {/* VBE */}
+              <text x="340" y="305" fontSize="14" fill="#111827" fontWeight="bold" textAnchor="middle">VBE</text>
+              <text x="340" y="320" fontSize="11" fill="#64748b" textAnchor="middle">(0-20V)</text>
+              <text x="405" y="265" fontSize="16" fill="#111827" fontWeight="bold">+</text>
+              <text x="405" y="365" fontSize="16" fill="#111827" fontWeight="bold">-</text>
+
+              {/* BJT */}
+              <text x="455" y="215" fontSize="14" fill="#111827" fontWeight="bold">B</text>
+              <text x="530" y="165" fontSize="14" fill="#111827" fontWeight="bold">C</text>
+              <text x="530" y="305" fontSize="14" fill="#111827" fontWeight="bold">E</text>
+              <text x="560" y="210" fontSize="14" fill="#111827" fontWeight="bold">BC 107</text>
+
+              {/* IC */}
+              <text x="700" y="75" fontSize="14" fill="#111827" fontWeight="bold" textAnchor="middle">IC</text>
+              <text x="700" y="90" fontSize="11" fill="#64748b" textAnchor="middle">(0-200mA)</text>
+              <text x="645" y="115" fontSize="16" fill="#111827" fontWeight="bold">+</text>
+              <text x="745" y="115" fontSize="16" fill="#111827" fontWeight="bold">-</text>
+
+              {/* RC */}
+              <text x="840" y="75" fontSize="14" fill="#111827" fontWeight="bold" textAnchor="middle">RC</text>
+              <text x="840" y="90" fontSize="11" fill="#64748b" textAnchor="middle">1.0kΩ</text>
+
+              {/* VCE */}
+              <text x="655" y="265" fontSize="14" fill="#111827" fontWeight="bold" textAnchor="middle">VCE</text>
+              <text x="655" y="280" fontSize="11" fill="#64748b" textAnchor="middle">(0-20V)</text>
+              <text x="585" y="225" fontSize="16" fill="#111827" fontWeight="bold">+</text>
+              <text x="585" y="325" fontSize="16" fill="#111827" fontWeight="bold">-</text>
+
+              {/* VCC */}
+              <text x="965" y="270" fontSize="14" fill="#111827" fontWeight="bold" textAnchor="middle">VCC</text>
+              <text x="965" y="285" fontSize="11" fill="#64748b" textAnchor="middle">(0-30V)</text>
+              <text x="905" y="225" fontSize="16" fill="#111827" fontWeight="bold">+</text>
+              <text x="905" y="325" fontSize="16" fill="#111827" fontWeight="bold">-</text>
             </svg>
 
             <div className="absolute inset-0">
