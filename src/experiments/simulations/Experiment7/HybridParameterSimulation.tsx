@@ -8,6 +8,8 @@ import {
   Tooltip,
   XAxis,
   YAxis,
+  ScatterChart,
+  Scatter
 } from 'recharts';
 
 type ComponentKey = 'vbb' | 'rb' | 'ib' | 'bjt' | 'vbe' | 'ic' | 'rc' | 'vcc' | 'vce' | 'ground';
@@ -196,18 +198,68 @@ const HybridParameterSimulation = () => {
   const [placed, setPlaced] = useState<Record<SlotId, ComponentKey | null>>(initialPlacement);
   const [dragKey, setDragKey] = useState<ComponentKey | null>(null);
   const [selectedKey, setSelectedKey] = useState<ComponentKey | null>(null);
-  const [vbeSlider, setVbeSlider] = useState<number>(0.71);
-  const [ibSlider, setIbSlider] = useState<number>(18.2);
-  const [currentMeasurement, setCurrentMeasurement] = useState(defaultMeasurementDisplay);
-
-  // Update measurement whenever sliders change
-  React.useEffect(() => {
-    const vce = Math.max(0.2, 10 - (ibSlider / 100) * 2);
-    const ic = (ibSlider / 100) * 3.5;
-    setCurrentMeasurement({ vbe: vbeSlider, ib: ibSlider, vce, ic });
-  }, [vbeSlider, ibSlider]);
+  
+  const [vbb, setVbb] = useState<number>(0);
+  const [vcc, setVcc] = useState<number>(0);
+  const [recordedData, setRecordedData] = useState<MeasurementRow[]>([]);
 
   const isCorrect = useMemo(() => slots.every((slot) => placed[slot.id] === slot.accepts), [placed]);
+
+  const currentMeasurement = useMemo(() => {
+    let vbe = 0;
+    let ib_uA = 0;
+    if (vbb > 0.6) {
+      vbe = 0.6 + 0.05 * Math.log(vbb - 0.5);
+      if (vbe > vbb) vbe = vbb;
+      ib_uA = ((vbb - vbe) / 100000) * 1000000;
+    } else {
+      vbe = vbb;
+    }
+
+    const beta = 100;
+    const VA = 100;
+    
+    let ic_mA = (beta * ib_uA) / 1000;
+    let vce = vcc - ic_mA * 1.0;
+
+    if (vce < 0.2) {
+      vce = Math.min(0.2, vcc);
+      ic_mA = vcc > 0.2 ? (vcc - 0.2) / 1.0 : 0;
+    } else {
+      ic_mA = ic_mA * (1 + vce / VA);
+      vce = vcc - ic_mA * 1.0;
+      if (vce < 0.2) {
+         vce = 0.2;
+         ic_mA = (vcc - 0.2) / 1.0;
+      }
+    }
+    
+    // Apply Early effect to VBE and recalculate (one iteration)
+    if (vbb > 0.6 && vce > 0.2) {
+       vbe = 0.6 + 0.05 * Math.log(vbb - 0.5) + 0.003 * vce;
+       if (vbe > vbb) vbe = vbb;
+       ib_uA = ((vbb - vbe) / 100000) * 1000000;
+       
+       ic_mA = (beta * ib_uA) / 1000;
+       ic_mA = ic_mA * (1 + vce / VA);
+       vce = vcc - ic_mA * 1.0;
+       if (vce < 0.2) {
+         vce = 0.2;
+         ic_mA = (vcc - 0.2) / 1.0;
+       }
+    }
+
+    return {
+      vbe: Math.max(0, vbe),
+      ib: Math.max(0, ib_uA),
+      vce: Math.max(0, vce),
+      ic: Math.max(0, ic_mA)
+    };
+  }, [vbb, vcc, isCorrect]);
+
+  const recordReading = () => {
+    setRecordedData(prev => [...prev, currentMeasurement]);
+  };
 
   const handlePaletteDragStart = (key: ComponentKey) => (event: React.DragEvent<HTMLButtonElement>) => {
     event.dataTransfer.effectAllowed = 'copy';
@@ -239,9 +291,10 @@ const HybridParameterSimulation = () => {
     setPlaced(initialPlacement);
     setDragKey(null);
     setSelectedKey(null);
+    setVbb(0);
+    setVcc(0);
+    setRecordedData([]);
   };
-
-
 
   const slotStatus = (slot: SlotDef) => {
     const value = placed[slot.id];
@@ -493,7 +546,36 @@ const HybridParameterSimulation = () => {
             </div>
           </div>
 
-          <div className="mt-3 flex flex-wrap gap-2">
+          <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 gap-6 rounded-md border border-slate-200 bg-slate-50 p-4 transition">
+            <div>
+              <div className="flex justify-between mb-1">
+                <label className="text-sm font-bold text-slate-700">VBB (Base Supply)</label>
+                <span className="font-bold text-blue-600">{vbb.toFixed(1)} V</span>
+              </div>
+              <input
+                type="range"
+                min="0" max="30" step="0.1"
+                value={vbb}
+                onChange={(e) => setVbb(parseFloat(e.target.value) || 0)}
+                className="w-full cursor-pointer accent-blue-600"
+              />
+            </div>
+            <div>
+              <div className="flex justify-between mb-1">
+                <label className="text-sm font-bold text-slate-700">VCC (Collector Supply)</label>
+                <span className="font-bold text-blue-600">{vcc.toFixed(1)} V</span>
+              </div>
+              <input
+                type="range"
+                min="0" max="30" step="0.1"
+                value={vcc}
+                onChange={(e) => setVcc(parseFloat(e.target.value) || 0)}
+                className="w-full cursor-pointer accent-blue-600"
+              />
+            </div>
+          </div>
+
+          <div className="mt-4 flex flex-wrap gap-2">
             <div className={`rounded px-3 py-2 text-sm font-medium ${isCorrect ? 'bg-emerald-50 text-emerald-700' : 'bg-amber-50 text-amber-700'}`}>
               {boardMessage}
             </div>
@@ -510,76 +592,56 @@ const HybridParameterSimulation = () => {
       </div>
 
       <section className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
-        <div className="rounded-md bg-[#2563eb] px-4 py-3 text-white">
-          <h2 className="text-lg font-semibold tracking-wide">CONTROLS</h2>
+        <div className="rounded-md bg-[#2563eb] px-4 py-3 text-white flex justify-between items-center">
+          <h2 className="text-lg font-semibold tracking-wide">MEASUREMENTS & RECORDING</h2>
+          <button
+            onClick={() => setRecordedData([])}
+            className="text-xs bg-blue-700 hover:bg-blue-800 px-3 py-1.5 rounded border border-blue-500 font-semibold"
+          >
+            Clear Data
+          </button>
         </div>
 
         <div className="mt-4 grid gap-4 lg:grid-cols-2">
-          <div className="space-y-3 rounded-md border border-[#2563eb] p-3">
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <label className="block text-sm font-semibold text-slate-900">VBE (V)</label>
-                <span className="rounded bg-blue-100 px-2 py-1 text-sm font-bold text-blue-900">{vbeSlider.toFixed(2)}</span>
-              </div>
-              <input
-                type="range"
-                min="0.58"
-                max="0.72"
-                step="0.01"
-                value={vbeSlider}
-                onChange={(e) => setVbeSlider(parseFloat(e.target.value))}
-                className="w-full cursor-pointer"
-              />
-              <div className="flex justify-between text-xs text-slate-500">
-                <span>0.58V</span>
-                <span>0.72V</span>
-              </div>
+          <div className="space-y-4 rounded-md border border-[#2563eb] p-4 bg-slate-50">
+            <h3 className="text-sm font-semibold text-slate-800">Current Voltmeter & Ammeter Readings</h3>
+            <div className="grid grid-cols-2 gap-3">
+              <Metric label="VBE" value={`${currentMeasurement.vbe.toFixed(3)} V`} tone="orange" />
+              <Metric label="IB" value={formatMicro(currentMeasurement.ib)} tone="orange" />
+              <Metric label="VCE" value={`${currentMeasurement.vce.toFixed(3)} V`} tone="green" />
+              <Metric label="IC" value={formatMilli(currentMeasurement.ic)} tone="green" />
             </div>
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <label className="block text-sm font-semibold text-slate-900">IB (µA)</label>
-                <span className="rounded bg-purple-100 px-2 py-1 text-sm font-bold text-purple-900">{ibSlider.toFixed(1)}</span>
-              </div>
-              <input
-                type="range"
-                min="0"
-                max="100"
-                step="0.5"
-                value={ibSlider}
-                onChange={(e) => setIbSlider(parseFloat(e.target.value))}
-                className="w-full cursor-pointer"
-              />
-              <div className="flex justify-between text-xs text-slate-500">
-                <span>0 µA</span>
-                <span>100 µA</span>
-              </div>
-            </div>
-            <div className="space-y-1 rounded bg-slate-50 p-2 text-xs text-slate-600">
-              <p>Fixed Parameters:</p>
-              <p>Resistance (RB): 100kΩ</p>
-              <p>Resistance (RC): 1.0kΩ</p>
-              <p>VBB: 0-30V</p>
-              <p>VCC: 0-30V</p>
-            </div>
+            
+            <button
+              onClick={recordReading}
+              className="w-full mt-2 rounded-md bg-blue-600 px-4 py-3 text-sm font-bold text-white shadow-sm hover:bg-blue-700 transition"
+            >
+              Record Current Reading
+            </button>
+            <p className="text-xs text-slate-500 text-center">
+              Adjust VBB and VCC on the circuit diagram, then record the reading to plot it.
+            </p>
           </div>
 
-          <div className="grid gap-4 sm:grid-cols-2">
-            <div className="rounded-md border border-slate-200 bg-slate-50 p-3">
-              <h3 className="text-sm font-semibold text-slate-800">Measurements</h3>
-              <div className="mt-2 grid grid-cols-2 gap-2">
-                <Metric label="VBE" value={`${currentMeasurement.vbe.toFixed(2)}V`} tone="orange" />
-                <Metric label="IB" value={formatMicro(currentMeasurement.ib)} tone="orange" />
-                <Metric label="VCE" value={`${currentMeasurement.vce.toFixed(2)}V`} tone="green" />
-                <Metric label="IC" value={formatMilli(currentMeasurement.ic)} tone="green" />
+          <div className="space-y-4">
+            <div className="rounded-md border border-slate-200 bg-white p-4 text-sm text-slate-700 h-full flex flex-col justify-between">
+              <div>
+                <h3 className="font-semibold text-slate-800 mb-2">Instructions for Plotting</h3>
+                <ul className="list-disc pl-5 space-y-2 text-xs">
+                  <li><b>Input Characteristics:</b> Keep <span className="font-semibold text-green-700">VCE constant</span> (e.g., 5V) by adjusting VCC. Vary VBB to change VBE, and record readings. The graph groups data by nearest VCE value.</li>
+                  <li><b>Output Characteristics:</b> Keep <span className="font-semibold text-orange-700">IB constant</span> (e.g., 20µA) by adjusting VBB. Vary VCC to change VCE, and record readings. The graph groups data by nearest 10µA of IB.</li>
+                </ul>
               </div>
-            </div>
-
-            <div className="rounded-md border border-slate-200 bg-white p-3 text-sm text-slate-700">
-              <p className="font-semibold text-slate-800">h-parameters</p>
-              <p>hie = {hParameters.hie} Ω</p>
-              <p>hfe = {hParameters.hfe}</p>
-              <p>hre = {hParameters.hre}</p>
-              <p>hoe = {hParameters.hoe} mho</p>
+              <div className="mt-4 p-3 bg-blue-50 text-blue-900 rounded text-xs border border-blue-200 flex justify-between items-center">
+                <div>
+                  <span className="font-semibold block mb-1">Fixed Parameters:</span>
+                  <span>RB: 100kΩ, RC: 1.0kΩ</span>
+                </div>
+                <div className="text-right">
+                  <span className="font-semibold block mb-1">h-parameters</span>
+                  <span className="opacity-80">hie=39kΩ, hfe=100, hre=0.11, hoe=0.28mho</span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -587,60 +649,64 @@ const HybridParameterSimulation = () => {
 
       <section className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
         <div className="rounded-md bg-emerald-500 px-4 py-3 text-white mb-4">
-          <h2 className="text-lg font-semibold tracking-wide"> LIVE DATA & GRAPHS</h2>
+          <h2 className="text-lg font-semibold tracking-wide">LIVE DATA & GRAPHS</h2>
         </div>
-        <p className="text-sm text-slate-600 mb-4">Adjust sliders above to see table and graphs update instantly</p>
+        <p className="text-sm text-slate-600 mb-4">Record data points to generate the characteristic graphs automatically.</p>
         
         <div className="grid gap-4 xl:grid-cols-2 mb-6">
           <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
             <h3 className="text-sm font-semibold text-slate-800 mb-2">Input Characteristic Family</h3>
-            <p className="text-xs text-slate-500 mb-3">Multiple curves for different VCE values</p>
+            <p className="text-xs text-slate-500 mb-3">Grouped by nearest VCE value</p>
             <div className="h-60 rounded-md border border-slate-300 bg-slate-50 p-2">
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={inputCurve}>
+                <ScatterChart margin={{ top: 10, right: 10, bottom: 20, left: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="x" label={{ value: 'VBE (V)', position: 'insideBottom', offset: -4 }} />
-                  <YAxis label={{ value: 'IB (µA)', angle: -90, position: 'insideLeft' }} />
-                  <Tooltip />
-                  <Legend />
-                  <Line type="monotone" dataKey="y1" stroke="#3b82f6" strokeWidth={2.5} dot={false} name="VCE=10V" />
-                  <Line type="monotone" dataKey="y2" stroke="#06b6d4" strokeWidth={2.5} dot={false} name="VCE=8V" />
-                  <Line type="monotone" dataKey="y3" stroke="#10b981" strokeWidth={2.5} dot={false} name="VCE=5V" />
-                  <Line type="monotone" dataKey="y4" stroke="#f59e0b" strokeWidth={2.5} dot={false} name="VCE=3V" />
-                </LineChart>
+                  <XAxis type="number" dataKey="vbe" name="VBE" unit="V" label={{ value: 'VBE (V)', position: 'insideBottom', offset: -10 }} domain={['auto', 'auto']} />
+                  <YAxis type="number" dataKey="ib" name="IB" unit="µA" label={{ value: 'IB (µA)', angle: -90, position: 'insideLeft' }} />
+                  <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+                  <Legend verticalAlign="top" height={36} wrapperStyle={{ fontSize: '12px' }}/>
+                  {Object.entries(
+                    recordedData.reduce((acc, row) => {
+                      const vceGroup = Math.round(row.vce);
+                      if (!acc[vceGroup]) acc[vceGroup] = [];
+                      acc[vceGroup].push(row);
+                      return acc;
+                    }, {} as Record<number, MeasurementRow[]>)
+                  ).map(([vce, data], index) => {
+                    const colors = ['#3b82f6', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6'];
+                    const sortedData = [...data].sort((a, b) => a.vbe - b.vbe);
+                    return <Scatter key={vce} name={`VCE ≈ ${vce}V`} data={sortedData} fill={colors[index % colors.length]} line shape="circle" />;
+                  })}
+                </ScatterChart>
               </ResponsiveContainer>
-            </div>
-            <div className="mt-2 flex flex-wrap gap-2 text-xs">
-              <div className="flex items-center gap-1"><div className="h-3 w-3 rounded-full bg-blue-500"></div><span>VCE=10V</span></div>
-              <div className="flex items-center gap-1"><div className="h-3 w-3 rounded-full bg-cyan-500"></div><span>VCE=8V</span></div>
-              <div className="flex items-center gap-1"><div className="h-3 w-3 rounded-full bg-emerald-500"></div><span>VCE=5V</span></div>
-              <div className="flex items-center gap-1"><div className="h-3 w-3 rounded-full bg-amber-500"></div><span>VCE=3V</span></div>
             </div>
           </div>
 
           <div className="rounded-lg border border-slate-200 bg-white p-4 shadow-sm">
             <h3 className="text-sm font-semibold text-slate-800 mb-2">Output Characteristic Family</h3>
-            <p className="text-xs text-slate-500 mb-3">Multiple curves for different IB values</p>
+            <p className="text-xs text-slate-500 mb-3">Grouped by nearest 10µA of IB</p>
             <div className="h-60 rounded-md border border-slate-300 bg-slate-50 p-2">
               <ResponsiveContainer width="100%" height="100%">
-                <LineChart data={outputCurve}>
+                <ScatterChart margin={{ top: 10, right: 10, bottom: 20, left: 0 }}>
                   <CartesianGrid strokeDasharray="3 3" />
-                  <XAxis dataKey="x" label={{ value: 'VCE (V)', position: 'insideBottom', offset: -4 }} />
-                  <YAxis label={{ value: 'IC (mA)', angle: -90, position: 'insideLeft' }} />
-                  <Tooltip />
-                  <Legend />
-                  <Line type="monotone" dataKey="y1" stroke="#ef4444" strokeWidth={2.5} dot={false} name="IB=10µA" />
-                  <Line type="monotone" dataKey="y2" stroke="#f97316" strokeWidth={2.5} dot={false} name="IB=30µA" />
-                  <Line type="monotone" dataKey="y3" stroke="#eab308" strokeWidth={2.5} dot={false} name="IB=60µA" />
-                  <Line type="monotone" dataKey="y4" stroke="#22c55e" strokeWidth={2.5} dot={false} name="IB=100µA" />
-                </LineChart>
+                  <XAxis type="number" dataKey="vce" name="VCE" unit="V" label={{ value: 'VCE (V)', position: 'insideBottom', offset: -10 }} domain={['auto', 'auto']} />
+                  <YAxis type="number" dataKey="ic" name="IC" unit="mA" label={{ value: 'IC (mA)', angle: -90, position: 'insideLeft' }} />
+                  <Tooltip cursor={{ strokeDasharray: '3 3' }} />
+                  <Legend verticalAlign="top" height={36} wrapperStyle={{ fontSize: '12px' }}/>
+                  {Object.entries(
+                    recordedData.reduce((acc, row) => {
+                      const ibGroup = Math.round(row.ib / 10) * 10;
+                      if (!acc[ibGroup]) acc[ibGroup] = [];
+                      acc[ibGroup].push(row);
+                      return acc;
+                    }, {} as Record<number, MeasurementRow[]>)
+                  ).map(([ib, data], index) => {
+                    const colors = ['#3b82f6', '#ef4444', '#10b981', '#f59e0b', '#8b5cf6'];
+                    const sortedData = [...data].sort((a, b) => a.vce - b.vce);
+                    return <Scatter key={ib} name={`IB ≈ ${ib}µA`} data={sortedData} fill={colors[index % colors.length]} line shape="circle" />;
+                  })}
+                </ScatterChart>
               </ResponsiveContainer>
-            </div>
-            <div className="mt-2 flex flex-wrap gap-2 text-xs">
-              <div className="flex items-center gap-1"><div className="h-3 w-3 rounded-full bg-red-500"></div><span>IB=10µA</span></div>
-              <div className="flex items-center gap-1"><div className="h-3 w-3 rounded-full bg-orange-500"></div><span>IB=30µA</span></div>
-              <div className="flex items-center gap-1"><div className="h-3 w-3 rounded-full bg-yellow-500"></div><span>IB=60µA</span></div>
-              <div className="flex items-center gap-1"><div className="h-3 w-3 rounded-full bg-green-500"></div><span>IB=100µA</span></div>
             </div>
           </div>
         </div>
@@ -658,18 +724,23 @@ const HybridParameterSimulation = () => {
                 </tr>
               </thead>
               <tbody>
-                {[...measurementRows, { vbe: currentMeasurement.vbe, ib: currentMeasurement.ib, vce: currentMeasurement.vce, ic: currentMeasurement.ic }].map((row, index) => (
-                  <tr key={index} className={`${index === measurementRows.length ? 'bg-emerald-100 font-bold border-2 border-emerald-500' : 'odd:bg-white even:bg-slate-50'}`}>
-                    <td className="border-b px-2 py-2">{row.vbe.toFixed(2)}</td>
-                    <td className="border-b px-2 py-2">{row.ib.toFixed(1)} µA</td>
-                    <td className="border-b px-2 py-2">{row.vce.toFixed(2)}</td>
+                {recordedData.map((row, index) => (
+                  <tr key={index} className="odd:bg-white even:bg-slate-50 hover:bg-blue-50">
+                    <td className="border-b px-2 py-2">{row.vbe.toFixed(3)}</td>
+                    <td className="border-b px-2 py-2">{row.ib.toFixed(2)} µA</td>
+                    <td className="border-b px-2 py-2">{row.vce.toFixed(3)}</td>
                     <td className="border-b px-2 py-2">{row.ic.toFixed(2)} mA</td>
                   </tr>
                 ))}
+                {recordedData.length === 0 && (
+                  <tr>
+                    <td colSpan={4} className="py-8 text-center text-slate-500 italic">No data recorded yet. Adjust voltages and click "Record Current Reading".</td>
+                  </tr>
+                )}
               </tbody>
             </table>
           </div>
-          <p className="text-xs text-slate-500 mt-3">✓ Bold green row = current slider values (live updates)</p>
+          <p className="text-xs text-slate-500 mt-3">Current active reading is shown in the Measurements panel above.</p>
         </div>
       </section>
 
