@@ -66,75 +66,90 @@ const TheoryContent = () => (
 // -------------------- PROCEDURE --------------------
 const ProcedureContent = () => (
   <div className="prose max-w-none">
-    <h2 className="font-bold text-blue-600">Procedure</h2>
-
     <h3 className="font-bold text-blue-600 mt-4">Circuit Diagram:</h3>
-<div className="mt-2">
-  <img
-    src="https://www.electronics-tutorials.ws/wp-content/uploads/2013/07/amp14.gif"
-    alt="JFET Circuit Diagram"
-    className="w-[40%] h-auto border border-gray-300 p-2"
-  />
-</div>
-
-
-    <h3 className="font-bold text-blue-600 mt-4">Pin Diagram:</h3>
     <div className="mt-2">
       <img
-        src="https://microcontrollerslab.com/wp-content/uploads/2021/01/2N3819-pinout-diagram.gif"
-        alt="JFET Pin Diagram"
-        className="w-[30%] h-auto border border-gray-300 p-2"
+        src="/assets/images/jfet-circuit-diagram.jpeg"
+        alt="JFET Circuit Diagram for Drain and Transfer Characteristics"
+        className="w-[50%] h-auto border border-gray-300 p-2"
       />
     </div>
 
-    <h3 className="font-bold text-blue-600 mt-4">Operation:</h3>
-    <ul className="list-decimal ml-6">
-      <li>Drain characteristics are obtained by plotting ID vs VDS for various constant values of VGS.</li>
-      <li>Transfer characteristics are obtained by plotting ID vs VGS while keeping VDS constant.</li>
-    </ul>
+    <h3 className="font-bold text-blue-600 mt-4">Pin Diagram:</h3>
+    <div className="flex flex-wrap gap-4 mt-2">
+      <div>
+        <p className="font-semibold text-sm">Top View</p>
+        <img
+          src="/assets/images/jfet-pin-diagram-top.jpeg"
+          alt="JFET Pin Diagram Top View"
+          className="w-56 h-auto border border-gray-300 p-2"
+        />
+      </div>
+      <div>
+        <p className="font-semibold text-sm">Bottom View</p>
+        <img
+          src="/assets/images/jfet-pin-diagram-bottom.jpeg"
+          alt="JFET Pin Diagram Bottom View"
+          className="w-56 h-auto border border-gray-300 p-2"
+        />
+      </div>
+    </div>
 
-    <h3 className="font-bold text-blue-600 mt-4">Graphs:</h3>
-    <div className="flex flex-wrap gap-4">
-      <div>
-        <p className="font-semibold">Drain Characteristics</p>
-        <img
-          src="https://electronicscoach.com/wp-content/uploads/2018/05/transfer-characteristics-of-JFET.jpg"
-          alt="Drain Characteristics"
-          className="border border-gray-300 p-2 max-w-sm"
-        />
-      </div>
-      <div>
-        <p className="font-semibold">Transfer Characteristics</p>
-        <img
-          src="https://www.circuitstoday.com/wp-content/uploads/2009/08/Transfer-Characteristics-of-JFET.jpg"
-          alt="Transfer Characteristics"
-          className="border border-gray-300 p-2 max-w-sm"
-        />
-      </div>
+    <h3 className="font-bold text-blue-600 mt-4">Operation:</h3>
+    <ol className="list-decimal ml-6">
+      <li>Drain characteristics are obtained between the Drain-to-Source voltage (VDS) and Drain current (ID), keeping Gate-to-Source voltage (VGS) as the constant parameter.</li>
+      <li>Transfer characteristics are obtained between the Gate-to-Source voltage (VGS) and Drain current (ID), keeping Drain-to-Source voltage (VDS) as the constant parameter.</li>
+    </ol>
+
+    <h3 className="font-bold text-blue-600 mt-4">Procedure – Drain Characteristics:</h3>
+    <ol className="list-decimal ml-6">
+      <li>Connect the circuit as shown in the circuit diagram.</li>
+      <li>Keep VGS = 0V by varying VGG.</li>
+      <li>Vary VDD gradually in steps of 1V up to 10V. Note down Drain current (ID) and Drain-to-Source voltage (VDS) at each step.</li>
+      <li>Repeat the above procedure for VGS = −1V.</li>
+    </ol>
+
+    <h3 className="font-bold text-blue-600 mt-4">Procedure – Transfer Characteristics:</h3>
+    <ol className="list-decimal ml-6">
+      <li>Connect the circuit as shown in the circuit diagram.</li>
+      <li>Set VDS = 2V (for BFW10) or 5V (for BFW11).</li>
+      <li>Vary VDD in steps of 0.5V until the Drain current (ID) reduces to its minimum value.</li>
+      <li>Vary VGG gradually, noting down both Drain current (ID) and Gate-to-Source voltage (VGS) at each step.</li>
+      <li>Repeat step 3 for VDS = 4V (BFW10) or 8V (BFW11).</li>
+    </ol>
+
+    <h3 className="font-bold text-blue-600 mt-4">Graph:</h3>
+    <div className="mt-2">
+      <img
+        src="/assets/images/jfet-characteristics-graph.jpeg"
+        alt="JFET Drain and Transfer Characteristics Graph"
+        className="w-[60%] h-auto border border-gray-300 p-2"
+      />
     </div>
 
     <h3 className="font-bold text-blue-600 mt-4">Calculations from Graph:</h3>
     <ul className="list-disc ml-6">
-      <li><strong>Drain Resistance (r<sub>d</sub>):</strong> ΔVDS / ΔID at constant VGS</li>
-      <li><strong>Transconductance (g<sub>m</sub>):</strong> ΔID / ΔVGS at constant VDS</li>
-      <li><strong>Amplification factor (μ):</strong> μ = r<sub>d</sub> × g<sub>m</sub></li>
+      <li><strong>Drain Resistance (r<sub>d</sub>):</strong> r<sub>d</sub> = ΔVDS / ΔID, at a constant VGS, when JFET is operating in the pinch-off region (from drain characteristics).</li>
+      <li><strong>Transconductance (g<sub>m</sub>):</strong> g<sub>m</sub> = ΔID / ΔVGS, at a constant VDS (from transfer characteristics). Expressed in mho/Siemens.</li>
+      <li><strong>Amplification factor (µ):</strong> µ = ΔVDS / ΔVGS, at a constant ID. Also, µ = r<sub>d</sub> × g<sub>m</sub>.</li>
     </ul>
 
     <h3 className="font-bold text-blue-600 mt-4">Inference:</h3>
     <ol className="list-decimal ml-6">
-      <li>As VGS increases negatively, pinch-off occurs earlier, reducing ID.</li>
-      <li>At higher |VGS|, the JFET reaches cutoff quickly and ID becomes nearly zero.</li>
+      <li>As the gate-to-source voltage (VGS) is increased above zero (i.e., made more negative), pinch-off occurs at a smaller value of drain current compared to VGS = 0V.</li>
+      <li>The drain-to-source voltage (VDS) at pinch-off decreases as compared to when VGS = 0V.</li>
     </ol>
 
     <h3 className="font-bold text-blue-600 mt-4">Precautions:</h3>
     <ul className="list-disc ml-6">
-      <li>Do not exceed JFET maximum ratings.</li>
-      <li>Check all polarities before switching on power.</li>
-      <li>Identify Source, Drain, and Gate correctly before connections.</li>
+      <li>Do not exceed the maximum ratings of the FET; this may damage the device.</li>
+      <li>Connect the voltmeter and ammeter with correct polarities as per the circuit diagram.</li>
+      <li>Do not switch ON the power supply until circuit connections are verified.</li>
+      <li>Properly identify the Source, Drain, and Gate terminals before connecting.</li>
     </ul>
 
     <h3 className="font-bold text-blue-600 mt-4">Result:</h3>
-    <p>Thus, the Drain and Transfer Characteristics of a JFET were obtained and key parameters like r<sub>d</sub>, g<sub>m</sub>, and μ were calculated.</p>
+    <p>Thus, the Drain and Transfer Characteristics of a JFET were obtained, and the parameters Drain Resistance (r<sub>d</sub>), Transconductance (g<sub>m</sub>), and Amplification factor (µ) were calculated.</p>
   </div>
 );
 
