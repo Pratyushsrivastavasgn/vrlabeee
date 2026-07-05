@@ -164,57 +164,87 @@ const SimulationContent = () => (
 // -------------------- QUIZ --------------------
 const questions = [
   {
-    question: 'What is the purpose of obtaining the drain characteristics of a JFET?',
+    question: 'Why is the JFET called a unipolar device?',
     options: [
-      'To measure voltage gain of the amplifier',
-      'To observe ID vs VDS for different VGS values',
-      'To find the input resistance of the transistor',
-      'To calculate base current in the JFET'
+      'It uses both electrons and holes for conduction',
+      'Current conduction takes place through only one type of charge carrier',
+      'It has only one terminal',
+      'It operates only in one region'
     ],
     answer: 1
   },
   {
-    question: 'Which voltage is kept constant while plotting the drain characteristics?',
+    question: 'While obtaining Drain Characteristics, which voltage is kept constant?',
     options: ['VDS', 'ID', 'VGS', 'VDD'],
     answer: 2
   },
   {
-    question: 'Which parameter is kept constant while plotting transfer characteristics?',
-    options: ['ID', 'VGS', 'VDS', 'IG'],
-    answer: 2
-  },
-  {
-    question: 'The transfer characteristics of a JFET show the relationship between:',
-    options: ['VDS and ID', 'VGS and ID', 'VDS and VGS', 'IG and VGS'],
+    question: 'While obtaining Transfer Characteristics, which voltage is kept constant?',
+    options: ['VGS', 'VDS', 'ID', 'IG'],
     answer: 1
   },
   {
-    question: 'What is the typical Gate-Source voltage (VGS) rating for BFW11 JFET?',
-    options: ['+30V', '0V', '-30V', '+10V'],
-    answer: 2
+    question: 'As per the procedure, in the Drain Characteristics test, VDD is varied in steps of:',
+    options: ['0.5 V up to 5 V', '1 V up to 10 V', '2 V up to 20 V', '0.1 V up to 1 V'],
+    answer: 1
   },
   {
-    question: 'In a JFET, the current conduction occurs due to:',
-    options: ['Minority carriers', 'Hole injection', 'Majority carriers only', 'Electron-hole recombination'],
-    answer: 2
+    question: 'For BFW11, at what VDS is the Transfer Characteristics test first set before varying VGG?',
+    options: ['2 V', '5 V', '8 V', '10 V'],
+    answer: 1
   },
   {
-    question: 'What happens when VGS becomes more negative in an N-channel JFET?',
+    question: 'What is pinch-off voltage in a JFET?',
     options: [
-      'Drain current increases rapidly',
-      'JFET goes into saturation',
-      'Drain current reduces',
-      'JFET behaves like a resistor'
+      'The VDS at which ID becomes maximum',
+      'The VGS at which the channel is completely closed and ID becomes negligible',
+      'The voltage at which the JFET is destroyed',
+      'The forward gate voltage rating'
     ],
+    answer: 1
+  },
+  {
+    question: 'What happens to the pinch-off point as VGS is made more negative (increased above zero magnitude)?',
+    options: [
+      'Pinch-off occurs at a higher drain current',
+      'Pinch-off occurs at a lower drain current, at a smaller VDS',
+      'Pinch-off does not occur',
+      'ID increases indefinitely'
+    ],
+    answer: 1
+  },
+  {
+    question: 'Transconductance (gm) of a JFET is defined as:',
+    options: ['ΔVDS / ΔID at constant VGS', 'ΔID / ΔVGS at constant VDS', 'ΔVDS / ΔVGS at constant ID', 'ΔID / ΔVDS at constant VGS'],
+    answer: 1
+  },
+  {
+    question: 'From the drain characteristics, a change in VDS of 2V produces a change in ID of 0.5 mA at constant VGS. What is the Drain Resistance (rd)?',
+    options: ['0.25 kΩ', '4 kΩ', '1 kΩ', '2.5 kΩ'],
+    answer: 1
+  },
+  {
+    question: 'From the transfer characteristics, a change in VGS of 1V produces a change in ID of 2 mA at constant VDS. What is the Transconductance (gm)?',
+    options: ['0.5 mA/V', '2 mA/V', '0.5 mho', '2 mho'],
+    answer: 1
+  },
+  {
+    question: 'The Amplification factor (µ) of a JFET is related to rd and gm as:',
+    options: ['µ = rd / gm', 'µ = gm / rd', 'µ = rd × gm', 'µ = rd + gm'],
     answer: 2
+  },
+  {
+    question: 'The Gate-Source Voltage (VGS) rating for the BFW11 JFET is:',
+    options: ['−30 V', '+30 V', '0 V', '−10 V'],
+    answer: 0
   }
 ];
 
-const QuizContent: React.FC = () => {
-  const [selectedAnswers, setSelectedAnswers] = useState<(number | null)[]>(Array(questions.length).fill(null));
-  const [submitted, setSubmitted] = useState<boolean>(false);
+const QuizContent = () => {
+  const [selectedAnswers, setSelectedAnswers] = useState(Array(questions.length).fill(null));
+  const [submitted, setSubmitted] = useState(false);
 
-  const handleOptionChange = (qIndex: number, oIndex: number) => {
+  const handleOptionChange = (qIndex, oIndex) => {
     if (!submitted) {
       const updated = [...selectedAnswers];
       updated[qIndex] = oIndex;
@@ -222,7 +252,7 @@ const QuizContent: React.FC = () => {
     }
   };
 
-  const getOptionStyle = (qIndex: number, oIndex: number): string => {
+  const getOptionStyle = (qIndex, oIndex) => {
     if (!submitted) return '';
     const isCorrect = oIndex === questions[qIndex].answer;
     const isSelected = selectedAnswers[qIndex] === oIndex;
@@ -265,5 +295,4 @@ const QuizContent: React.FC = () => {
     </div>
   );
 };
-
 export default Experiment8;
