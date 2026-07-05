@@ -164,69 +164,49 @@ const SimulationContent = () => (
 // -------------------- QUIZ --------------------
 const questions = [
   {
-    question: 'Why is the JFET called a unipolar device?',
+    question: 'What is the purpose of obtaining the drain characteristics of a JFET?',
     options: [
-      'It uses both electrons and holes for conduction',
-      'Current conduction takes place through only one type of charge carrier',
-      'It has only one terminal',
-      'It operates only in one region'
+      'To measure voltage gain of the amplifier',
+      'To observe ID vs VDS for different VGS values',
+      'To find the input resistance of the transistor',
+      'To calculate base current in the JFET'
     ],
     answer: 1
   },
   {
-    question: 'While obtaining Drain Characteristics, which voltage is kept constant?',
+    question: 'Which voltage is kept constant while plotting the drain characteristics?',
     options: ['VDS', 'ID', 'VGS', 'VDD'],
     answer: 2
   },
   {
-    question: 'While obtaining Transfer Characteristics, which voltage is kept constant?',
-    options: ['VGS', 'VDS', 'ID', 'IG'],
-    answer: 1
-  },
-  {
-    question: 'As per the procedure, in the Drain Characteristics test, VDD is varied in steps of:',
-    options: ['0.5 V up to 5 V', '1 V up to 10 V', '2 V up to 20 V', '0.1 V up to 1 V'],
-    answer: 1
-  },
-  {
-    question: 'For BFW11, at what VDS is the Transfer Characteristics test first set before varying VGG?',
-    options: ['2 V', '5 V', '8 V', '10 V'],
-    answer: 1
-  },
-  {
-    question: 'What is pinch-off voltage in a JFET?',
-    options: [
-      'The VDS at which ID becomes maximum',
-      'The VGS at which the channel is completely closed and ID becomes negligible',
-      'The voltage at which the JFET is destroyed',
-      'The forward gate voltage rating'
-    ],
-    answer: 1
-  },
-  {
-    question: 'What happens to the pinch-off point as VGS is made more negative (increased above zero magnitude)?',
-    options: [
-      'Pinch-off occurs at a higher drain current',
-      'Pinch-off occurs at a lower drain current, at a smaller VDS',
-      'Pinch-off does not occur',
-      'ID increases indefinitely'
-    ],
-    answer: 1
-  },
-  {
-    question: 'Transconductance (gm) of a JFET is defined as:',
-    options: ['ΔVDS / ΔID at constant VGS', 'ΔID / ΔVGS at constant VDS', 'ΔVDS / ΔVGS at constant ID', 'ΔID / ΔVDS at constant VGS'],
-    answer: 1
-  },
-  {
-    question: 'The Amplification factor (µ) of a JFET is related to rd and gm as:',
-    options: ['µ = rd / gm', 'µ = gm / rd', 'µ = rd × gm', 'µ = rd + gm'],
+    question: 'Which parameter is kept constant while plotting transfer characteristics?',
+    options: ['ID', 'VGS', 'VDS', 'IG'],
     answer: 2
   },
   {
-    question: 'The Gate-Source Voltage (VGS) rating for the BFW11 JFET is:',
-    options: ['−30 V', '+30 V', '0 V', '−10 V'],
-    answer: 0
+    question: 'The transfer characteristics of a JFET show the relationship between:',
+    options: ['VDS and ID', 'VGS and ID', 'VDS and VGS', 'IG and VGS'],
+    answer: 1
+  },
+  {
+    question: 'What is the typical Gate-Source voltage (VGS) rating for BFW11 JFET?',
+    options: ['+30V', '0V', '-30V', '+10V'],
+    answer: 2
+  },
+  {
+    question: 'In a JFET, the current conduction occurs due to:',
+    options: ['Minority carriers', 'Hole injection', 'Majority carriers only', 'Electron-hole recombination'],
+    answer: 2
+  },
+  {
+    question: 'What happens when VGS becomes more negative in an N-channel JFET?',
+    options: [
+      'Drain current increases rapidly',
+      'JFET goes into saturation',
+      'Drain current reduces',
+      'JFET behaves like a resistor'
+    ],
+    answer: 2
   }
 ];
 
@@ -285,3 +265,5 @@ const QuizContent: React.FC = () => {
     </div>
   );
 };
+
+export default Experiment8;
